@@ -10,9 +10,10 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import { DecodedToken } from '../../interfaces/decodedToken'
+import { UserProps } from '../../interfaces/currentUser'
 
 
-export function SignUp() {
+export function SignUp({currentUser, setCurrentUser}: UserProps) {
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState(''); 
@@ -34,6 +35,11 @@ export function SignUp() {
             const { access } = response.data;
             localStorage.setItem('jwt', access);
             const decoded = jwt_decode(access) as DecodedToken;
+            console.log("signup decoded", decoded)
+            setCurrentUser({
+                userId: decoded.user_id,
+                username: decoded.username
+            })
         } catch (error) {
             console.error("Error registering user", error)
         }

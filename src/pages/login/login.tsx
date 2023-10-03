@@ -7,19 +7,19 @@ import {
     Button,
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import {User} from '../../data/tempUser'
+import { User } from '../../data/tempUser'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import { DecodedToken } from '../../interfaces/decodedToken'
-export function Login() {
+import { UserProps } from '../../interfaces/currentUser'
 
-    const [email, setEmail] = useState(User.email)
-    const [password, setPassword] = useState(User.password); 
+export function Login({currentUser, setCurrentUser}: UserProps) {
 
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('');
 
     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)
     const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
-
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -33,7 +33,10 @@ export function Login() {
             const { access } = response.data;
             localStorage.setItem('jwt', access);
             const decoded = jwt_decode(access) as DecodedToken;
-            console.log("user is ", decoded.username)
+            setCurrentUser({
+                userId: decoded.user_id,
+                username: decoded.username
+            })
         } catch (error) {
             console.error("Error decoding the token", error);
         }
@@ -41,24 +44,24 @@ export function Login() {
 
     return (
         <form onSubmit={handleSubmit}>
-        <h2>Login</h2>
-        <FormControl>
-            <FormLabel>Email</FormLabel>
-            <Input type='email' value={User.email} onChange={handleEmailChange} />
-            <FormHelperText>
-                We will never share your email.
-            </FormHelperText>
-            <FormLabel>Password</FormLabel>
-            <Input type='password' value={User.password} />
-        </FormControl>
-        <Button
-            mt={4}
-            loadingText='Logging you in'
-            colorScheme='teal'
-            type='submit'
-          >
-            Submit
-          </Button>
-    </form>
+            <h2>Login</h2>
+            <FormControl>
+                <FormLabel>Email</FormLabel>
+                <Input type='email' value={email} onChange={handleEmailChange} />
+                <FormHelperText>
+                    We will never share your email.
+                </FormHelperText>
+                <FormLabel>Password</FormLabel>
+                <Input type='password' value={password} onChange={handlePasswordChange}/>
+            </FormControl>
+            <Button
+                mt={4}
+                loadingText='Logging you in'
+                colorScheme='teal'
+                type='submit'
+            >
+                Submit
+            </Button>
+        </form>
     )
 }

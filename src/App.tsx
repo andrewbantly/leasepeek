@@ -10,38 +10,53 @@ import { SignUp } from "./pages/signup/signup"
 import { NotFound } from "./pages/notfound/notfound"
 import { useState, useEffect } from 'react'
 import jwt_decode from 'jwt-decode'
-import axios from "axios"
+import { DecodedToken } from "./interfaces/decodedToken"
+import { CurrentUserType } from "./interfaces/currentUser"
 
 
 export const App = () => {
-  const [currentUser, setCurrentUser] = useState(null)
+  const [currentUser, setCurrentUser] = useState<CurrentUserType>(null);
 
   useEffect(() => {
     const token = localStorage.getItem('jwt')
     if (token) {
-      console.log('token found')
-      setCurrentUser(jwt_decode(token))
+      const decoded = jwt_decode(token) as DecodedToken;
+      setCurrentUser({
+        userId: decoded.user_id,
+        username: decoded.username
+    })
     } else {
       console.log('token not found')
       setCurrentUser(null)
     }
   }, [])
+
+  useEffect(() => {
+    console.log('current user', currentUser);
+}, [currentUser]);
+
+const handleLogout = () => {
+  if (localStorage.getItem('jwt')) {
+    localStorage.removeItem('jwt')
+    setCurrentUser(null)
+  }
+}
   
   return ( 
     <ChakraProvider theme={theme}>
       <Router>
-        <NavBar></NavBar>
+        <NavBar currentUser={currentUser} setCurrentUser={setCurrentUser} handleLogout={handleLogout}></NavBar>
         <Routes>
           <Route
             element={<Home/>}
             path='/'
           ></Route>
           <Route
-            element={<Login/>}
+            element={<Login currentUser={currentUser} setCurrentUser={setCurrentUser}/>}
             path='/login'
           ></Route>
           <Route
-            element={<SignUp/>}
+            element={<SignUp currentUser={currentUser} setCurrentUser={setCurrentUser}/>}
             path='/register'
           ></Route>
           <Route
