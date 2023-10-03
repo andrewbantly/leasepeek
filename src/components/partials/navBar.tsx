@@ -10,6 +10,7 @@ export default function NavBar() {
                 <div className="flex test">
                     <Link className="navIcons" to='/'><p>Home</p></Link>
                     <Link className="navIcons" to='/login'><p>Login</p></Link>
+                    <Link className="navIcons" to='/register'><p>Register</p></Link>
                     <ColorModeSwitcher />
                 </div>
             </div>

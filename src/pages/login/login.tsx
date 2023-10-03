@@ -10,7 +10,7 @@ import React, { useState } from 'react'
 import {User} from '../../data/tempUser'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
-
+import { DecodedToken } from '../../interfaces/decodedToken'
 export function Login() {
 
     const [email, setEmail] = useState(User.email)
@@ -29,10 +29,11 @@ export function Login() {
                 email,
                 password
             };
-            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/auth/token/`, request);
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/user/login`, request);
             const { access } = response.data;
             localStorage.setItem('jwt', access);
-            const decoded = jwt_decode(access);
+            const decoded = jwt_decode(access) as DecodedToken;
+            console.log("user is ", decoded.username)
         } catch (error) {
             console.error("Error decoding the token", error);
         }
