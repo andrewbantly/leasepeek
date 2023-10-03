@@ -19,8 +19,10 @@ export const App = () => {
   useEffect(() => {
     const token = localStorage.getItem('jwt')
     if (token) {
+      console.log('token found')
       setCurrentUser(jwt_decode(token))
     } else {
+      console.log('token not found')
       setCurrentUser(null)
     }
   }, [])

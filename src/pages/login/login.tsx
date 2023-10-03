@@ -29,11 +29,13 @@ export function Login() {
                 email,
                 password
             };
-            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/user/login`, request);
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/auth/token/`, request);
+            const { access } = response.data;
+            localStorage.setItem('jwt', access);
+            const decoded = jwt_decode(access);
         } catch (error) {
-            console.log(error)
+            console.error("Error decoding the token", error);
         }
-
     }
 
     return (
