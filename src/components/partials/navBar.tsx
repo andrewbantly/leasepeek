@@ -11,12 +11,11 @@ const loginLogoutLink = currentUser
 
     return (
         <>
-            <div className="flex space-between">
+            <div className="flex space-between navBar">
                 <h1>LeasePeek</h1>
                 <div className="flex test">
                     <Link className="navIcons" to='/'><p>Home</p></Link>
                     {loginLogoutLink}
-                    <Link className="navIcons" to='/register'><p>Register</p></Link>
                     <ColorModeSwitcher />
                 </div>
             </div>
