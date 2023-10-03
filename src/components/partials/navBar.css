@@ -1,0 +1,6 @@
+.navIcons {
+    margin: 0.5rem 1rem;
+}
+.navIcons:hover {
+    cursor: pointer;
+}
