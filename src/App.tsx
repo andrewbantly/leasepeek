@@ -48,7 +48,7 @@ const handleLogout = () => {
         <NavBar currentUser={currentUser} setCurrentUser={setCurrentUser} handleLogout={handleLogout}></NavBar>
         <Routes>
           <Route
-            element={<Home/>}
+            element={<Home currentUser={currentUser} setCurrentUser={setCurrentUser}/>}
             path='/'
           ></Route>
           <Route

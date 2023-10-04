@@ -1,11 +1,18 @@
-import { rentRollData } from '../../data/test_data'
-import ApexChart from 'react-apexcharts';
+import { UserProps } from '../../interfaces/currentUser';
+import { Profile } from '../profile/profile';
+import Landing from './landing';
 
+export function Home({ currentUser, setCurrentUser }: UserProps) {
 
-export function Home() {
+    const profile = (
+        <Profile currentUser={currentUser} setCurrentUser={setCurrentUser} />
+    )
+    const heading = (
+        <Landing/>
+    )
     return (
         <>
-            <h2>Home</h2>
+            {currentUser ? profile : heading}
         </>
     );
 }
