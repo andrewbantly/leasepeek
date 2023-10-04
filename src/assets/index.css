@@ -4,3 +4,10 @@
 .space-between {
     justify-content: space-between;
 }
+.wrap {
+    flex-wrap: wrap;
+}
+.card {
+    flex: 1 1 calc(33.33% - 10px); 
+    margin: 5px;
+}

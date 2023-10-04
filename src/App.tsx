@@ -35,6 +35,7 @@ const handleLogout = () => {
   if (localStorage.getItem('jwt')) {
     localStorage.removeItem('jwt')
     setCurrentUser(null)
+    window.location.href = '/';
   }
 }
 
