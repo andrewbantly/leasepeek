@@ -1,12 +1,17 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
+import { useColorMode } from '@chakra-ui/react';
 
 interface VacancyProps {
     vacants: number;
     totalUnits: number;
 }
 
-export function Vacancy({vacants, totalUnits}: VacancyProps) {
+export function Vacancy({ vacants, totalUnits }: VacancyProps) {
+    const { colorMode } = useColorMode();
+    
+    const isDarkMode = colorMode === 'dark';
+
     const occupied = totalUnits - vacants;
     const series = [occupied, vacants];
     const options = {
@@ -15,7 +20,10 @@ export function Vacancy({vacants, totalUnits}: VacancyProps) {
             type: 'donut'
         },
         legend: {
-            position: 'bottom'
+            position: 'bottom',
+            labels: {
+                colors: isDarkMode ? 'white' : 'black'
+            }
         },
         responsive: [{
             breakpoint: 480,
@@ -28,7 +36,7 @@ export function Vacancy({vacants, totalUnits}: VacancyProps) {
                 }
             }
         }]
-    };
+    } as any;
 
     return (
         <div>
