@@ -31,10 +31,6 @@ export const App = () => {
     }
   }, [])
 
-  useEffect(() => {
-    console.log('current user', currentUser);
-}, [currentUser]);
-
 const handleLogout = () => {
   if (localStorage.getItem('jwt')) {
     localStorage.removeItem('jwt')

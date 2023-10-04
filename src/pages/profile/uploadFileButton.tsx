@@ -5,7 +5,11 @@ import {
 } from '@chakra-ui/react'
 import axios from 'axios'
 
-export function UploadFileButon() {
+interface UploadFileButtonProps {
+    dataRequest: () => Promise<void>;
+}
+
+export function UploadFileButon({dataRequest}:UploadFileButtonProps) {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [fileName, setFileName] = useState('');
 
@@ -43,7 +47,7 @@ export function UploadFileButon() {
                     'Authorization': `Bearer ${token}`
                 }
             })
-            console.log('response', response)
+            dataRequest()
         } catch (error) {
             console.error("Error uploading file", error)
         }
