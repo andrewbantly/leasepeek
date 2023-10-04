@@ -12,7 +12,7 @@ import { useState, useEffect } from 'react'
 import jwt_decode from 'jwt-decode'
 import { DecodedToken } from "./interfaces/decodedToken"
 import { CurrentUserType } from "./interfaces/currentUser"
-
+import axios from 'axios'
 
 export const App = () => {
   const [currentUser, setCurrentUser] = useState<CurrentUserType>(null);
@@ -41,7 +41,18 @@ const handleLogout = () => {
     setCurrentUser(null)
   }
 }
-  
+
+axios.interceptors.response.use(
+  response => response,
+  error => {
+      if (error.response && error.response.status === 401) {
+          handleLogout();
+      }
+      return Promise.reject(error);
+  }
+);
+
+
   return ( 
     <ChakraProvider theme={theme}>
       <Router>

@@ -3,6 +3,7 @@ import {
     Button,
     Input,
 } from '@chakra-ui/react'
+import axios from 'axios'
 
 export function UploadFileButon() {
     const fileInputRef = useRef<HTMLInputElement>(null);
@@ -12,7 +13,7 @@ export function UploadFileButon() {
         console.log('file name', fileName)
     }, [fileName]);
 
-    const handleButtonClick = () => {
+    const handleUpload = () => {
         if (fileInputRef.current) {
             fileInputRef.current.click();
         }
@@ -26,7 +27,40 @@ export function UploadFileButon() {
         }
     };
 
-    const uploadSubmitButtons = fileName ? <Button onClick={handleButtonClick} colorScheme={'blue'} variant={'solid'}>Submit</Button> : <Button onClick={handleButtonClick}  colorScheme={'gray'} variant={'solid'}>Upload Rent Roll</Button>
+    const handleSubmitFile = async () => {
+        if (!fileInputRef.current?.files?.length) {
+            console.log('No file selected')
+            return;
+        }
+        const file = fileInputRef.current.files[0]
+        const formData = new FormData();
+        formData.append("file", file);
+        try {
+            console.log('sending data to server')
+            const token = localStorage.getItem('jwt')
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/data/upload`, formData, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            console.log('response', response)
+        } catch (error) {
+            console.error("Error uploading file", error)
+        }
+    }
+
+    const handleCancelUpoad = () => {
+        setFileName('')
+    }
+
+    const submitButtons = (
+        <>
+            <Button colorScheme={'blue'} variant={'solid'} onClick={handleSubmitFile}>Submit</Button>
+            <Button onClick={handleCancelUpoad}>Cancel</Button>
+        </>
+    )
+
+    const uploadButtons = fileName ? submitButtons : <Button onClick={handleUpload} colorScheme={'gray'} variant={'solid'}>Upload Rent Roll</Button>
 
     return (
         <>
@@ -38,7 +72,7 @@ export function UploadFileButon() {
                     style={{ display: "none" }}
                     onChange={handleFileChange}
                 />
-                {uploadSubmitButtons}
+                {uploadButtons}
                 <p>{fileName}</p>
             </div>
         </>
