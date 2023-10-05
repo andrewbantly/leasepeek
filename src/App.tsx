@@ -1,4 +1,3 @@
-import * as React from "react"
 import './assets/index.css'
 import {
   BrowserRouter as Router, Routes, Route } from 'react-router-dom'
@@ -13,6 +12,7 @@ import jwt_decode from 'jwt-decode'
 import { DecodedToken } from "./interfaces/decodedToken"
 import { CurrentUserType } from "./interfaces/currentUser"
 import axios from 'axios'
+import { PropertyProfile } from "./pages/property-profiles/propProfile"
 
 export const App = () => {
   const [currentUser, setCurrentUser] = useState<CurrentUserType>(null);
@@ -66,6 +66,10 @@ axios.interceptors.response.use(
           <Route
             element={<SignUp currentUser={currentUser} setCurrentUser={setCurrentUser}/>}
             path='/register'
+          ></Route>
+          <Route
+            element={<PropertyProfile/>}
+            path="/:objectId"
           ></Route>
           <Route
             element={<NotFound/>}

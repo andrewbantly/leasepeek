@@ -1,8 +1,9 @@
-import { Flex, Box, Text, Badge, useColorModeValue, VStack, Icon } from "@chakra-ui/react";
+import { Flex, Button, Box, Text, Badge, useColorModeValue, VStack, Icon } from "@chakra-ui/react";
 import { FaBuilding } from "react-icons/fa";
 import { Vacancy } from "./vacancy";
 import { FloorPlanAvg } from "./floorPlanAVG";
 import { FloorPlanCount } from "./floorPlanCount";
+import { useNavigate } from "react-router-dom";
 
 interface PropertyCardsProps {
     property: Property;
@@ -32,7 +33,8 @@ export function PropertyCards({ property }: PropertyCardsProps) {
     const { location, asOf, objectId, totalUnits, vacants, floorplans, date } = property;
     const bgColor = useColorModeValue("gray.200", "gray.700");
     const textColor = useColorModeValue("gray.800", "gray.200");
-    const hoverColor = useColorModeValue("gray.300", "gray.600");
+    const hoverColor = useColorModeValue("gray.300", "gray.900");
+    const navigate = useNavigate()
 
 
     const formatDate = (isoString: string) => {
@@ -61,6 +63,7 @@ export function PropertyCards({ property }: PropertyCardsProps) {
             _hover={{ bg: hoverColor }}
             transition="background-color 0.3s ease"
             cursor="pointer"
+            onClick={() => navigate(`/${objectId}`)}
         >
             <Flex>
                 <VStack spacing={4} alignItems="start">
@@ -75,8 +78,19 @@ export function PropertyCards({ property }: PropertyCardsProps) {
                         data As of: {asOf}
                     </Badge>
                     <Text fontSize="xs" color={textColor} maxW="260px">
-                        Uploaded: {formatDate(date)} PST 
+                        Uploaded: {formatDate(date)} PST
                     </Text>
+                    <Button
+                        mt={6}
+                        width="30%"
+                        size="sm"
+                        fontSize="sm"
+                        variant="outline"
+                        colorScheme="red"
+                    >
+                        Remove
+                    </Button>
+
                 </VStack>
 
                 <Box>
