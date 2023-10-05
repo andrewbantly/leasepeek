@@ -48,6 +48,7 @@ export function UploadFileButon({dataRequest}:UploadFileButtonProps) {
                 }
             })
             dataRequest()
+            setFileName('')
         } catch (error) {
             console.error("Error uploading file", error)
         }

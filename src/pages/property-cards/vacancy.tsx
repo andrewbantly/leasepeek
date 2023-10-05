@@ -1,4 +1,3 @@
-import React from 'react';
 import Chart from 'react-apexcharts';
 import { useColorMode } from '@chakra-ui/react';
 
@@ -40,7 +39,7 @@ export function Vacancy({ vacants, totalUnits }: VacancyProps) {
 
     return (
         <div>
-            <Chart options={options} series={series} type="donut" width="380" />
+            <Chart options={options} series={series} type="donut" width="375" />
         </div>
     );
 }

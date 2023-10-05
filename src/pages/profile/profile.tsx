@@ -1,73 +1,76 @@
 import { UserProps } from '../../interfaces/currentUser';
 import { UploadFileButon } from './uploadFileButton';
 import { useEffect, useState } from 'react';
-import axios from 'axios'
+import axios from 'axios';
 import { PropertyCards } from '../property-cards/propertyCards';
+import { Box, Heading, Flex, Spacer, VStack } from '@chakra-ui/react';
 
 interface ResponseObject {
     data?: Property[];
     message?: string;
 }
+type ISODateString = string;
 
 interface Property {
     location: string;
-    date: string;
+    date: ISODateString;
+    asOf: string;
     objectId: string;
     totalUnits: number;
     vacants: number;
-    floorplans:Floorplans
+    floorplans: FloorPlans;
 }
 
-interface Floorplans {
+type FloorPlanName = string;
+
+interface FloorPlanDetails {
     avg: number;
     count: number;
 }
+
+type FloorPlans = Record<FloorPlanName, FloorPlanDetails>;
 
 export function Profile({ currentUser, setCurrentUser }: UserProps) {
     const [responseObject, setResponseObject] = useState<ResponseObject>({});
 
     useEffect(() => {
-        dataRequest()
-    }, [])
+        dataRequest();
+    }, []);
 
     const dataRequest = async () => {
         try {
-            const token = localStorage.getItem('jwt')
+            const token = localStorage.getItem('jwt');
             const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/data/user`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
-            })
-            setResponseObject(response.data)
+            });
+            setResponseObject(response.data);
         } catch (error) {
-            console.error("Error loading data", error)
+            console.error("Error loading data", error);
         }
-    }
-
-    const location = () => {
-        return (
-            <div>
-                {responseObject.data?.map((property, index) => (
-                    <div className="card">
-                        <PropertyCards key={index} property={property} />
-                    </div>
-                ))}
-            </div>
-        );
     };
 
-
-    const uploadFileButton = (
-        <UploadFileButon dataRequest={dataRequest} />
-    )
+    const renderProperties = () => {
+        return (
+            <VStack spacing={4} align="stretch">
+                {responseObject.data
+                    ?.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+                    .map((property, index) => (
+                        <PropertyCards key={index} property={property} />
+                    ))}
+            </VStack>
+        );
+    };
+    
 
     return (
-        <>
-            <div className='flex space-between'>
-                <h2>Welcome, {currentUser?.username}</h2>
-                {uploadFileButton}
-            </div>
-            {location()}
-        </>
-    )
+        <Box py={6} px={4}>
+            <Flex alignItems="center" justifyContent="space-between" marginBottom="4">
+                <Heading as="h2" size="lg">Welcome, {currentUser?.username}</Heading>
+                <UploadFileButon dataRequest={dataRequest} />
+            </Flex>
+            {renderProperties()}
+        </Box>
+    );
 }
