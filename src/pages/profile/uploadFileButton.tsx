@@ -1,21 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
-import {
-    Button,
-    Input,
-} from '@chakra-ui/react'
+import { useRef, useState } from 'react';
+import { Box, Button, Flex, Input, Text } from '@chakra-ui/react';
 import axios from 'axios'
 
 interface UploadFileButtonProps {
     dataRequest: () => Promise<void>;
 }
 
-export function UploadFileButon({dataRequest}:UploadFileButtonProps) {
+export function UploadFileButon({ dataRequest }: UploadFileButtonProps) {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [fileName, setFileName] = useState('');
-
-    useEffect(() => {
-        console.log('file name', fileName)
-    }, [fileName]);
 
     const handleUpload = () => {
         if (fileInputRef.current) {
@@ -26,7 +19,6 @@ export function UploadFileButon({dataRequest}:UploadFileButtonProps) {
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files ? event.target.files[0] : null;
         if (file) {
-            console.log('file added', file.name);
             setFileName(file.name);
         }
     };
@@ -40,7 +32,6 @@ export function UploadFileButon({dataRequest}:UploadFileButtonProps) {
         const formData = new FormData();
         formData.append("file", file);
         try {
-            console.log('sending data to server')
             const token = localStorage.getItem('jwt')
             const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/data/upload`, formData, {
                 headers: {
@@ -59,13 +50,29 @@ export function UploadFileButon({dataRequest}:UploadFileButtonProps) {
     }
 
     const submitButtons = (
-        <>
-            <Button colorScheme={'blue'} variant={'solid'} onClick={handleSubmitFile}>Submit</Button>
-            <Button onClick={handleCancelUpoad}>Cancel</Button>
-        </>
-    )
+        <Flex align="center" justify="space-between" width="full" gap={4}>
+            <Button 
+                width="48%" 
+                colorScheme={'blue'} 
+                variant={'solid'} 
+                onClick={handleSubmitFile}
+            >
+                Submit
+            </Button>
+            <Button 
+                width="48%" 
+                variant="outline"
+                colorScheme="red"
+                onClick={handleCancelUpoad}
+            >
+                Cancel
+            </Button>
+        </Flex>
+    );
+    
 
-    const uploadButtons = fileName ? submitButtons : <Button onClick={handleUpload} colorScheme={'gray'} variant={'solid'}>Upload Rent Roll</Button>
+    const uploadButtons = fileName ? submitButtons :
+        <Button onClick={handleUpload} colorScheme={'gray'} variant={'solid'}>Upload Rent Roll</Button>;
 
     return (
         <>
@@ -77,10 +84,15 @@ export function UploadFileButon({dataRequest}:UploadFileButtonProps) {
                     style={{ display: "none" }}
                     onChange={handleFileChange}
                 />
-                {uploadButtons}
-                <p>{fileName}</p>
+                <Flex direction="column" align="start" gap={2}>
+                    {uploadButtons}
+                    <Text mt={2} fontSize="sm" color="gray.600">
+                        {fileName || "No file selected."}
+                    </Text>
+                </Flex>
+
             </div>
         </>
-    )
+    );
 
 }
