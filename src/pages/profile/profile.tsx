@@ -3,7 +3,7 @@ import { UploadFileButon } from './uploadFileButton';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { PropertyCards } from '../property-cards/propertyCards';
-import { Box, Heading, Flex, Spacer, VStack } from '@chakra-ui/react';
+import { Box, Heading, Flex, Spacer, VStack, Input } from '@chakra-ui/react';
 
 interface ResponseObject {
     data?: Property[];
@@ -32,6 +32,7 @@ type FloorPlans = Record<FloorPlanName, FloorPlanDetails>;
 
 export function Profile({ currentUser, setCurrentUser }: UserProps) {
     const [responseObject, setResponseObject] = useState<ResponseObject>({});
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         dataRequest();
@@ -62,15 +63,40 @@ export function Profile({ currentUser, setCurrentUser }: UserProps) {
             </VStack>
         );
     };
+
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchTerm(e.target.value)
+    }
     
+    let propertiesToRender = responseObject.data || [];
+    if (searchTerm) {
+        propertiesToRender = propertiesToRender.filter(property => 
+            property.location.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+    } else {
+        propertiesToRender.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    }
 
     return (
+        <>
         <Box py={6} px={4}>
             <Flex alignItems="center" justifyContent="space-between" marginBottom="4">
                 <Heading as="h2" size="lg">Welcome, {currentUser?.username}</Heading>
                 <UploadFileButon dataRequest={dataRequest} />
             </Flex>
-            {renderProperties()}
         </Box>
+        <VStack spacing={4}>
+            <Input 
+                placeholder="Search by building"
+                value={searchTerm}
+                onChange={handleSearchChange}
+            />
+            <VStack spacing={4} align="stretch">
+                {propertiesToRender.map((property, index) => (
+                    <PropertyCards key={index} property={property} />
+                ))}
+            </VStack>
+        </VStack>
+        </>
     );
 }
