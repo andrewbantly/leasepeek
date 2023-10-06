@@ -10,7 +10,7 @@ The frontend of this application should allow a user signup  to upload an excel 
 2. As a user I want to sort my units by preformance 
 3. As a user I want to click into a profile of a unit and see unit information
 
-## Routing
+## Routing (out of date)
 | HTTP METHOD | URL                     | CRUD    | Description                                                       | View                   |     |     |     |
 |:----------- |:----------------------- |:------- |:----------------------------------------------------------------- |:---------------------- | --- | --- | --- |
 | GET         | /                       | READ    | Load homepage with login form                                     | Home / User login      |     |     |     |
