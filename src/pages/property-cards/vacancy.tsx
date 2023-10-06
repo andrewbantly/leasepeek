@@ -2,7 +2,7 @@ import Chart from 'react-apexcharts';
 import { useColorMode } from '@chakra-ui/react';
 
 interface VacancyProps {
-    vacants: number;
+    vacants: {};
     totalUnits: number;
 }
 
@@ -10,11 +10,19 @@ export function Vacancy({ vacants, totalUnits }: VacancyProps) {
     const { colorMode } = useColorMode();
     
     const isDarkMode = colorMode === 'dark';
+    
+    // Extract series data and labels from the 'vacants' object
+    const series: number[] = [];
+    const labels: string[] = [];
 
-    const occupied = totalUnits - vacants;
-    const series = [occupied, vacants];
+    for (const [status, count] of Object.entries(vacants)) {
+        series.push(count as number);
+        labels.push(status);
+    }
+    
+
     const options = {
-        labels: ['Occupied', 'Vacant'],
+        labels: labels,
         chart: {
             type: 'donut'
         },

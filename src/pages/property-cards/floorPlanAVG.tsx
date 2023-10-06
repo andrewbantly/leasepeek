@@ -34,14 +34,14 @@ export function FloorPlanAvg({ floorplans }: FloorPlanAvgProps) {
         },
         yaxis: {
             title: {
-                text: 'Average Price ($)'
+                text: 'Average Market Value ($)'
             }
         },
         dataLabels: {
             enabled: false
         },
         title: {
-            text: 'Average Price of Each Floor Plan',
+            text: 'Market Value of Each Floor Plan',
             align: 'center'
         },
         tooltip: {
@@ -51,7 +51,7 @@ export function FloorPlanAvg({ floorplans }: FloorPlanAvgProps) {
 
     const series = [
         {
-            name: 'Average Price ($)',
+            name: 'Average Market Value ($)',
             data: avgValues
         }
     ];
