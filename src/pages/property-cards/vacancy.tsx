@@ -11,7 +11,6 @@ export function Vacancy({ vacants, totalUnits }: VacancyProps) {
     
     const isDarkMode = colorMode === 'dark';
     
-    // Extract series data and labels from the 'vacants' object
     const series: number[] = [];
     const labels: string[] = [];
 

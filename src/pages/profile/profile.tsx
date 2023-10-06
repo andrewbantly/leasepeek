@@ -5,31 +5,7 @@ import axios from 'axios';
 import { PropertyCards } from '../property-cards/propertyCards';
 import { Box, Heading, Flex, Icon, VStack, Input, Text } from '@chakra-ui/react';
 import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
-
-interface ResponseObject {
-    data?: Property[];
-    message?: string;
-}
-type ISODateString = string;
-
-interface Property {
-    location: string;
-    date: ISODateString;
-    asOf: string;
-    objectId: string;
-    totalUnits: number;
-    vacants: number;
-    floorplans: FloorPlans;
-}
-
-type FloorPlanName = string;
-
-interface FloorPlanDetails {
-    avg: number;
-    count: number;
-}
-
-type FloorPlans = Record<FloorPlanName, FloorPlanDetails>;
+import { ResponseObject } from '../../interfaces/profileProps'
 
 export function Profile({ currentUser, setCurrentUser }: UserProps) {
     const [responseObject, setResponseObject] = useState<ResponseObject>({});

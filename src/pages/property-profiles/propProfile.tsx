@@ -1,43 +1,22 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios'
-
-interface PropertyResponseObject {
-    asOf: string;
-    data: PropertyDataItem[];
-    date: string;
-    location: string;
-    user_id: number;
-}
-
-interface PropertyDataItem {
-    address: string | null;
-    balance: number;
-    charges: Charge[];
-    floorplan: string;
-    leaseExpire: string;
-    leaseStart: string | null;
-    market: number;
-    moveIn: string;
-    moveOut: string;
-    nsf: string | null;
-    otherDeposit: number;
-    rent: number;
-    resh: string | null;
-    residentDeposit: number;
-    residentId: string;
-    sqft: number;
-    status: string | null;
-    tenant: string;
-    total: number;
-    unclassified: any;
-    unit: string;
-}
-
-interface Charge {
-    code: string;
-    value: number;
-}
+import {
+    Box,
+    Flex,
+    VStack,
+    Text,
+    Badge,
+    Icon,
+    Button,
+    useColorModeValue
+} from '@chakra-ui/react';
+import { FaBuilding } from "react-icons/fa";
+import { PropertyVacancy } from './propertyVacancy';
+import { PropertyFloorPlanMrkAvg } from './propertyFloorPlanMrkAvg';
+import { PropertyFloorPlan } from './propertyFloorPlan';
+import { PropertyAlerts } from './propertyAlerts';
+import { PropertyResponseObject } from "../../interfaces/propertyProfileProps";
 
 const defaultPropertyData: PropertyResponseObject = {
     asOf: "",
@@ -61,7 +40,7 @@ export function PropertyProfile() {
         console.log(propertyDataObject)
     }, [propertyDataObject])
 
-   const propertyDataRequest = async () => {
+    const propertyDataRequest = async () => {
         console.log(`fetching data for property: ${objectId}`)
         try {
             const token = localStorage.getItem('jwt');
@@ -79,9 +58,61 @@ export function PropertyProfile() {
             navigate('/')
         }
     }
-    return(
-        <>
-        <h2>{propertyDataObject ? propertyDataObject.location : "Loading..."}</h2>
-        </>
-        )
-}
+    const bgColor = useColorModeValue("gray.300", "gray.900");
+    const textColor = useColorModeValue("gray.800", "gray.200");
+
+    const formatDate = (dateString: string) => {
+        const date = new Date(dateString);
+        return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+    }
+
+    const totalUnits = propertyDataObject.data.length
+
+    return (
+        <Box
+            p={6}
+            borderRadius="lg"
+            borderWidth="1px"
+            boxShadow="xl"
+            bg={bgColor}
+        >
+            <Flex direction="column">
+                <Flex alignItems="center">
+                    <Icon as={FaBuilding} boxSize={8} color={textColor} />
+                    <Text fontWeight="bold" fontSize="xl" color={textColor} ml={4}>
+                        {propertyDataObject ? propertyDataObject.location : "Loading..."}
+                    </Text>
+                </Flex>
+
+                <Text fontSize="lg" color={textColor}>
+                    Total units: {totalUnits}
+                </Text>
+
+                <Badge borderRadius="full" width={"fit-content"} px="2" colorScheme="teal">
+                    Data as of: {propertyDataObject.asOf}
+                </Badge>
+
+                <Text fontSize="xs" color={textColor}>
+                    Uploaded: {formatDate(propertyDataObject.date)} PST
+                </Text>
+
+                <PropertyAlerts propertyData={propertyDataObject}/>
+                <Box>
+                    <PropertyVacancy propertyData={propertyDataObject}/>
+                    <PropertyFloorPlanMrkAvg propertyData={propertyDataObject}/>
+                    <PropertyFloorPlan propertyData={propertyDataObject}/>
+                </Box>
+
+                {/* Buttons or Actions related to the Property */}
+                <Flex mt={4} justifyContent="space-between">
+                    <Button size="sm" variant="outline" colorScheme="teal">
+                        Edit
+                    </Button>
+                    <Button size="sm" variant="outline" colorScheme="red">
+                        Remove
+                    </Button>
+                </Flex>
+            </Flex>
+        </Box>
+    );
+};
