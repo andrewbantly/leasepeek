@@ -1,5 +1,5 @@
 export interface PropertyProfileComponentProps {
-    propertyData: PropertyResponseObject;
+    propertyData: PropertyDataItem[];
 }
 
 export interface PropertyResponseObject {

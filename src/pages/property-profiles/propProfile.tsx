@@ -96,11 +96,11 @@ export function PropertyProfile() {
                     Uploaded: {formatDate(propertyDataObject.date)} PST
                 </Text>
 
-                <PropertyAlerts propertyData={propertyDataObject}/>
+                <PropertyAlerts propertyData={propertyDataObject.data}/>
                 <Box>
-                    <PropertyVacancy propertyData={propertyDataObject}/>
-                    <PropertyFloorPlanMrkAvg propertyData={propertyDataObject}/>
-                    <PropertyFloorPlan propertyData={propertyDataObject}/>
+                    <PropertyVacancy propertyData={propertyDataObject.data}/>
+                    <PropertyFloorPlanMrkAvg propertyData={propertyDataObject.data}/>
+                    <PropertyFloorPlan propertyData={propertyDataObject.data}/>
                 </Box>
 
                 {/* Buttons or Actions related to the Property */}

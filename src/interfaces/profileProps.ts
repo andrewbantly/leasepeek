@@ -2,9 +2,9 @@ export interface ResponseObject {
     data?: Property[];
     message?: string;
 }
-export type ISODateString = string;
+type ISODateString = string;
 
-export interface Property {
+interface Property {
     location: string;
     date: ISODateString;
     asOf: string;
@@ -14,10 +14,10 @@ export interface Property {
     floorplans: FloorPlans;
 }
 
-export type FloorPlanName = string;
+type FloorPlanName = string;
 
-export interface FloorPlanDetails {
+interface FloorPlanDetails {
     avg: number;
     count: number;
 }
-export type FloorPlans = Record<FloorPlanName, FloorPlanDetails>;
+type FloorPlans = Record<FloorPlanName, FloorPlanDetails>;
