@@ -18,7 +18,6 @@ The frontend of this application should allow a user signup  to upload an excel 
 | POST        | /login                  | READ    | Checks user credentials against database                          |                        |     |     |     |
 | GET         | /new                    | READ    | Display signup form                                               | Member signup form     |     |     |     |
 | POST        | /join                   | CREATE  | Add member to database, redirect to members/:username/todayspicks |                        |     |     |     |
-| GET         | /:userName/logout       | READ    | Logout member by clearing JWT, redirect to homepage           |                        |     |     |     |
 |             |                         |         |                                                                   |                        |     |     |     |
 | GET         | /:userName/profile      | READ    | Load private user's rent roll upload history for quick access     | Profile                |     |     |     |
 | POST        | /:userName/upload       | CREATE  | Upload rent roll data, redirected to /:userName/:uploadId         |                        |     |     |     |
