@@ -35,11 +35,6 @@ export function PropertyProfile() {
         propertyDataRequest()
     }, [])
 
-    useEffect(() => {
-        console.log("### Property Data")
-        console.log(propertyDataObject)
-    }, [propertyDataObject])
-
     const propertyDataRequest = async () => {
         console.log(`fetching data for property: ${objectId}`)
         try {
@@ -76,42 +71,44 @@ export function PropertyProfile() {
             boxShadow="xl"
             bg={bgColor}
         >
-            <Flex direction="column">
-                <Flex alignItems="center">
-                    <Icon as={FaBuilding} boxSize={8} color={textColor} />
-                    <Text fontWeight="bold" fontSize="xl" color={textColor} ml={4}>
-                        {propertyDataObject ? propertyDataObject.location : "Loading..."}
+            <Flex direction="row">
+                <Box padding="6" maxW={"33%"}>
+                    <Flex alignItems="center">
+                        <Icon as={FaBuilding} boxSize={8} color={textColor} />
+                        <Text fontWeight="bold" fontSize="xl" color={textColor} ml={4}>
+                            {propertyDataObject ? propertyDataObject.location : "Loading..."}
+                        </Text>
+                    </Flex>
+
+                    <Text fontSize="lg" color={textColor}>
+                        Total units: {totalUnits}
                     </Text>
-                </Flex>
 
-                <Text fontSize="lg" color={textColor}>
-                    Total units: {totalUnits}
-                </Text>
+                    <Badge borderRadius="full" width={"fit-content"} px="2" colorScheme="teal">
+                        Data as of: {propertyDataObject.asOf}
+                    </Badge>
 
-                <Badge borderRadius="full" width={"fit-content"} px="2" colorScheme="teal">
-                    Data as of: {propertyDataObject.asOf}
-                </Badge>
+                    <Text fontSize="xs" color={textColor}>
+                        Uploaded: {formatDate(propertyDataObject.date)} PST
+                    </Text>
 
-                <Text fontSize="xs" color={textColor}>
-                    Uploaded: {formatDate(propertyDataObject.date)} PST
-                </Text>
-
-                <PropertyAlerts propertyData={propertyDataObject.data}/>
+                    <PropertyAlerts propertyData={propertyDataObject.data} />
+                    <Flex mt={4} justifyContent="space-between">
+                        <Button size="sm" variant="outline" colorScheme="teal">
+                            Edit
+                        </Button>
+                        <Button size="sm" variant="outline" colorScheme="red">
+                            Remove
+                        </Button>
+                    </Flex>
+                </Box>
+                    <PropertyVacancy propertyData={propertyDataObject.data} />
                 <Box>
-                    <PropertyVacancy propertyData={propertyDataObject.data}/>
-                    <PropertyFloorPlanMrkAvg propertyData={propertyDataObject.data}/>
-                    <PropertyFloorPlan propertyData={propertyDataObject.data}/>
+                    <PropertyFloorPlanMrkAvg propertyData={propertyDataObject.data} />
+                    <PropertyFloorPlan propertyData={propertyDataObject.data} />
                 </Box>
 
                 {/* Buttons or Actions related to the Property */}
-                <Flex mt={4} justifyContent="space-between">
-                    <Button size="sm" variant="outline" colorScheme="teal">
-                        Edit
-                    </Button>
-                    <Button size="sm" variant="outline" colorScheme="red">
-                        Remove
-                    </Button>
-                </Flex>
             </Flex>
         </Box>
     );

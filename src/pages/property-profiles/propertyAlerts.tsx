@@ -23,7 +23,7 @@ export function PropertyAlerts({propertyData} : PropertyProfileComponentProps) {
     }
 
     return(
-        <Box padding="4" borderWidth="1px" borderRadius="lg" boxShadow="lg">
+        <Box>
             <Heading as="h3" size="md" marginBottom="2">
                 Outstanding balances: 
                 <Text 
