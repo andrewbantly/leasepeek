@@ -4,12 +4,12 @@ import axios from 'axios'
 import {
     Box,
     Flex,
-    VStack,
     Text,
     Badge,
     Icon,
     Button,
-    useColorModeValue
+    useColorModeValue,
+    Spacer
 } from '@chakra-ui/react';
 import { FaBuilding } from "react-icons/fa";
 import { PropertyVacancy } from './propertyVacancy';
@@ -70,45 +70,47 @@ export function PropertyProfile() {
             borderWidth="1px"
             boxShadow="xl"
             bg={bgColor}
+            display="flex"
+            flexDirection="column"
+            margin={2}
         >
-            <Flex direction="row">
-                <Box padding="6" maxW={"33%"}>
-                    <Flex alignItems="center">
-                        <Icon as={FaBuilding} boxSize={8} color={textColor} />
-                        <Text fontWeight="bold" fontSize="xl" color={textColor} ml={4}>
-                            {propertyDataObject ? propertyDataObject.location : "Loading..."}
+            <Flex direction="row" alignItems="stretch">
+                <Box p={6} maxW={"33%"} flex="1" display="flex" flexDirection="column">
+                    <Box flex="1">
+                        <Flex alignItems="center" mb={3}>
+                            <Icon as={FaBuilding} boxSize={8} color={textColor} />
+                            <Text fontWeight="bold" fontSize="xl" color={textColor} ml={4}>
+                                {propertyDataObject ? propertyDataObject.location : "Loading..."}
+                            </Text>
+                        </Flex>
+    
+                        <Text fontSize="lg" color={textColor} mb={2}>
+                            Total units: {totalUnits}
                         </Text>
-                    </Flex>
-
-                    <Text fontSize="lg" color={textColor}>
-                        Total units: {totalUnits}
-                    </Text>
-
-                    <Badge borderRadius="full" width={"fit-content"} px="2" colorScheme="teal">
-                        Data as of: {propertyDataObject.asOf}
-                    </Badge>
-
-                    <Text fontSize="xs" color={textColor}>
-                        Uploaded: {formatDate(propertyDataObject.date)} PST
-                    </Text>
-
-                    <PropertyAlerts propertyData={propertyDataObject.data} />
-                    <Flex mt={4} justifyContent="space-between">
-                        <Button size="sm" variant="outline" colorScheme="teal">
-                            Edit
-                        </Button>
+    
+                        <Badge borderRadius="full" width={"fit-content"} px="2" colorScheme="teal" mb={2}>
+                            Data as of: {propertyDataObject.asOf}
+                        </Badge>
+    
+                        <Text fontSize="xs" color={textColor} mb={3}>
+                            Uploaded: {formatDate(propertyDataObject.date)} PST
+                        </Text>
+    
+                        <PropertyAlerts propertyData={propertyDataObject.data} />
+                    </Box>
+    
+                    <Flex>
                         <Button size="sm" variant="outline" colorScheme="red">
                             Remove
                         </Button>
                     </Flex>
                 </Box>
+       
                     <PropertyVacancy propertyData={propertyDataObject.data} />
                 <Box>
                     <PropertyFloorPlanMrkAvg propertyData={propertyDataObject.data} />
                     <PropertyFloorPlan propertyData={propertyDataObject.data} />
                 </Box>
-
-                {/* Buttons or Actions related to the Property */}
             </Flex>
         </Box>
     );
