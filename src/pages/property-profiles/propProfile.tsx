@@ -8,9 +8,7 @@ import {
     Badge,
     Icon,
     Button,
-    useColorModeValue,
-    Spacer
-} from '@chakra-ui/react';
+    useColorModeValue } from '@chakra-ui/react';
 import { FaBuilding } from "react-icons/fa";
 import { PropertyVacancy } from './propertyVacancy';
 import { PropertyFloorPlanMrkAvg } from './propertyFloorPlanMrkAvg';
@@ -74,8 +72,8 @@ export function PropertyProfile() {
             flexDirection="column"
             margin={2}
         >
-            <Flex direction="row" alignItems="stretch">
-                <Box p={6} maxW={"33%"} flex="1" display="flex" flexDirection="column">
+            <Flex direction="row" alignItems="stretch" wrap='wrap'>
+                <Box p={6} width={"33%"} flex="1" display="flex" flexDirection="column">
                     <Box flex="1">
                         <Flex alignItems="center" mb={3}>
                             <Icon as={FaBuilding} boxSize={8} color={textColor} />
@@ -83,34 +81,32 @@ export function PropertyProfile() {
                                 {propertyDataObject ? propertyDataObject.location : "Loading..."}
                             </Text>
                         </Flex>
-    
+
                         <Text fontSize="lg" color={textColor} mb={2}>
                             Total units: {totalUnits}
                         </Text>
-    
+
                         <Badge borderRadius="full" width={"fit-content"} px="2" colorScheme="teal" mb={2}>
                             Data as of: {propertyDataObject.asOf}
                         </Badge>
-    
+
                         <Text fontSize="xs" color={textColor} mb={3}>
                             Uploaded: {formatDate(propertyDataObject.date)} PST
                         </Text>
-    
+
                         <PropertyAlerts propertyData={propertyDataObject.data} />
                     </Box>
-    
+
                     <Flex>
                         <Button size="sm" variant="outline" colorScheme="red">
                             Remove
                         </Button>
                     </Flex>
                 </Box>
-       
-                    <PropertyVacancy propertyData={propertyDataObject.data} />
-                <Box>
-                    <PropertyFloorPlanMrkAvg propertyData={propertyDataObject.data} />
-                    <PropertyFloorPlan propertyData={propertyDataObject.data} />
-                </Box>
+
+                <PropertyVacancy propertyData={propertyDataObject.data} />
+                <PropertyFloorPlanMrkAvg propertyData={propertyDataObject.data} />
+                <PropertyFloorPlan propertyData={propertyDataObject.data} />
             </Flex>
         </Box>
     );

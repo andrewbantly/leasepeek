@@ -60,7 +60,7 @@ export function PropertyVacancy({ propertyData }: PropertyProfileComponentProps)
     } as any;
 
     return (
-        <Box p={6}>
+        <Box p={6} width={"33%"}>
             <Flex alignItems="center" mb={4}>
                 <Icon as={BiBuilding} boxSize={8} mr={2} />
                 <Text fontWeight="bold" fontSize="xl" color={textColor}>Vacancy</Text>
