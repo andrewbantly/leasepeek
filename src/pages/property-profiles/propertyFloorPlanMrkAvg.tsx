@@ -35,8 +35,6 @@ export function PropertyFloorPlanMrkAvg({ propertyData }: PropertyProfileCompone
 
     }
 
-    console.log("### Floor plan breakdown:")
-    console.log(floorplanAvgValues)
     const floorPlanNames = Object.keys(floorplanAvgValues);
     const avgValues = floorPlanNames.map(name => floorplanAvgValues[name]);
 
@@ -52,7 +50,10 @@ export function PropertyFloorPlanMrkAvg({ propertyData }: PropertyProfileCompone
             }
         },
         xaxis: {
-            categories: floorPlanNames
+            categories: floorPlanNames,
+            title: {
+                text: "Floor Plans"
+            }
         },
         yaxis: {
             title: {
