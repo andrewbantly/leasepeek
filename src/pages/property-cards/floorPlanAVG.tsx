@@ -14,7 +14,7 @@ interface FloorPlanDetails {
 }
 
 export function FloorPlanAvg({ floorplans }: FloorPlanAvgProps) {
-    const textColor = useColorModeValue('black', 'white');
+    const textColor = useColorModeValue("gray.800", "gray.200");
     const floorPlanNames = Object.keys(floorplans);
     const avgValues = floorPlanNames.map(name => floorplans[name].avg);
 
