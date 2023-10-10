@@ -99,7 +99,7 @@ export function PropertyProfile() {
 
                     <Flex>
                         <Button size="sm" variant="outline" colorScheme="red">
-                            Remove
+                            Delete Rent Roll Upload
                         </Button>
                     </Flex>
                 </Box>
