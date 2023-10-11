@@ -16,6 +16,11 @@ export function Profile({ currentUser, setCurrentUser }: UserProps) {
         dataRequest();
     }, []);
 
+    useEffect(() => {
+        console.log('### Data')
+        console.log(responseObject)
+    }, [responseObject]);
+
     const dataRequest = async () => {
         try {
             const token = localStorage.getItem('jwt');
@@ -37,18 +42,6 @@ export function Profile({ currentUser, setCurrentUser }: UserProps) {
     const toggleSortOrder = () => {
         setIsSortedAsc(prev => !prev);
     }
-
-    const renderProperties = () => {
-        return (
-            <VStack spacing={4} align="stretch">
-                {responseObject.data
-                    ?.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-                    .map((property, index) => (
-                        <PropertyCards key={index} property={property} />
-                    ))}
-            </VStack>
-        );
-    };
 
     let propertiesToRender = responseObject.data || [];
     if (searchTerm) {

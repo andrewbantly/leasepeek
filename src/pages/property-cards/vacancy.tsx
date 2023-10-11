@@ -2,11 +2,10 @@ import Chart from 'react-apexcharts';
 import { useColorMode } from '@chakra-ui/react';
 
 interface VacancyProps {
-    vacants: {};
-    totalUnits: number;
+    vacants: {[key: string]: number;};
 }
 
-export function Vacancy({ vacants, totalUnits }: VacancyProps) {
+export function Vacancy({ vacants }: VacancyProps) {
     const { colorMode } = useColorMode();
     
     const isDarkMode = colorMode === 'dark';

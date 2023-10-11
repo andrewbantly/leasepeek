@@ -4,37 +4,23 @@ import { Vacancy } from "./vacancy";
 import { FloorPlanAvg } from "./floorPlanAVG";
 import { FloorPlanCount } from "./floorPlanCount";
 import { useNavigate } from "react-router-dom";
+import { Property } from '../../interfaces/profileProps'
+
 
 interface PropertyCardsProps {
     property: Property;
 }
 
-type ISODateString = string;
-
-interface Property {
-    location: string;
-    date: ISODateString;
-    asOf: string;
-    objectId: string;
-    totalUnits: number;
-    vacants: number;
-    floorplans: FloorPlans
-}
-type FloorPlans = Record<FloorPlanName, FloorPlanDetails>;
-
-type FloorPlanName = string;
-
-interface FloorPlanDetails {
-    avg: number;
-    count: number;
-}
-
 export function PropertyCards({ property }: PropertyCardsProps) {
-    const { location, asOf, objectId, totalUnits, vacants, floorplans, date } = property;
+    const { location, asOf, objectId, totalUnits, vacancy, floorplans, date } = property;
     const bgColor = useColorModeValue("gray.200", "gray.700");
     const textColor = useColorModeValue("gray.800", "gray.200");
     const hoverColor = useColorModeValue("gray.300", "gray.900");
     const navigate = useNavigate()
+    console.log("### PROP OBJECT")
+    console.log(property)
+    console.log("LOCATION", location)
+    console.log(floorplans)
 
 
     const formatDate = (isoString: string) => {
@@ -94,7 +80,7 @@ export function PropertyCards({ property }: PropertyCardsProps) {
                 </VStack>
 
                 <Box>
-                    <Vacancy vacants={vacants} totalUnits={totalUnits} />
+                    <Vacancy vacants={vacancy} />
                 </Box>
                 <Box h="100%" ml={2}>
                     <FloorPlanAvg floorplans={floorplans} />

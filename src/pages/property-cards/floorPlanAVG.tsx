@@ -9,14 +9,15 @@ type FloorPlans = Record<FloorPlanName, FloorPlanDetails>;
 type FloorPlanName = string;
 
 interface FloorPlanDetails {
-    avg: number;
+    average: number;
     count: number;
+    sum: number;
 }
 
 export function FloorPlanAvg({ floorplans }: FloorPlanAvgProps) {
     const textColor = useColorModeValue("gray.800", 'white');
     const floorPlanNames = Object.keys(floorplans);
-    const avgValues = floorPlanNames.map(name => floorplans[name].avg);
+    const avgValues = floorPlanNames.map(name => floorplans[name].average);
 
     const options = {
         chart: {
@@ -56,5 +57,9 @@ export function FloorPlanAvg({ floorplans }: FloorPlanAvgProps) {
         }
     ];
 
-    return <Chart options={options} series={series} type="bar" height="300px"/>;
+    return (
+    <>
+    <Chart options={options} series={series} type="bar" height="300px"/>
+    </>
+    );
 }

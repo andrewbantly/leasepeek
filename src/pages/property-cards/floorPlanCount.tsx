@@ -9,10 +9,10 @@ type FloorPlans = Record<FloorPlanName, FloorPlanDetails>;
 type FloorPlanName = string;
 
 interface FloorPlanDetails {
-    avg: number;
+    average: number;
     count: number;
+    sum: number;
 }
-
 export function FloorPlanCount({ floorplans }: FloorPlanAvgProps) {
     const textColor = useColorModeValue("gray.800", 'white');
     const floorPlanNames = Object.keys(floorplans);

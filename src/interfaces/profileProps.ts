@@ -4,20 +4,25 @@ export interface ResponseObject {
 }
 type ISODateString = string;
 
-interface Property {
+export interface Property {
     location: string;
     date: ISODateString;
     asOf: string;
     objectId: string;
     totalUnits: number;
-    vacants: number;
+    vacancy: Vacancy;
     floorplans: FloorPlans;
+}
+
+interface Vacancy {
+    [key: string]: number;
 }
 
 type FloorPlanName = string;
 
 interface FloorPlanDetails {
-    avg: number;
+    average: number;
     count: number;
+    sum: number;
 }
 type FloorPlans = Record<FloorPlanName, FloorPlanDetails>;
