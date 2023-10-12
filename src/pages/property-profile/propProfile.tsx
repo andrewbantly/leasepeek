@@ -16,9 +16,11 @@ import { PropertyResponseObject } from "../../interfaces/propertyProfileProps";
 import { Vacancy } from '../property-data-components/vacancy';
 import { BiBuilding } from 'react-icons/bi';
 import { MdPieChart } from 'react-icons/md';
-import { FaSearchDollar } from 'react-icons/fa';
+import { FaSearchDollar, FaDollarSign, FaMoneyBill, FaMoneyBillWave, FaMoneyBillAlt, FaMoneyCheck, FaMoneyCheckAlt, FaCoins, FaChartLine, FaChartBar, FaChartPie, FaChartArea, FaBalanceScale, FaExchangeAlt } from 'react-icons/fa';
 import { FloorPlanCount } from '../property-data-components/floorPlanCount';
 import { FloorPlanAvg } from '../property-data-components/floorPlanMrkAvg';
+import { FloorPlanAvgRent } from '../property-data-components/floorPlanRentAvg';
+import { IncomePotential } from '../property-data-components/incomePotential';
 
 const defaultPropertyData: PropertyResponseObject = {
     asOf: "",
@@ -124,6 +126,13 @@ export function PropertyProfile() {
                 </Box>
                 <Box p={6} width={"33%"}>
                     <Flex alignItems="center" mb={4}>
+                        <Icon as={FaSearchDollar} boxSize={8} mr={2} />
+                        <Text fontWeight="bold" fontSize="xl" color={textColor}>Income Potential</Text>
+                    </Flex>
+                    <IncomePotential propertyData={propertyDataObject.data}/>
+                </Box>
+                <Box p={6} width={"33%"}>
+                    <Flex alignItems="center" mb={4}>
                         <Icon as={MdPieChart} boxSize={8} mr={2} />
                         <Text fontWeight="bold" fontSize="xl" color={textColor}>Floor Plan Survey</Text>
                     </Flex>
@@ -131,10 +140,17 @@ export function PropertyProfile() {
                 </Box>
                 <Box p={6} width={"33%"}>
                     <Flex alignItems="center" mb={4}>
-                        <Icon as={FaSearchDollar} boxSize={8} mr={2} />
+                        <Icon as={FaChartBar} boxSize={8} mr={2} />
                         <Text fontWeight="bold" fontSize="xl" color={textColor}>Floor Plan Average Market Value</Text>
                     </Flex>
                     <FloorPlanAvg floorplans={propertyDataObject.floorplans} />
+                </Box>
+                <Box p={6} width={"33%"}>
+                    <Flex alignItems="center" mb={4}>
+                        <Icon as={FaCoins} boxSize={8} mr={2} />
+                        <Text fontWeight="bold" fontSize="xl" color={textColor}>Floor Plan Average Rent</Text>
+                    </Flex>
+                    <FloorPlanAvgRent />
                 </Box>
             </Flex>
         </Box>
