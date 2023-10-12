@@ -1,6 +1,7 @@
 import Chart from 'react-apexcharts';
 import { useColorMode, useColorModeValue } from '@chakra-ui/react';
 import { Flex, Text } from '@chakra-ui/react';
+import { useRef } from 'react';
 
 interface IncomePotentialProps {
     propertyData: any[];
@@ -10,11 +11,17 @@ export function IncomePotential({ propertyData }: IncomePotentialProps) {
     let totalMarketValue: number = 0;
     let rentIncome: number = 0;
     
+    const rentIncomeRef = useRef(0);
+    const totalMarketValueRef = useRef(0);
+    
     propertyData.forEach(unit => {
         totalMarketValue += unit.market;
         rentIncome += unit.rent;
     });
-
+    
+    rentIncomeRef.current = rentIncome;
+    totalMarketValueRef.current = totalMarketValue;
+    
     const bg = useColorModeValue("#fff", "#1A202C");
     const trackBg = useColorModeValue("#2D3748", "#A0AEC0");
     const labelColor = useColorModeValue("#1A202C", "#A0AEC0");
@@ -65,9 +72,12 @@ export function IncomePotential({ propertyData }: IncomePotentialProps) {
                     },
                     value: {
                         formatter: () => {
-                            let percentage = (rentIncome / totalMarketValue) * 100;
+                            let percentage = (rentIncomeRef.current / totalMarketValueRef.current) * 100;
+                            if (!isFinite(percentage)) {
+                                return '0.00%';
+                            }
                             return `${percentage.toFixed(2)}%`;
-                        },
+                        },                        
                         fontSize: '16px',
                         fontWeight: 'bold',
                         color: percentColor
