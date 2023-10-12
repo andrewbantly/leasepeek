@@ -69,6 +69,23 @@ export function PropertyProfile() {
 
     const totalUnits = propertyDataObject.totalUnits
 
+    const deleteProperty = async () => {
+        try {
+                const token = localStorage.getItem('jwt');
+                await axios.delete(`${process.env.REACT_APP_SERVER_URL}/data/delete`, {
+                        headers: {
+                                'Authorization': `Bearer ${token}`
+                },
+                params: {
+                        objectId: objectId
+                    }
+                });
+                navigate('/')
+            } catch (error) {
+                    console.error("Error delete property data", error)
+                }            
+    }
+    
     return (
         <Box
             p={6}
@@ -106,7 +123,10 @@ export function PropertyProfile() {
                     </Box>
 
                     <Flex>
-                        <Button size="sm" variant="outline" colorScheme="red">
+                        <Button size="sm" variant="outline" colorScheme="red" onClick={(e) => {
+                            e.stopPropagation();
+                            deleteProperty()
+                        }}>
                             Delete Rent Roll Upload
                         </Button>
                     </Flex>

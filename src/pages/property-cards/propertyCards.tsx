@@ -5,8 +5,6 @@ import { FloorPlanAvg } from "../property-data-components/floorPlanMrkAvg";
 import { FloorPlanCount } from "../property-data-components/floorPlanCount";
 import { useNavigate } from "react-router-dom";
 import { Property } from '../../interfaces/profileProps'
-import axios from 'axios';
-
 
 interface PropertyCardsProps {
     property: Property;
