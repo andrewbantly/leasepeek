@@ -1,19 +1,24 @@
 import { Box, Heading, Text } from "@chakra-ui/react";
-import { PropertyProfileComponentProps } from "../../interfaces/propertyProfileProps";
+import { PropertyDataItem } from "../../interfaces/propertyProfileProps";
 
-export function PropertyAlerts({propertyData} : PropertyProfileComponentProps) {
+export interface PropertyAlertProps {
+    propertyData: PropertyDataItem[];
+    asOf: string;
+}
+
+export function PropertyAlerts({propertyData, asOf} : PropertyAlertProps) {
     let totalBalance = 0
-    
-    const today = new Date()
-    const ninetyDaysFromNow = new Date()
-    ninetyDaysFromNow.setDate(today.getDate() + 90)
+
+    const startDate = new Date(asOf)
+    const ninetyDaysFromStart = new Date(startDate)
+    ninetyDaysFromStart.setDate(startDate.getDate() + 90)
     let expiringLeases = 0
     
     propertyData.forEach(element => {
         totalBalance += element.balance
 
         const leaseExpireDate = new Date(element.leaseExpire)
-        if (leaseExpireDate >= today && leaseExpireDate <= ninetyDaysFromNow) {
+        if (leaseExpireDate >= startDate && leaseExpireDate <= ninetyDaysFromStart) {
             expiringLeases += 1
         }
     });

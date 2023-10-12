@@ -106,7 +106,7 @@ export function PropertyProfile() {
                             Uploaded: {formatDate(propertyDataObject.date)} PST
                         </Text>
 
-                        <PropertyAlerts propertyData={propertyDataObject.data} />
+                        <PropertyAlerts propertyData={propertyDataObject.data} asOf={propertyDataObject.asOf}/>
                     </Box>
 
                     <Flex>
