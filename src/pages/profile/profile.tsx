@@ -15,12 +15,7 @@ export function Profile({ currentUser, setCurrentUser }: UserProps) {
     useEffect(() => {
         dataRequest();
     }, []);
-
-    useEffect(() => {
-        console.log('### Data')
-        console.log(responseObject)
-    }, [responseObject]);
-
+    
     const dataRequest = async () => {
         try {
             const token = localStorage.getItem('jwt');
@@ -57,8 +52,25 @@ export function Profile({ currentUser, setCurrentUser }: UserProps) {
             }
         });
     }
-    
 
+    const deleteProperty = async (objectId:string) => {
+        console.log('Deleting property:', objectId)
+        try {
+            const token = localStorage.getItem('jwt');
+            await axios.delete(`${process.env.REACT_APP_SERVER_URL}/data/delete`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+                params: {
+                    objectId: objectId
+                }
+            });
+            dataRequest();
+        } catch (error) {
+            console.error("Error delete property data", error)
+        }
+    }
+    
     return (
         <>
             <VStack spacing={4} width="full">
@@ -95,7 +107,7 @@ export function Profile({ currentUser, setCurrentUser }: UserProps) {
         
                 <VStack spacing={0} align="stretch">
                     {propertiesToRender.map((property, index) => (
-                        <PropertyCards key={index} property={property} />
+                        <PropertyCards key={index} property={property} deleteProperty={deleteProperty}/>
                     ))}
                 </VStack>
             </VStack>

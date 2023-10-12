@@ -20,8 +20,6 @@ interface FloorPlanDetails {
 }
 
 export function FloorPlanCount({ floorplans }: FloorPlanAvgProps) {
-    console.log("### FLOOR PLAN COUNT")
-    console.log(floorplans)
     const textColor = useColorModeValue("gray.800", 'white');
     const floorPlanNames = Object.keys(floorplans);
     const countValue = floorPlanNames.map(name => floorplans[name].market.count)

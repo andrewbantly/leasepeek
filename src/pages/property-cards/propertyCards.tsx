@@ -5,23 +5,20 @@ import { FloorPlanAvg } from "../property-data-components/floorPlanMrkAvg";
 import { FloorPlanCount } from "../property-data-components/floorPlanCount";
 import { useNavigate } from "react-router-dom";
 import { Property } from '../../interfaces/profileProps'
+import axios from 'axios';
 
 
 interface PropertyCardsProps {
     property: Property;
+    deleteProperty: (objectId: string) => Promise<void>;
 }
 
-export function PropertyCards({ property }: PropertyCardsProps) {
+export function PropertyCards({ property, deleteProperty }: PropertyCardsProps) {
     const { location, asOf, objectId, totalUnits, vacancy, floorplans, date } = property;
     const bgColor = useColorModeValue("gray.200", "gray.700");
     const textColor = useColorModeValue("gray.800", "gray.200");
     const hoverColor = useColorModeValue("gray.300", "gray.900");
     const navigate = useNavigate()
-    console.log("### PROP OBJECT")
-    console.log(property)
-    console.log("LOCATION", location)
-    console.log(floorplans)
-
 
     const formatDate = (isoString: string) => {
         const dateObj = new Date(isoString);
@@ -34,7 +31,6 @@ export function PropertyCards({ property }: PropertyCardsProps) {
         };
         return dateObj.toLocaleString("en-US", { ...options, timeZone: "America/Los_Angeles" });
     }
-
 
     return (
         <Box
@@ -67,12 +63,16 @@ export function PropertyCards({ property }: PropertyCardsProps) {
                         Uploaded: {formatDate(date)} PST
                     </Text>
                     <Button
-                        mt={6}
+                        mt={3}
                         width="30%"
                         size="sm"
                         fontSize="sm"
                         variant="outline"
                         colorScheme="red"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            deleteProperty(objectId);
+                        }}
                     >
                         Remove
                     </Button>
