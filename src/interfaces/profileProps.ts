@@ -20,9 +20,14 @@ interface Vacancy {
 
 type FloorPlanName = string;
 
-interface FloorPlanDetails {
+interface MarketRentDetails {
     average: number;
     count: number;
     sum: number;
+}
+
+interface FloorPlanDetails {
+    market: MarketRentDetails;
+    rent: MarketRentDetails;
 }
 type FloorPlans = Record<FloorPlanName, FloorPlanDetails>;

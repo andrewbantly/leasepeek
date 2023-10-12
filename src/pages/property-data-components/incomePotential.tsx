@@ -97,8 +97,8 @@ export function IncomePotential({ propertyData }: IncomePotentialProps) {
 
     return (
         <>
-            <Chart options={options} series={[rentIncomePercentage]} type="radialBar" height={315} />
-            <Flex justifyContent="center" mt={4}>
+            <Chart options={options} series={[rentIncomePercentage]} type="radialBar" height={300} />
+            <Flex justifyContent="center">
                 <Text color={labelColor} mr={6}>
                     Rent Income: <Text as="span" fontWeight="bold">{formatCurrency(rentIncome)}</Text>
                 </Text>

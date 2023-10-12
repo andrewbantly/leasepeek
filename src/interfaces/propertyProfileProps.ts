@@ -20,10 +20,16 @@ export interface Vacancy {
 type FloorPlanName = string;
 
 interface FloorPlanDetails {
-    average: number;
-    count: number;
-    sum: number;
+    market: FloorPlanMetrics;
+    rent: FloorPlanMetrics;
 }
+
+interface FloorPlanMetrics {
+    sum: number;
+    count: number;
+    average: number;
+}
+
 type FloorPlans = Record<FloorPlanName, FloorPlanDetails>;
 
 type ISODateString = string;
