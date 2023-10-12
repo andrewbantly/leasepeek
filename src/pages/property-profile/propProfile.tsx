@@ -42,13 +42,7 @@ export function PropertyProfile() {
         propertyDataRequest()
     }, [])
 
-    useEffect(() => {
-        console.log("### PROP DATA")
-        console.log(propertyDataObject)
-    }, [propertyDataObject])
-
     const propertyDataRequest = async () => {
-        console.log(`fetching data for property: ${objectId}`)
         try {
             const token = localStorage.getItem('jwt');
             const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/data/read`, {

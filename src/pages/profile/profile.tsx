@@ -54,7 +54,6 @@ export function Profile({ currentUser, setCurrentUser }: UserProps) {
     }
 
     const deleteProperty = async (objectId:string) => {
-        console.log('Deleting property:', objectId)
         try {
             const token = localStorage.getItem('jwt');
             await axios.delete(`${process.env.REACT_APP_SERVER_URL}/data/delete`, {
