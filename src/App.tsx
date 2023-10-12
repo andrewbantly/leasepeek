@@ -12,7 +12,7 @@ import jwt_decode from 'jwt-decode'
 import { DecodedToken } from "./interfaces/decodedToken"
 import { CurrentUserType } from "./interfaces/currentUser"
 import axios from 'axios'
-import { PropertyProfile } from "./pages/property-profiles/propProfile"
+import { PropertyProfile } from "./pages/property-profile/propProfile"
 
 export const App = () => {
   const [currentUser, setCurrentUser] = useState<CurrentUserType>(null);

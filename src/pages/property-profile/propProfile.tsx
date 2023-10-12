@@ -8,20 +8,27 @@ import {
     Badge,
     Icon,
     Button,
-    useColorModeValue } from '@chakra-ui/react';
+    useColorModeValue
+} from '@chakra-ui/react';
 import { FaBuilding } from "react-icons/fa";
-import { PropertyVacancy } from './propertyVacancy';
-import { PropertyFloorPlanMrkAvg } from './propertyFloorPlanMrkAvg';
-import { PropertyFloorPlan } from './propertyFloorPlan';
-import { PropertyAlerts } from './propertyAlerts';
+import { PropertyAlerts } from '../property-data-components/propertyAlerts';
 import { PropertyResponseObject } from "../../interfaces/propertyProfileProps";
+import { Vacancy } from '../property-data-components/vacancy';
+import { BiBuilding } from 'react-icons/bi';
+import { MdPieChart } from 'react-icons/md';
+import { FaSearchDollar } from 'react-icons/fa';
+import { FloorPlanCount } from '../property-data-components/floorPlanCount';
+import { FloorPlanAvg } from '../property-data-components/floorPlanMrkAvg';
 
 const defaultPropertyData: PropertyResponseObject = {
     asOf: "",
-    data: [],
     date: "",
     location: "",
-    user_id: 0
+    user_id: 0,
+    floorplans: {},
+    vacancy: {},
+    totalUnits: 0,
+    data: [],
 };
 
 export function PropertyProfile() {
@@ -32,6 +39,11 @@ export function PropertyProfile() {
     useEffect(() => {
         propertyDataRequest()
     }, [])
+
+    useEffect(() => {
+        console.log("### PROP DATA")
+        console.log(propertyDataObject)
+    }, [propertyDataObject])
 
     const propertyDataRequest = async () => {
         console.log(`fetching data for property: ${objectId}`)
@@ -59,7 +71,7 @@ export function PropertyProfile() {
         return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
     }
 
-    const totalUnits = propertyDataObject.data.length
+    const totalUnits = propertyDataObject.totalUnits
 
     return (
         <Box
@@ -103,10 +115,27 @@ export function PropertyProfile() {
                         </Button>
                     </Flex>
                 </Box>
-
-                <PropertyVacancy propertyData={propertyDataObject.data} />
-                <PropertyFloorPlanMrkAvg propertyData={propertyDataObject.data} />
-                <PropertyFloorPlan propertyData={propertyDataObject.data} />
+                <Box p={6} width={"33%"}>
+                    <Flex alignItems="center" mb={4}>
+                        <Icon as={BiBuilding} boxSize={8} mr={2} />
+                        <Text fontWeight="bold" fontSize="xl" color={textColor}>Vacancy</Text>
+                    </Flex>
+                    <Vacancy vacants={propertyDataObject.vacancy} />
+                </Box>
+                <Box p={6} width={"33%"}>
+                    <Flex alignItems="center" mb={4}>
+                        <Icon as={MdPieChart} boxSize={8} mr={2} />
+                        <Text fontWeight="bold" fontSize="xl" color={textColor}>Floor Plan Survey</Text>
+                    </Flex>
+                    <FloorPlanCount floorplans={propertyDataObject.floorplans} />
+                </Box>
+                <Box p={6} width={"33%"}>
+                    <Flex alignItems="center" mb={4}>
+                        <Icon as={FaSearchDollar} boxSize={8} mr={2} />
+                        <Text fontWeight="bold" fontSize="xl" color={textColor}>Floor Plan Average Market Value</Text>
+                    </Flex>
+                    <FloorPlanAvg floorplans={propertyDataObject.floorplans} />
+                </Box>
             </Flex>
         </Box>
     );

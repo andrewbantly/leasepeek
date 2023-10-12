@@ -57,9 +57,5 @@ export function FloorPlanAvg({ floorplans }: FloorPlanAvgProps) {
         }
     ];
 
-    return (
-    <>
-    <Chart options={options} series={series} type="bar" height="300px"/>
-    </>
-    );
+    return <Chart options={options} series={series} type="bar" height="300px"/>;
 }

@@ -1,8 +1,8 @@
 import { Flex, Button, Box, Text, Badge, useColorModeValue, VStack, Icon } from "@chakra-ui/react";
 import { FaBuilding } from "react-icons/fa";
-import { Vacancy } from "./vacancy";
-import { FloorPlanAvg } from "./floorPlanAVG";
-import { FloorPlanCount } from "./floorPlanCount";
+import { Vacancy } from "../property-data-components/vacancy";
+import { FloorPlanAvg } from "../property-data-components/floorPlanMrkAvg";
+import { FloorPlanCount } from "../property-data-components/floorPlanCount";
 import { useNavigate } from "react-router-dom";
 import { Property } from '../../interfaces/profileProps'
 

@@ -4,11 +4,30 @@ export interface PropertyProfileComponentProps {
 
 export interface PropertyResponseObject {
     asOf: string;
-    data: PropertyDataItem[];
-    date: string;
+    date: ISODateString;
     location: string;
     user_id: number;
+    vacancy: Vacancy;
+    floorplans: FloorPlans;
+    totalUnits: number;
+    data: PropertyDataItem[];
 }
+
+export interface Vacancy {
+    [key: string]: number;
+}
+
+type FloorPlanName = string;
+
+interface FloorPlanDetails {
+    average: number;
+    count: number;
+    sum: number;
+}
+type FloorPlans = Record<FloorPlanName, FloorPlanDetails>;
+
+type ISODateString = string;
+
 
 export interface PropertyDataItem {
     address: string | null;

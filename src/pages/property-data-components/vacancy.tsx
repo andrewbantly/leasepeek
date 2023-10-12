@@ -43,9 +43,5 @@ export function Vacancy({ vacants }: VacancyProps) {
         }]
     } as any;
 
-    return (
-        <div>
-            <Chart options={options} series={series} type="donut" width="375" />
-        </div>
-    );
+    return <Chart options={options} series={series} type="donut" width="375" />;
 }
