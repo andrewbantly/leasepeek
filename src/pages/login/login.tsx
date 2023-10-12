@@ -22,6 +22,7 @@ export function Login({ currentUser, setCurrentUser }: UserProps) {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
+    const [message, setMessage] = useState('')
     const navigate = useNavigate()
 
     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)
@@ -36,6 +37,8 @@ export function Login({ currentUser, setCurrentUser }: UserProps) {
                 password
             };
             const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/user/login`, request);
+            console.log("### Response")
+            console.log(response)
             const { access } = response.data;
             localStorage.setItem('jwt', access);
             const decoded = jwt_decode(access) as DecodedToken;
@@ -46,6 +49,9 @@ export function Login({ currentUser, setCurrentUser }: UserProps) {
             navigate('/')
         } catch (error) {
             console.error("Error decoding the token", error);
+            setMessage('Incorrect username or password.')
+            setEmail('')
+            setPassword('')
         }
     }
 
@@ -83,6 +89,7 @@ export function Login({ currentUser, setCurrentUser }: UserProps) {
                             </Text>
                         </Link>
                     </Text>
+                    <Text color={'red.500'} opacity={message ? 1 : 0} transition="opacity 0.3s">{message || "Placeholder"}</Text>
                 </Stack>
             </Stack>
         </Flex>
