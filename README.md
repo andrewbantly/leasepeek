@@ -1,6 +1,6 @@
 ### [Link to Server Repository](https://github.com/andrewbantly/leasepeek-server)
 ### Objective
-The frontend of this application should allow a user signup  to upload an excel file (such as .xlsx), click on previous data uploads, and visualize data. It should also reroute a user who is not logged in / signed up. 
+The frontend of the application is designed to enable authorized users to upload rent roll data via Excel files (.xlsx), view a history of their uploads with preliminary data visualizations, and access detailed reports on individual properties by selecting a specific upload. Additionally, the system should automatically redirect users who are not logged in or registered to the appropriate authentication page. 
 
 ### Programming language: TypeScript
 ### Framework: React
@@ -8,7 +8,7 @@ The frontend of this application should allow a user signup  to upload an excel 
 ## User Stories
 
 1. As a user, I want to see a dashboard of information when I login
-2. As a user I want to sort my units by preformance 
+2. As a user I want to sort my units by preformance or upload date
 3. As a user I want to click into a profile of a unit and see unit information
 
 ## Routing
