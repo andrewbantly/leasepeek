@@ -1,3 +1,4 @@
+### [Link to Server Repository](https://github.com/andrewbantly/leasepeek-server)
 ### Objective
 The frontend of this application should allow a user signup  to upload an excel file (such as .xlsx), click on previous data uploads, and visualize data. It should also reroute a user who is not logged in / signed up. 
 
