@@ -20,17 +20,22 @@ import { FaSearchDollar, FaDollarSign, FaMoneyBill, FaMoneyBillWave, FaMoneyBill
 import { FloorPlanCount } from '../property-data-components/floorPlanCount';
 import { FloorPlanAvg } from '../property-data-components/floorPlanMrkAvg';
 import { FloorPlanAvgRent } from '../property-data-components/floorPlanRentAvg';
-import { IncomePotential } from '../property-data-components/incomePotential';
+import { LossToLease } from '../property-data-components/lossToLease';
 
 const defaultPropertyData: PropertyResponseObject = {
+    user_id: 0,
+    location: "",
     asOf: "",
     date: "",
-    location: "",
-    user_id: 0,
-    floorplans: {},
     vacancy: {},
+    floorplans: {},
     totalUnits: 0,
-    data: [],
+    lossToLease: {
+        marketSum: 0,
+        rentIncome: 0,
+    },
+    recentLeases: {},
+    expiringLeases: {},
 };
 
 export function PropertyProfile() {
@@ -119,7 +124,7 @@ export function PropertyProfile() {
                             Uploaded: {formatDate(propertyDataObject.date)} PST
                         </Text>
 
-                        <PropertyAlerts propertyData={propertyDataObject.data} asOf={propertyDataObject.asOf}/>
+                        {/* <PropertyAlerts propertyData={propertyDataObject.data} asOf={propertyDataObject.asOf}/> */}
                     </Box>
 
                     <Flex>
@@ -143,7 +148,7 @@ export function PropertyProfile() {
                         <Icon as={FaSearchDollar} boxSize={8} mr={2} />
                         <Text fontWeight="bold" fontSize="xl" color={textColor}>Income Potential</Text>
                     </Flex>
-                    <IncomePotential propertyData={propertyDataObject.data}/>
+                    <LossToLease lossToLease={propertyDataObject.lossToLease}/>
                 </Box>
                 <Box p={6} width={"33%"}>
                     <Flex alignItems="center" mb={4}>

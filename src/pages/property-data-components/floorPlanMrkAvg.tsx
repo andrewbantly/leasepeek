@@ -1,28 +1,21 @@
 import Chart from 'react-apexcharts';
 import { useColorModeValue } from '@chakra-ui/react';
 
-interface FloorPlanAvgProps {
-    floorplans: LocalFloorPlans;
-}
-
-type LocalFloorPlans = Record<FloorPlanCategory, FloorPlanDetails>;
-type FloorPlanCategory = string;
-
-interface MarketRentDetails {
-    average: number;
-    count: number;
-    sum: number;
-}
-
 interface FloorPlanDetails {
-    market: MarketRentDetails;
-    rent: MarketRentDetails;
+    avgRent: number;
+    sumRent: number;
+    avgMarket: number;
+    sumMarket: number;
+    unitCount: number;
+    avgSqft: number;
 }
+type FloorPlanCategory = string;
+type LocalFloorPlans = Record<FloorPlanCategory, FloorPlanDetails>;
 
-export function FloorPlanAvg({ floorplans }: FloorPlanAvgProps) {
+export function FloorPlanAvg({ floorplans }: { floorplans: LocalFloorPlans }) {
     const textColor = useColorModeValue("gray.800", 'white');
     const floorPlanNames = Object.keys(floorplans);
-    const avgValues = floorPlanNames.map(name => floorplans[name].market.average);
+    const avgMarket = floorPlanNames.map(name => floorplans[name].avgMarket);
 
     const options = {
         chart: {
@@ -58,7 +51,7 @@ export function FloorPlanAvg({ floorplans }: FloorPlanAvgProps) {
     const series = [
         {
             name: 'Average Market Value ($)',
-            data: avgValues
+            data: avgMarket
         }
     ];
 

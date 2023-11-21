@@ -3,21 +3,26 @@ import { useColorMode, useColorModeValue } from '@chakra-ui/react';
 import { Flex, Text } from '@chakra-ui/react';
 import { useRef } from 'react';
 
-interface IncomePotentialProps {
-    propertyData: any[];
+interface LossToLease {
+    marketSum: number;
+    rentIncome: number;
 }
 
-export function IncomePotential({ propertyData }: IncomePotentialProps) {
-    let totalMarketValue: number = 0;
-    let rentIncome: number = 0;
+interface IncomePotentialProps {
+    lossToLease: LossToLease;
+}
+
+export function LossToLease({ lossToLease }: IncomePotentialProps) {
+    const totalMarketValue: number = lossToLease.marketSum;
+    const rentIncome: number = lossToLease.rentIncome;
     
     const rentIncomeRef = useRef(0);
     const totalMarketValueRef = useRef(0);
     
-    propertyData.forEach(unit => {
-        totalMarketValue += unit.market;
-        rentIncome += unit.rent;
-    });
+    // propertyData.forEach(unit => {
+    //     totalMarketValue += unit.market;
+    //     rentIncome += unit.rent;
+    // });
     
     rentIncomeRef.current = rentIncome;
     totalMarketValueRef.current = totalMarketValue;
@@ -33,7 +38,7 @@ export function IncomePotential({ propertyData }: IncomePotentialProps) {
 
     const { colorMode } = useColorMode();
 
-    const rentIncomePercentage = (rentIncome / totalMarketValue) * 100;
+    const rentIncomePercentage = totalMarketValue > 0 ? (rentIncome / totalMarketValue) * 100 : 0;
 
     const percentColor = rentIncomePercentage > 50
         ? colorMode === "light" ? greenLightMode : greenDarkMode

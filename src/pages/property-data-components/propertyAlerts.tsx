@@ -1,12 +1,11 @@
 import { Box, Heading, Text } from "@chakra-ui/react";
-import { PropertyDataItem } from "../../interfaces/propertyProfileProps";
+// import { PropertyDataItem } from "../../interfaces/propertyProfileProps";
 
 export interface PropertyAlertProps {
-    propertyData: PropertyDataItem[];
     asOf: string;
 }
 
-export function PropertyAlerts({propertyData, asOf} : PropertyAlertProps) {
+export function PropertyAlerts({asOf} : PropertyAlertProps) {
     let totalBalance = 0
 
     const startDate = new Date(asOf)
@@ -14,14 +13,14 @@ export function PropertyAlerts({propertyData, asOf} : PropertyAlertProps) {
     ninetyDaysFromStart.setDate(startDate.getDate() + 90)
     let expiringLeases = 0
     
-    propertyData.forEach(element => {
-        totalBalance += element.balance
+    // propertyData.forEach(element => {
+    //     totalBalance += element.balance
 
-        const leaseExpireDate = new Date(element.leaseExpire)
-        if (leaseExpireDate >= startDate && leaseExpireDate <= ninetyDaysFromStart) {
-            expiringLeases += 1
-        }
-    });
+    //     const leaseExpireDate = new Date(element.leaseExpire)
+    //     if (leaseExpireDate >= startDate && leaseExpireDate <= ninetyDaysFromStart) {
+    //         expiringLeases += 1
+    //     }
+    // });
 
     function formatCurrency(amount: number): string {
         return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
