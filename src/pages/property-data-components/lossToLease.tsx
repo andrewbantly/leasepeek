@@ -19,11 +19,6 @@ export function LossToLease({ lossToLease }: IncomePotentialProps) {
     const rentIncomeRef = useRef(0);
     const totalMarketValueRef = useRef(0);
     
-    // propertyData.forEach(unit => {
-    //     totalMarketValue += unit.market;
-    //     rentIncome += unit.rent;
-    // });
-    
     rentIncomeRef.current = rentIncome;
     totalMarketValueRef.current = totalMarketValue;
     

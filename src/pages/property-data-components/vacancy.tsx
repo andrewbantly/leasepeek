@@ -1,5 +1,5 @@
 import Chart from 'react-apexcharts';
-import { Box, Heading, useColorMode, Text } from '@chakra-ui/react';
+import { Box, Heading, useColorMode, Text, useColorModeValue } from '@chakra-ui/react';
 import { stat } from 'fs';
 
 interface VacancyProps {
@@ -9,6 +9,7 @@ interface VacancyProps {
 export function Vacancy({ vacants }: VacancyProps) {
     const { colorMode } = useColorMode();
     const isDarkMode = colorMode === 'dark';
+    const additionalInformationColor = useColorModeValue("#1A202C", "#A0AEC0");
 
     const series: number[] = [];
     const labels: string[] = [];
@@ -55,9 +56,9 @@ export function Vacancy({ vacants }: VacancyProps) {
 
     const vacancyNotesInformation = 
         <>
-        <Heading as='h4' size='sm' mt={5}>Additional information:</Heading>
+        <Text size='sm' mt={5} color={additionalInformationColor}>Additional information:</Text>
         {Object.entries(vacancyNotes).map(([status, count], index) => (
-        <Text size="sm">{status}s: {count}</Text>
+        <Text color={additionalInformationColor} fontWeight='bold' size="sm">{status}s: {count}</Text>
         ))}
         </>
 

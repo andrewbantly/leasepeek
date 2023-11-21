@@ -1,6 +1,6 @@
 import { Box, Heading, Spacer, Text } from "@chakra-ui/react";
 import { ExpiringLeases, LossToLease } from "../../interfaces/propertyProfile/propertyProfileProps";
-import { useColorMode, useTheme } from '@chakra-ui/react';
+import { useColorMode, useTheme, useColorModeValue } from '@chakra-ui/react';
 import Chart from 'react-apexcharts';
 
 
@@ -11,6 +11,7 @@ interface PropertyAlertProps {
 
 export function ExpiringLeaseAnalysis({ expiringLeases, lossToLease }: PropertyAlertProps) {
     const { colorMode } = useColorMode();
+    const notesColor = useColorModeValue("#1A202C", "#A0AEC0");
     const theme = useTheme();
     const isDarkMode = colorMode === 'dark';
     const red = '#FF6B6B';
@@ -73,7 +74,7 @@ export function ExpiringLeaseAnalysis({ expiringLeases, lossToLease }: PropertyA
     return (
         <Box>
             <Chart options={options} series={series} type='pie' width='375'/>
-            <Heading as="h3" size="sm" mt={5}>
+            <Heading as="h3" size="sm" mt={5} color={notesColor}>
                 Leases expiring within 90 days:
                 <Text
                     display="inline"
@@ -83,7 +84,7 @@ export function ExpiringLeaseAnalysis({ expiringLeases, lossToLease }: PropertyA
                     {expiringIn90daysCount}
                 </Text>
             </Heading>
-            <Heading as="h3" size="sm" marginBottom="2">
+            <Heading as="h3" size="sm" marginBottom="2" color={notesColor}>
                 Rent value of expiring leases:
                 <Text
                     display="inline"
