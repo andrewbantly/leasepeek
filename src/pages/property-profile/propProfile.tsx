@@ -36,6 +36,29 @@ const defaultPropertyData: PropertyResponseObject = {
     },
     recentLeases: {},
     expiringLeases: {},
+    data: [
+        {
+            balance: 0,
+            charges: [
+                {
+                    code: '',
+                    value: 0,
+                }
+            ],
+            floorplan: '',
+            leaseExpire: '',
+            leaseStart: '',
+            market: 0,
+            moveIn: '',
+            moveOut: '',
+            otherDeposit: 0,
+            rent: 0,
+            residentDeposit: 0,
+            sqft: 0,
+            status: '',
+            total: 0,
+            unit: '',
+        }]
 };
 
 export function PropertyProfile() {
@@ -76,21 +99,21 @@ export function PropertyProfile() {
 
     const deleteProperty = async () => {
         try {
-                const token = localStorage.getItem('jwt');
-                await axios.delete(`${process.env.REACT_APP_SERVER_URL}/data/delete`, {
-                        headers: {
-                                'Authorization': `Bearer ${token}`
+            const token = localStorage.getItem('jwt');
+            await axios.delete(`${process.env.REACT_APP_SERVER_URL}/data/delete`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
                 },
                 params: {
-                        objectId: objectId
-                    }
-                });
-                navigate('/')
-            } catch (error) {
-                    console.error("Error delete property data", error)
-                }            
+                    objectId: objectId
+                }
+            });
+            navigate('/')
+        } catch (error) {
+            console.error("Error delete property data", error)
+        }
     }
-    
+
     return (
         <Box
             p={6}
@@ -148,7 +171,7 @@ export function PropertyProfile() {
                         <Icon as={FaSearchDollar} boxSize={8} mr={2} />
                         <Text fontWeight="bold" fontSize="xl" color={textColor}>Income Potential</Text>
                     </Flex>
-                    <LossToLease lossToLease={propertyDataObject.lossToLease}/>
+                    <LossToLease lossToLease={propertyDataObject.lossToLease} />
                 </Box>
                 <Box p={6} width={"33%"}>
                     <Flex alignItems="center" mb={4}>
@@ -169,7 +192,7 @@ export function PropertyProfile() {
                         <Icon as={FaCoins} boxSize={8} mr={2} />
                         <Text fontWeight="bold" fontSize="xl" color={textColor}>Floor Plan Average Rent</Text>
                     </Flex>
-                    <FloorPlanAvgRent floorplans={propertyDataObject.floorplans}/>
+                    <FloorPlanAvgRent floorplans={propertyDataObject.floorplans} />
                 </Box>
             </Flex>
         </Box>
