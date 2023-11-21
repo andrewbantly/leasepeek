@@ -1,15 +1,14 @@
-import { Box, Heading, Spacer, Text } from "@chakra-ui/react";
+import { Box, Heading, Text } from "@chakra-ui/react";
 import { ExpiringLeases, LossToLease } from "../../interfaces/propertyProfile/propertyProfileProps";
 import { useColorMode, useTheme, useColorModeValue } from '@chakra-ui/react';
 import Chart from 'react-apexcharts';
 
-
-interface PropertyAlertProps {
+interface ExpiringLeasesProps {
     expiringLeases: ExpiringLeases;
     lossToLease: LossToLease;
 }
 
-export function ExpiringLeaseAnalysis({ expiringLeases, lossToLease }: PropertyAlertProps) {
+export function ExpiringLeaseAnalysis({ expiringLeases, lossToLease }: ExpiringLeasesProps) {
     const { colorMode } = useColorMode();
     const notesColor = useColorModeValue("#1A202C", "#A0AEC0");
     const theme = useTheme();
