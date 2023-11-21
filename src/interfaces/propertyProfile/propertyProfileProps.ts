@@ -30,7 +30,7 @@ interface FloorPlanDetails {
     avgSqft: number;
 }
 
-interface LossToLease {
+export interface LossToLease {
     marketSum: number;
     rentIncome: number;
 }
@@ -51,7 +51,7 @@ interface LeaseInfo {
     average_rent: number;
 }
 
-interface ExpiringLeases {
+export interface ExpiringLeases {
     [floorPlanName: string]: {
         expiring_in_90_days: LeaseCountInfo;
         expired: LeaseCountInfo;
@@ -63,7 +63,7 @@ interface LeaseCountInfo {
     total_rent: number;
 }
 
-interface PropertyDataItem {
+export interface PropertyDataItem {
     balance: number;
     charges: Charge[];
     floorplan: string;
