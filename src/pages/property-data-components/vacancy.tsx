@@ -1,23 +1,31 @@
 import Chart from 'react-apexcharts';
-import { useColorMode } from '@chakra-ui/react';
+import { Box, Heading, useColorMode, Text } from '@chakra-ui/react';
+import { stat } from 'fs';
 
 interface VacancyProps {
-    vacants: {[key: string]: number;};
+    vacants: { [key: string]: number; };
 }
 
 export function Vacancy({ vacants }: VacancyProps) {
     const { colorMode } = useColorMode();
-    
     const isDarkMode = colorMode === 'dark';
-    
+
     const series: number[] = [];
     const labels: string[] = [];
 
+    const vacancyNotes: { [key: string]: number } = {};
+
     for (const [status, count] of Object.entries(vacants)) {
-        series.push(count as number);
-        labels.push(status);
+        if (status === 'Vacant' || status === 'Occupied' || status === 'Model' ||  status === 'Down') {
+            series.push(count as number);
+            labels.push(status);
+        }
+        else {
+            vacancyNotes[status] = count;
+        }
     }
-    
+
+    console.log("Vacancy Notes", vacancyNotes)
 
     const options = {
         labels: labels,
@@ -43,5 +51,17 @@ export function Vacancy({ vacants }: VacancyProps) {
         }]
     } as any;
 
-    return <Chart options={options} series={series} type="donut" width="375" />;
+    return (
+        <Box>
+            <Chart options={options} series={series} type="donut" width="375" />
+            <Heading as='h4' size='sm' mt={5}>Additional information:</Heading>
+
+            {
+                Object.entries(vacancyNotes).map(([status, count], index) => (
+                <Text size="sm">{status}s: {count}</Text>
+                ))
+            }
+
+        </Box>
+    )
 }
