@@ -27,9 +27,7 @@ export function Vacancy({ vacants }: VacancyProps) {
             vacancyNotes[status] = count;
         }
     }
-
-    console.log("Vacancy Notes", vacancyNotes)
-
+    
     const options = {
         labels: labels,
         chart: {
