@@ -14,6 +14,7 @@ export function Vacancy({ vacants }: VacancyProps) {
     const labels: string[] = [];
 
     const vacancyNotes: { [key: string]: number } = {};
+    let vacancyNotesExists: boolean = false;
 
     for (const [status, count] of Object.entries(vacants)) {
         if (status === 'Vacant' || status === 'Occupied' || status === 'Model' ||  status === 'Down') {
@@ -21,6 +22,7 @@ export function Vacancy({ vacants }: VacancyProps) {
             labels.push(status);
         }
         else {
+            vacancyNotesExists = true;
             vacancyNotes[status] = count;
         }
     }
@@ -51,16 +53,19 @@ export function Vacancy({ vacants }: VacancyProps) {
         }]
     } as any;
 
+    const vacancyNotesInformation = 
+        <>
+        <Heading as='h4' size='sm' mt={5}>Additional information:</Heading>
+        {Object.entries(vacancyNotes).map(([status, count], index) => (
+        <Text size="sm">{status}s: {count}</Text>
+        ))}
+        </>
+
     return (
         <Box>
             <Chart options={options} series={series} type="donut" width="375" />
-            <Heading as='h4' size='sm' mt={5}>Additional information:</Heading>
 
-            {
-                Object.entries(vacancyNotes).map(([status, count], index) => (
-                <Text size="sm">{status}s: {count}</Text>
-                ))
-            }
+             {vacancyNotesExists ? vacancyNotesInformation : ''} 
 
         </Box>
     )
