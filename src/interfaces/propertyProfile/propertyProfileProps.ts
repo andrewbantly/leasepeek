@@ -35,7 +35,7 @@ export interface LossToLease {
     rentIncome: number;
 }
 
-interface RecentLeases {
+export interface RecentLeases {
     [floorPlanName: string]: {
         recent_two: LeaseInfo;
         recent_leases: {
