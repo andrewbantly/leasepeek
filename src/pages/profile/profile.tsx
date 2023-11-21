@@ -5,7 +5,7 @@ import axios from 'axios';
 import { PropertyCards } from '../property-cards/propertyCards';
 import { Box, Heading, Flex, Icon, VStack, Input, Text } from '@chakra-ui/react';
 import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
-import { ResponseObject } from '../../interfaces/profileProps'
+import { ResponseObject } from '../../interfaces/profile/profileProps'
 
 export function Profile({ currentUser, setCurrentUser }: UserProps) {
     const [responseObject, setResponseObject] = useState<ResponseObject>({});

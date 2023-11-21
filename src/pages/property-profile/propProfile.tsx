@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { FaBuilding } from "react-icons/fa";
 import { PropertyAlerts } from '../property-data-components/propertyAlerts';
-import { PropertyResponseObject } from "../../interfaces/propertyProfileProps";
+import { PropertyResponseObject } from "../../interfaces/propertyProfile/propertyProfileProps";
 import { Vacancy } from '../property-data-components/vacancy';
 import { BiBuilding } from 'react-icons/bi';
 import { MdPieChart } from 'react-icons/md';

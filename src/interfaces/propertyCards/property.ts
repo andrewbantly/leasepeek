@@ -1,9 +1,3 @@
-export interface ResponseObject {
-    data?: Property[];
-    message?: string;
-}
-type ISODateString = string;
-
 export interface Property {
     location: string;
     date: ISODateString;
@@ -14,9 +8,13 @@ export interface Property {
     floorplans: FloorPlans;
 }
 
+type ISODateString = string;
+
 interface Vacancy {
     [key: string]: number;
 }
+
+type FloorPlans = Record<FloorPlanName, FloorPlanDetails>;
 
 type FloorPlanName = string;
 
@@ -29,4 +27,3 @@ interface FloorPlanDetails {
     avgSqft: number;
 }
 
-type FloorPlans = Record<FloorPlanName, FloorPlanDetails>;

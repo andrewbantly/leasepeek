@@ -4,7 +4,7 @@ import { Vacancy } from "../property-data-components/vacancy";
 import { FloorPlanAvg } from "../property-data-components/floorPlanMrkAvg";
 import { FloorPlanCount } from "../property-data-components/floorPlanCount";
 import { useNavigate } from "react-router-dom";
-import { Property } from '../../interfaces/profileProps'
+import { Property } from '../../interfaces/propertyCards/property'
 
 interface PropertyCardsProps {
     property: Property;
