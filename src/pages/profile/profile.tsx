@@ -85,7 +85,7 @@ export function Profile({ currentUser, setCurrentUser }: UserProps) {
                                 onChange={handleSearchChange}
                             />
                             <Flex align="center" ml={4}>
-                                <Text>Sort by Date:</Text>
+                                <Text>Sort by upload date:</Text>
                                 <Icon
                                     as={isSortedAsc ? FaArrowUp : FaArrowDown}
                                     onClick={toggleSortOrder}
