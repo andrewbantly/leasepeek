@@ -95,8 +95,13 @@ export function PropertyProfile() {
         return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
     }
 
+    function formatCurrency(amount: number): string {
+        return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+    };
+    
     const totalUnits = propertyDataObject.totalUnits
-
+    const totalRent = formatCurrency(propertyDataObject.lossToLease.rentIncome);
+    
     const deleteProperty = async () => {
         try {
             const token = localStorage.getItem('jwt');
@@ -146,6 +151,9 @@ export function PropertyProfile() {
                         <Text fontSize="xs" color={textColor} mb={3}>
                             Uploaded: {formatDate(propertyDataObject.date)} PST
                         </Text>
+                        <Text fontSize="lg" color={textColor} mb={2}>
+                            Generated Rent: {totalRent}
+                        </Text>
                     </Box>
 
                     <Flex>
@@ -156,13 +164,6 @@ export function PropertyProfile() {
                             Delete Rent Roll Upload
                         </Button>
                     </Flex>
-                </Box>
-                <Box p={6} width={"33%"}>
-                    <Flex alignItems='center' mb={4}>
-                        <Icon as={FaMoneyBillWave} boxSize={8} mr={2}/>
-                        <Text fontWeight="bold" fontSize="xl" color={textColor}>Expiring Leases</Text>
-                    </Flex>
-                    <ExpiringLeaseAnalysis expiringLeases={propertyDataObject.expiringLeases} lossToLease={propertyDataObject.lossToLease}/>
                 </Box>
                 <Box p={6} width={"33%"}>
                     <Flex alignItems="center" mb={4}>
@@ -177,6 +178,13 @@ export function PropertyProfile() {
                         <Text fontWeight="bold" fontSize="xl" color={textColor}>Income Potential</Text>
                     </Flex>
                     <LossToLease lossToLease={propertyDataObject.lossToLease} />
+                </Box>
+                <Box p={6} width={"33%"}>
+                    <Flex alignItems='center' mb={4}>
+                        <Icon as={FaMoneyBillWave} boxSize={8} mr={2}/>
+                        <Text fontWeight="bold" fontSize="xl" color={textColor}>Expiring Leases Rent Loss</Text>
+                    </Flex>
+                    <ExpiringLeaseAnalysis expiringLeases={propertyDataObject.expiringLeases} lossToLease={propertyDataObject.lossToLease}/>
                 </Box>
                 <Box p={6} width={"33%"}>
                     <Flex alignItems="center" mb={4}>
