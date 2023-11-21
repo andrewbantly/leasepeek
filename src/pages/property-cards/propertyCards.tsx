@@ -32,7 +32,7 @@ export function PropertyCards({ property, deleteProperty }: PropertyCardsProps) 
 
     return (
         <Box
-            h="350px"
+            h="400px"
             borderWidth="1px"
             borderRadius="lg"
             overflow="hidden"
@@ -47,7 +47,7 @@ export function PropertyCards({ property, deleteProperty }: PropertyCardsProps) 
         >
             <Flex>
                 <VStack spacing={4} alignItems="start">
-                    <Icon as={FaBuilding} boxSize={8} color={textColor} />
+                    <Icon as={FaBuilding} boxSize={6} color={textColor} />
                     <Text fontWeight="bold" fontSize="xl" color={textColor} maxW="260px">
                         {location}
                     </Text>
