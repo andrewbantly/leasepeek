@@ -13,7 +13,7 @@ import {
 import { PropertyResponseObject } from "../../interfaces/propertyProfile/propertyProfileProps";
 import { Vacancy } from '../property-data-components/vacancy';
 import { ExpiringLeaseAnalysis } from '../property-data-components/expiringLeases';
-import { FaBuilding } from "react-icons/fa";
+import { FaBuilding, FaRegMoneyBillAlt } from "react-icons/fa";
 import { BiBuilding } from 'react-icons/bi';
 import { MdPieChart } from 'react-icons/md';
 import { FaSearchDollar, FaDollarSign, FaMoneyBill, FaMoneyBillWave, FaMoneyBillAlt, FaMoneyCheck, FaMoneyCheckAlt, FaCoins, FaChartLine, FaChartBar, FaChartPie, FaChartArea, FaBalanceScale, FaExchangeAlt } from 'react-icons/fa';
@@ -21,6 +21,7 @@ import { FloorPlanCount } from '../property-data-components/floorPlanCount';
 import { FloorPlanAvg } from '../property-data-components/floorPlanMrkAvg';
 import { FloorPlanAvgRent } from '../property-data-components/floorPlanRentAvg';
 import { LossToLease } from '../property-data-components/lossToLease';
+import { RecentSignedLeases } from '../property-data-components/recentSignedLeases';
 
 const defaultPropertyData: PropertyResponseObject = {
     user_id: 0,
@@ -185,6 +186,13 @@ export function PropertyProfile() {
                         <Text fontWeight="bold" fontSize="xl" color={textColor}>Expiring Leases Rent Loss</Text>
                     </Flex>
                     <ExpiringLeaseAnalysis expiringLeases={propertyDataObject.expiringLeases} lossToLease={propertyDataObject.lossToLease}/>
+                </Box>
+                <Box p={6} width={"33%"}>
+                    <Flex alignItems="center" mb={4}>
+                        <Icon as={FaMoneyCheckAlt} boxSize={8} mr={2} />
+                        <Text fontWeight="bold" fontSize='xl' color={textColor}>Recently Signed Leases</Text>
+                    </Flex>
+                    <RecentSignedLeases recentLeases={propertyDataObject.recentLeases}/>
                 </Box>
                 <Box p={6} width={"33%"}>
                     <Flex alignItems="center" mb={4}>
