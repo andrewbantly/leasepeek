@@ -10,10 +10,10 @@ import {
     Button,
     useColorModeValue
 } from '@chakra-ui/react';
-import { FaBuilding } from "react-icons/fa";
-import { PropertyAlerts } from '../property-data-components/propertyAlerts';
 import { PropertyResponseObject } from "../../interfaces/propertyProfile/propertyProfileProps";
 import { Vacancy } from '../property-data-components/vacancy';
+import { ExpiringLeaseAnalysis } from '../property-data-components/expiringLeases';
+import { FaBuilding } from "react-icons/fa";
 import { BiBuilding } from 'react-icons/bi';
 import { MdPieChart } from 'react-icons/md';
 import { FaSearchDollar, FaDollarSign, FaMoneyBill, FaMoneyBillWave, FaMoneyBillAlt, FaMoneyCheck, FaMoneyCheckAlt, FaCoins, FaChartLine, FaChartBar, FaChartPie, FaChartArea, FaBalanceScale, FaExchangeAlt } from 'react-icons/fa';
@@ -146,8 +146,6 @@ export function PropertyProfile() {
                         <Text fontSize="xs" color={textColor} mb={3}>
                             Uploaded: {formatDate(propertyDataObject.date)} PST
                         </Text>
-
-                        {/* <PropertyAlerts propertyData={propertyDataObject.data} asOf={propertyDataObject.asOf}/> */}
                     </Box>
 
                     <Flex>
@@ -158,6 +156,13 @@ export function PropertyProfile() {
                             Delete Rent Roll Upload
                         </Button>
                     </Flex>
+                </Box>
+                <Box p={6} width={"33%"}>
+                    <Flex alignItems='center' mb={4}>
+                        <Icon as={FaMoneyBillWave} boxSize={8} mr={2}/>
+                        <Text fontWeight="bold" fontSize="xl" color={textColor}>Expiring Leases</Text>
+                    </Flex>
+                    <ExpiringLeaseAnalysis expiringLeases={propertyDataObject.expiringLeases} lossToLease={propertyDataObject.lossToLease}/>
                 </Box>
                 <Box p={6} width={"33%"}>
                     <Flex alignItems="center" mb={4}>
