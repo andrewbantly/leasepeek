@@ -9,11 +9,17 @@ export interface PropertyResponseObject {
     lossToLease: LossToLease;
     recentLeases: RecentLeases;
     expiringLeases: ExpiringLeases;
+    data: PropertyDataItem[];
 }
+
+type ISODateString = string;
 
 interface Vacancy {
     [key: string]: number;
 }
+type FloorPlans = Record<FloorPlanName, FloorPlanDetails>;
+
+type FloorPlanName = string;
 
 interface FloorPlanDetails {
     avgRent: number;
@@ -23,10 +29,6 @@ interface FloorPlanDetails {
     unitCount: number;
     avgSqft: number;
 }
-
-type FloorPlanName = string;
-
-type FloorPlans = Record<FloorPlanName, FloorPlanDetails>;
 
 interface LossToLease {
     marketSum: number;
@@ -43,6 +45,11 @@ interface RecentLeases {
         };
     };
 }
+interface LeaseInfo {
+    count: number;
+    total_rent: number;
+    average_rent: number;
+}
 
 interface ExpiringLeases {
     [floorPlanName: string]: {
@@ -51,15 +58,30 @@ interface ExpiringLeases {
     };
 }
 
-interface LeaseInfo {
-    count: number;
-    total_rent: number;
-    average_rent: number;
-}
-
 interface LeaseCountInfo {
     count: number;
     total_rent: number;
 }
 
-type ISODateString = string;
+interface PropertyDataItem {
+    balance: number;
+    charges: Charge[];
+    floorplan: string;
+    leaseExpire: string;
+    leaseStart: string | null;
+    market: number;
+    moveIn: string;
+    moveOut: string;
+    otherDeposit: number;
+    rent: number;
+    residentDeposit: number;
+    sqft: number;
+    status: string | null;
+    total: number;
+    unit: string;
+}
+
+interface Charge {
+    code: string;
+    value: number;
+}
