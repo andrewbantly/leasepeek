@@ -90,6 +90,8 @@ export function PropertyProfile() {
     }
     const bgColor = useColorModeValue("gray.300", "gray.900");
     const textColor = useColorModeValue("gray.800", "gray.200");
+    const labelColor = useColorModeValue("#1A202C", "#A0AEC0");
+
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
@@ -99,10 +101,10 @@ export function PropertyProfile() {
     function formatCurrency(amount: number): string {
         return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
     };
-    
+
     const totalUnits = propertyDataObject.totalUnits
     const totalRent = formatCurrency(propertyDataObject.lossToLease.rentIncome);
-    
+
     const deleteProperty = async () => {
         try {
             const token = localStorage.getItem('jwt');
@@ -133,28 +135,39 @@ export function PropertyProfile() {
         >
             <Flex direction="row" alignItems="stretch" wrap='wrap'>
                 <Box p={6} width={"33%"} flex="1" display="flex" flexDirection="column">
-                    <Box flex="1">
+                    <Box mb={10}>
                         <Flex alignItems="center" mb={3}>
                             <Icon as={FaBuilding} boxSize={8} color={textColor} />
                             <Text fontWeight="bold" fontSize="xl" color={textColor} ml={4}>
                                 {propertyDataObject ? propertyDataObject.location : "Loading..."}
                             </Text>
                         </Flex>
-
-                        <Text fontSize="lg" color={textColor} mb={2}>
-                            Total units: {totalUnits}
+                        <Text fontSize="xs" color={labelColor}>
+                            Rent Roll Uploaded: {formatDate(propertyDataObject.date)}
                         </Text>
 
-                        <Badge borderRadius="full" width={"fit-content"} px="2" colorScheme="teal" mb={2}>
-                            Data as of: {propertyDataObject.asOf}
-                        </Badge>
+                        <Box mt={5}>
+                            <Text fontSize="lg" color={textColor}>
+                                Data As Of: 
+                                <Text display='inline' ml={1}  fontSize="lg" color="teal.500" fontWeight='bold'>
+                                    {propertyDataObject.asOf}
+                                </Text>
+                            </Text>
 
-                        <Text fontSize="xs" color={textColor} mb={3}>
-                            Uploaded: {formatDate(propertyDataObject.date)} PST
-                        </Text>
-                        <Text fontSize="lg" color={textColor} mb={2}>
-                            Generated Rent: {totalRent}
-                        </Text>
+                            <Text fontSize="lg" color={textColor}>
+                                Total units: 
+                                <Text display='inline' ml={1}  fontSize="lg" color="teal.500" fontWeight='bold'>
+                                    {totalUnits}
+                                    </Text>
+                            </Text>
+
+                            <Text fontSize="lg" color={textColor} mb={2}>
+                                Total Lease Charges: 
+                                <Text display='inline' ml={1}  fontSize="lg" color="teal.500" fontWeight='bold'>
+                                    {totalRent}
+                                    </Text>
+                            </Text>
+                        </Box>
                     </Box>
 
                     <Flex>
@@ -162,7 +175,7 @@ export function PropertyProfile() {
                             e.stopPropagation();
                             deleteProperty()
                         }}>
-                            Delete Rent Roll Upload
+                            Delete Rent Roll
                         </Button>
                     </Flex>
                 </Box>
@@ -182,17 +195,17 @@ export function PropertyProfile() {
                 </Box>
                 <Box p={6} width={"33%"}>
                     <Flex alignItems='center' mb={4}>
-                        <Icon as={FaMoneyBillWave} boxSize={8} mr={2}/>
+                        <Icon as={FaMoneyBillWave} boxSize={8} mr={2} />
                         <Text fontWeight="bold" fontSize="xl" color={textColor}>Expiring Leases Rent Loss</Text>
                     </Flex>
-                    <ExpiringLeaseAnalysis expiringLeases={propertyDataObject.expiringLeases} lossToLease={propertyDataObject.lossToLease}/>
+                    <ExpiringLeaseAnalysis expiringLeases={propertyDataObject.expiringLeases} lossToLease={propertyDataObject.lossToLease} />
                 </Box>
                 <Box p={6} width={"33%"}>
                     <Flex alignItems="center" mb={4}>
                         <Icon as={FaMoneyCheckAlt} boxSize={8} mr={2} />
                         <Text fontWeight="bold" fontSize='xl' color={textColor}>Recently Signed Leases</Text>
                     </Flex>
-                    <RecentSignedLeases recentLeases={propertyDataObject.recentLeases} floorplans={propertyDataObject.floorplans}/>
+                    <RecentSignedLeases recentLeases={propertyDataObject.recentLeases} floorplans={propertyDataObject.floorplans} />
                 </Box>
                 <Box p={6} width={"33%"}>
                     <Flex alignItems="center" mb={4}>
