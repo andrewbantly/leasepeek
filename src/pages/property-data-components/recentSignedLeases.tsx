@@ -105,6 +105,10 @@ export function RecentSignedLeases({ recentLeases, floorplans }: RecentLeaseProp
                 text: 'Avg Lease per SqFt ($)'
             }
         },
+        title: {
+            text: 'Avg Lease per SqFt of Recent Leases',
+            align: 'center'
+        },
         tooltip: {
             theme: useColorModeValue('light', 'dark')
         }
