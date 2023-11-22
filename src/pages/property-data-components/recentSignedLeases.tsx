@@ -1,6 +1,7 @@
 import { RecentLeases } from "../../interfaces/propertyProfile/propertyProfileProps";
 import Chart from 'react-apexcharts';
-import { useColorModeValue } from '@chakra-ui/react';
+import { Heading, Text, useColorModeValue } from '@chakra-ui/react';
+
 
 interface RecentLeaseProps {
     recentLeases: RecentLeases;
@@ -20,44 +21,64 @@ type LocalFloorPlans = Record<FloorPlanCategory, FloorPlanDetails>;
 
 export function RecentSignedLeases({ recentLeases, floorplans }: RecentLeaseProps) {
     const textColor = useColorModeValue("gray.800", 'white');
+    const additionalInformationColor = useColorModeValue("#1A202C", "#A0AEC0");
 
-    let sqFt_90_days: number = 0;
-    let avgRent_90_days: number = 0;
-    let sqFt_rent_60_days: number = 0;
-    let avgRent_60_days: number = 0;
-    let sqFt_rent_30_days: number = 0;
-    let avgRent_30_days: number = 0;
-
+    let sqFt90Days: number = 0;
+    let avgRent90Days: number = 0;
+    let leaseCount90Days: number = 0;
+    let sqFt60Days: number = 0;
+    let avgRent60Days: number = 0;
+    let leaseCount60Days: number = 0;
+    let sqFt30Days: number = 0;
+    let avgRent30Days: number = 0;
+    let leaseCount30Days: number = 0;
+    
+    let sqFtDataExists = false
 
     for (const key in recentLeases) {
         const rentData = recentLeases[key];
         const sqFtData = floorplans[key].avgSqft
         
-        avgRent_90_days += rentData.recent_leases.last_90_days.average_rent
+        if (sqFtData > 0) {
+            sqFtDataExists = true
+        }
+        
+        leaseCount90Days += rentData.recent_leases.last_90_days.count
+        avgRent90Days += rentData.recent_leases.last_90_days.average_rent
         // Only add sqFt if the average rent is greater than 0
         if (rentData.recent_leases.last_90_days.average_rent > 0) {
-            sqFt_90_days += sqFtData
+            sqFt90Days += sqFtData
         }
-
-        avgRent_60_days += rentData.recent_leases.last_60_days.average_rent
+        
+        leaseCount60Days += rentData.recent_leases.last_60_days.count
+        avgRent60Days += rentData.recent_leases.last_60_days.average_rent
         if (rentData.recent_leases.last_60_days.average_rent) {
-            sqFt_rent_60_days += sqFtData
+            sqFt60Days += sqFtData
         }
-
-        avgRent_30_days += rentData.recent_leases.last_30_days.average_rent
+        
+        leaseCount30Days += rentData.recent_leases.last_30_days.count
+        avgRent30Days += rentData.recent_leases.last_30_days.average_rent
         if (rentData.recent_leases.last_30_days.average_rent) {
-            sqFt_rent_30_days += sqFtData
+            sqFt30Days += sqFtData
         }
     }
+    console.log("Avg rent 90 days", avgRent90Days)
+    console.log("Avg rent 60 days", avgRent60Days)
+    console.log("Avg rent 30 days", avgRent30Days)
 
-    const rent_30_days_avg: number = parseFloat((avgRent_90_days / sqFt_90_days).toFixed(2))
-    const rent_60_days_avg: number = parseFloat((avgRent_60_days / sqFt_rent_60_days).toFixed(2))
-    const rent_90_days_avg: number = parseFloat((avgRent_30_days / sqFt_rent_30_days).toFixed(2))
+    console.log("sqft 90 days", sqFt90Days)
+    console.log("sqft 60 days", sqFt60Days)
+    console.log("sqft 30 days", sqFt30Days)
+
+
+    const rent30DaysAvg: number = parseFloat((avgRent90Days / sqFt90Days).toFixed(2))
+    const rent60DaysAvg: number = parseFloat((avgRent60Days / sqFt60Days).toFixed(2))
+    const rent90DaysAvg: number = parseFloat((avgRent30Days / sqFt30Days).toFixed(2))
 
     const labels: string[] = ['Previous 90 Days', 'Previous 60 Days', 'Previous 30 Days']
     const series = [{
-        name: "Avg Rent per SqFt ($)",
-        data: [rent_90_days_avg, rent_60_days_avg, rent_30_days_avg]
+        name: "Avg Lease per SqFt ($)",
+        data: [rent90DaysAvg, rent60DaysAvg, rent30DaysAvg]
     }];
 
     const options = {
@@ -81,7 +102,7 @@ export function RecentSignedLeases({ recentLeases, floorplans }: RecentLeaseProp
         },
         yaxis: {
             title: {
-                text: 'Avg Rent per SqFt ($)'
+                text: 'Avg Lease per SqFt ($)'
             }
         },
         tooltip: {
@@ -89,9 +110,31 @@ export function RecentSignedLeases({ recentLeases, floorplans }: RecentLeaseProp
         }
     } as any;
 
+    const leaseCount90DayNote = 
+    <>
+    <Text color={additionalInformationColor} size="sm">Leases signed in the last 90 days:<Text display='inline' ml={1} fontSize="md" color="teal.500" fontWeight='bold'>{leaseCount90Days}</Text></Text>
+    </>
+    const leaseCount60DayNote = 
+    <>
+    <Text color={additionalInformationColor} size="sm">Leases signed in the last 60 days:<Text display='inline' ml={1} fontSize="md" color="teal.500" fontWeight='bold'>{leaseCount60Days}</Text></Text>
+    </>
+    const leaseCount30DayNote = 
+    <>
+    <Text color={additionalInformationColor} size="sm">Leases signed in the last 30 days:<Text display='inline' ml={1} fontSize="md" color="teal.500" fontWeight='bold'>{leaseCount30Days}</Text></Text>
+    </>
+
+    const chart = <Chart options={options} series={series} type="line" height="300px" />
+
+    const noSqFtDataResponse = <Text fontWeight="bold" fontSize='md' color={textColor} mb={5}><Text  fontWeight="bold" fontSize='md' color='red' display='inline'>Error: </Text>Cannot create chart. SqFt data not included in rent roll.</Text>
+
 
 
     return (
-        <Chart options={options} series={series} type="line" height="300px" />
+        <>
+        {sqFtDataExists ? chart : noSqFtDataResponse}
+        {leaseCount90Days > 0 ? leaseCount90DayNote : ''}
+        {leaseCount60Days > 0 ? leaseCount60DayNote : ''}
+        {leaseCount30Days > 0 ? leaseCount30DayNote : ''}
+        </>
     )
 }
