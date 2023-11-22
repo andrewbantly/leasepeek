@@ -71,28 +71,30 @@ export function ExpiringLeaseAnalysis({ expiringLeases, lossToLease }: ExpiringL
     } as any;
 
     return (
-        <Box>
+        <Box pt={3}>
             <Chart options={options} series={series} type='pie' width='375'/>
-            <Heading as="h3" size="sm" mt={5} color={notesColor}>
+            <Text as="h3" size="sm" mt={5} color={notesColor}>
                 Leases expiring within 90 days:
                 <Text
                     display="inline"
-                    color={expiringIn90daysCount > 0 ? "red.400" : "teal.500"}
-                    ml={"5px"}
+                    color={expiringIn90daysCount > 0 ? "red.500" : "teal.500"}
+                    ml={1}
+                    fontWeight='bold'
                 >
                     {expiringIn90daysCount}
                 </Text>
-            </Heading>
-            <Heading as="h3" size="sm" marginBottom="2" color={notesColor}>
+            </Text>
+            <Text as="h3" size="sm" marginBottom="2" color={notesColor}>
                 Rent value of expiring leases:
                 <Text
                     display="inline"
-                    color={rentLossFromExpiringLeases > 0 ? "red.400" : "teal.500"}
-                    ml={"5px"}
+                    color={rentLossFromExpiringLeases > 0 ? "red.500" : "teal.500"}
+                    ml={1}
+                    fontWeight='bold'
                 >
                     {formatCurrency(rentLossFromExpiringLeases)}
                 </Text>
-            </Heading>
+            </Text>
         </Box>
     )
 }
