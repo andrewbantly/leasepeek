@@ -62,14 +62,6 @@ export function RecentSignedLeases({ recentLeases, floorplans }: RecentLeaseProp
             sqFt30Days += sqFtData
         }
     }
-    console.log("Avg rent 90 days", avgRent90Days)
-    console.log("Avg rent 60 days", avgRent60Days)
-    console.log("Avg rent 30 days", avgRent30Days)
-
-    console.log("sqft 90 days", sqFt90Days)
-    console.log("sqft 60 days", sqFt60Days)
-    console.log("sqft 30 days", sqFt30Days)
-
 
     const rent30DaysAvg: number = parseFloat((avgRent90Days / sqFt90Days).toFixed(2))
     const rent60DaysAvg: number = parseFloat((avgRent60Days / sqFt60Days).toFixed(2))
