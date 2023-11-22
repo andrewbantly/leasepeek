@@ -22,7 +22,6 @@ export function LossToLease({ lossToLease }: IncomePotentialProps) {
     rentIncomeRef.current = rentIncome;
     totalMarketValueRef.current = totalMarketValue;
     
-    const bg = useColorModeValue("#fff", "#1A202C");
     const trackBg = useColorModeValue("#2D3748", "#A0AEC0");
     const labelColor = useColorModeValue("#1A202C", "#A0AEC0");
 
@@ -97,10 +96,10 @@ export function LossToLease({ lossToLease }: IncomePotentialProps) {
             <Chart options={options} series={[rentIncomePercentage]} type="radialBar" height={300} />
             <Flex justifyContent="center">
                 <Text color={labelColor} mr={6}>
-                    Rent Income: <Text as="span" fontWeight="bold">{formatCurrency(rentIncome)}</Text>
+                    Lease Charges: <Text as="span" fontWeight="bold">{formatCurrency(rentIncome)}</Text>
                 </Text>
                 <Text color={labelColor}>
-                    Total Market Value: <Text as="span" fontWeight="bold">{formatCurrency(totalMarketValue)}</Text>
+                    Market Value: <Text as="span" fontWeight="bold">{formatCurrency(totalMarketValue)}</Text>
                 </Text>
             </Flex>
         </>
