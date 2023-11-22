@@ -192,7 +192,7 @@ export function PropertyProfile() {
                         <Icon as={FaMoneyCheckAlt} boxSize={8} mr={2} />
                         <Text fontWeight="bold" fontSize='xl' color={textColor}>Recently Signed Leases</Text>
                     </Flex>
-                    <RecentSignedLeases recentLeases={propertyDataObject.recentLeases}/>
+                    <RecentSignedLeases recentLeases={propertyDataObject.recentLeases} floorplans={propertyDataObject.floorplans}/>
                 </Box>
                 <Box p={6} width={"33%"}>
                     <Flex alignItems="center" mb={4}>
