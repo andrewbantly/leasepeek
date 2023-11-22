@@ -22,6 +22,7 @@ import { FloorPlanAvg } from '../property-data-components/floorPlanMrkAvg';
 import { FloorPlanAvgRent } from '../property-data-components/floorPlanRentAvg';
 import { LossToLease } from '../property-data-components/lossToLease';
 import { RecentSignedLeases } from '../property-data-components/recentSignedLeases';
+import { LeaseTrends } from '../property-data-components/leaseTrends';
 
 const defaultPropertyData: PropertyResponseObject = {
     user_id: 0,
@@ -148,24 +149,24 @@ export function PropertyProfile() {
 
                         <Box mt={5}>
                             <Text fontSize="lg" color={textColor}>
-                                Data As Of: 
-                                <Text display='inline' ml={1}  fontSize="lg" color="teal.500" fontWeight='bold'>
+                                Data As Of:
+                                <Text display='inline' ml={1} fontSize="lg" color="teal.500" fontWeight='bold'>
                                     {propertyDataObject.asOf}
                                 </Text>
                             </Text>
 
                             <Text fontSize="lg" color={textColor}>
-                                Total units: 
-                                <Text display='inline' ml={1}  fontSize="lg" color="teal.500" fontWeight='bold'>
+                                Total units:
+                                <Text display='inline' ml={1} fontSize="lg" color="teal.500" fontWeight='bold'>
                                     {totalUnits}
-                                    </Text>
+                                </Text>
                             </Text>
 
                             <Text fontSize="lg" color={textColor} mb={2}>
-                                Total Lease Charges: 
-                                <Text display='inline' ml={1}  fontSize="lg" color="teal.500" fontWeight='bold'>
+                                Total Lease Charges:
+                                <Text display='inline' ml={1} fontSize="lg" color="teal.500" fontWeight='bold'>
                                     {totalRent}
-                                    </Text>
+                                </Text>
                             </Text>
                         </Box>
                     </Box>
@@ -194,11 +195,11 @@ export function PropertyProfile() {
                     <LossToLease lossToLease={propertyDataObject.lossToLease} />
                 </Box>
                 <Box p={6} width={"33%"}>
-                    <Flex alignItems='center' mb={4}>
-                        <Icon as={FaMoneyBillWave} boxSize={8} mr={2} />
-                        <Text fontWeight="bold" fontSize="xl" color={textColor}>Expiring Leases Rent Loss</Text>
+                    <Flex alignItems="center" mb={4}>
+                        <Icon as={FaChartLine} boxSize={8} mr={2} />
+                        <Text fontWeight="bold" fontSize='xl' color={textColor}>Lease Trends</Text>
                     </Flex>
-                    <ExpiringLeaseAnalysis expiringLeases={propertyDataObject.expiringLeases} lossToLease={propertyDataObject.lossToLease} />
+                    <LeaseTrends/>
                 </Box>
                 <Box p={6} width={"33%"}>
                     <Flex alignItems="center" mb={4}>
@@ -206,6 +207,13 @@ export function PropertyProfile() {
                         <Text fontWeight="bold" fontSize='xl' color={textColor}>Recently Signed Leases</Text>
                     </Flex>
                     <RecentSignedLeases recentLeases={propertyDataObject.recentLeases} floorplans={propertyDataObject.floorplans} />
+                </Box>
+                <Box p={6} width={"33%"}>
+                    <Flex alignItems='center' mb={4}>
+                        <Icon as={FaMoneyBillWave} boxSize={8} mr={2} />
+                        <Text fontWeight="bold" fontSize="xl" color={textColor}>Expiring Leases Rent Loss</Text>
+                    </Flex>
+                    <ExpiringLeaseAnalysis expiringLeases={propertyDataObject.expiringLeases} lossToLease={propertyDataObject.lossToLease} />
                 </Box>
                 <Box p={6} width={"33%"}>
                     <Flex alignItems="center" mb={4}>
