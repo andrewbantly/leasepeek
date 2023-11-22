@@ -176,7 +176,7 @@ export function PropertyProfile() {
                 <Box p={6} width={"33%"}>
                     <Flex alignItems="center" mb={4}>
                         <Icon as={FaSearchDollar} boxSize={8} mr={2} />
-                        <Text fontWeight="bold" fontSize="xl" color={textColor}>Income Potential</Text>
+                        <Text fontWeight="bold" fontSize="xl" color={textColor}>Loss To Lease</Text>
                     </Flex>
                     <LossToLease lossToLease={propertyDataObject.lossToLease} />
                 </Box>
@@ -203,17 +203,17 @@ export function PropertyProfile() {
                 </Box>
                 <Box p={6} width={"33%"}>
                     <Flex alignItems="center" mb={4}>
-                        <Icon as={FaChartBar} boxSize={8} mr={2} />
-                        <Text fontWeight="bold" fontSize="xl" color={textColor}>Floor Plan Average Value</Text>
-                    </Flex>
-                    <FloorPlanAvg floorplans={propertyDataObject.floorplans} />
-                </Box>
-                <Box p={6} width={"33%"}>
-                    <Flex alignItems="center" mb={4}>
                         <Icon as={FaCoins} boxSize={8} mr={2} />
                         <Text fontWeight="bold" fontSize="xl" color={textColor}>Floor Plan Average Rent</Text>
                     </Flex>
                     <FloorPlanAvgRent floorplans={propertyDataObject.floorplans} />
+                </Box>
+                <Box p={6} width={"33%"}>
+                    <Flex alignItems="center" mb={4}>
+                        <Icon as={FaChartBar} boxSize={8} mr={2} />
+                        <Text fontWeight="bold" fontSize="xl" color={textColor}>Floor Plan Average Value</Text>
+                    </Flex>
+                    <FloorPlanAvg floorplans={propertyDataObject.floorplans} />
                 </Box>
             </Flex>
         </Box>

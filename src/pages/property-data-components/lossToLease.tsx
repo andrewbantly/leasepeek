@@ -86,19 +86,6 @@ export function LossToLease({ lossToLease }: IncomePotentialProps) {
             }
         },
         colors: ['#ABE5A1'],
-        fill: {
-            type: 'gradient',
-            gradient: {
-                shade: 'dark',
-                type: 'horizontal',
-                shadeIntensity: 0.5,
-                gradientToColors: ['#2C7A7B'],
-                inverseColors: true,
-                opacityFrom: 1,
-                opacityTo: 1,
-                stops: [0, 100]
-            }
-        },
         stroke: {
             lineCap: 'round'
         },
