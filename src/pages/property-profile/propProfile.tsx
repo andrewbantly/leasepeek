@@ -19,7 +19,7 @@ import { MdPieChart } from 'react-icons/md';
 import { FaSearchDollar, FaDollarSign, FaMoneyBill, FaMoneyBillWave, FaMoneyBillAlt, FaMoneyCheck, FaMoneyCheckAlt, FaCoins, FaChartLine, FaChartBar, FaChartPie, FaChartArea, FaBalanceScale, FaExchangeAlt } from 'react-icons/fa';
 import { FloorPlanCount } from '../property-data-components/floorPlanCount';
 import { FloorPlanAvg } from '../property-data-components/floorPlanMrkAvg';
-import { FloorPlanAvgRent } from '../property-data-components/floorPlanRentAvg';
+import { FloorPlanAvgLease } from '../property-data-components/floorPlanAvgLease';
 import { LossToLease } from '../property-data-components/lossToLease';
 import { RecentSignedLeases } from '../property-data-components/recentSignedLeases';
 import { LeaseTrends } from '../property-data-components/leaseTrends';
@@ -227,7 +227,7 @@ export function PropertyProfile() {
                         <Icon as={FaCoins} boxSize={8} mr={2} />
                         <Text fontWeight="bold" fontSize="xl" color={textColor}>Floor Plan Average Lease</Text>
                     </Flex>
-                    <FloorPlanAvgRent floorplans={propertyDataObject.floorplans} />
+                    <FloorPlanAvgLease floorplans={propertyDataObject.floorplans} />
                 </Box>
                 <Box p={6} width={"33%"}>
                     <Flex alignItems="center" mb={4}>

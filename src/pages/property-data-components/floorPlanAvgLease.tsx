@@ -17,7 +17,7 @@ interface FloorPlanDetails {
     avgSqft: number;
 }
 
-export function FloorPlanAvgRent({ floorplans }: FloorPlanAvgProps) {
+export function FloorPlanAvgLease({ floorplans }: FloorPlanAvgProps) {
     const textColor = useColorModeValue("gray.800", 'white');
     const floorPlanNames = Object.keys(floorplans);
     const avgValues = floorPlanNames.map(name => floorplans[name].avgRent);
@@ -38,14 +38,14 @@ export function FloorPlanAvgRent({ floorplans }: FloorPlanAvgProps) {
         },
         yaxis: {
             title: {
-                text: 'Average Rent ($)'
+                text: 'Average Lease ($)'
             }
         },
         dataLabels: {
             enabled: false
         },
         title: {
-            text: 'Average Rent of Each Floor Plan',
+            text: 'Average Lease of Each Floor Plan',
             align: 'center'
         },
         tooltip: {
@@ -55,7 +55,7 @@ export function FloorPlanAvgRent({ floorplans }: FloorPlanAvgProps) {
 
     const series = [
         {
-            name: 'Average Market Value ($)',
+            name: 'Average Lease Value ($)',
             data: avgValues
         }
     ];
