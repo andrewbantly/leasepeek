@@ -195,13 +195,6 @@ export function PropertyProfile() {
                     </Flex>
                     <LossToLease lossToLease={propertyDataObject.lossToLease} />
                 </Box>
-                <Box p={6} width={"100%"}>
-                    <Flex alignItems="center" mb={4}>
-                        <Icon as={FaChartLine} boxSize={8} mr={2} />
-                        <Text fontWeight="bold" fontSize='xl' color={textColor}>Lease Trends</Text>
-                    </Flex>
-                    <LeaseTrendsChart leaseTrendsData={propertyDataObject.leaseTrends}/>
-                </Box>
                 <Box p={6} width={"33%"}>
                     <Flex alignItems="center" mb={4}>
                         <Icon as={FaMoneyCheckAlt} boxSize={8} mr={2} />
@@ -236,6 +229,13 @@ export function PropertyProfile() {
                         <Text fontWeight="bold" fontSize="xl" color={textColor}>Floor Plan Average Value</Text>
                     </Flex>
                     <FloorPlanAvg floorplans={propertyDataObject.floorplans} />
+                </Box>
+                <Box p={6} width={"100%"}>
+                    <Flex alignItems="center" mb={4}>
+                        <Icon as={FaChartLine} boxSize={8} mr={2} />
+                        <Text fontWeight="bold" fontSize='xl' color={textColor}>Lease Trends</Text>
+                    </Flex>
+                    <LeaseTrendsChart leaseTrendsData={propertyDataObject.leaseTrends}/>
                 </Box>
             </Flex>
         </Box>
