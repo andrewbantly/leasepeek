@@ -22,7 +22,7 @@ import { FloorPlanAvg } from '../property-data-components/floorPlanMrkAvg';
 import { FloorPlanAvgLease } from '../property-data-components/floorPlanAvgLease';
 import { LossToLease } from '../property-data-components/lossToLease';
 import { RecentSignedLeases } from '../property-data-components/recentSignedLeases';
-import { LeaseTrends } from '../property-data-components/leaseTrends';
+import { LeaseTrendsChart } from '../property-data-components/leaseTrends';
 
 const defaultPropertyData: PropertyResponseObject = {
     user_id: 0,
@@ -38,6 +38,7 @@ const defaultPropertyData: PropertyResponseObject = {
     },
     recentLeases: {},
     expiringLeases: {},
+    leaseTrends: {},
     data: [
         {
             balance: 0,
@@ -196,13 +197,6 @@ export function PropertyProfile() {
                 </Box>
                 <Box p={6} width={"33%"}>
                     <Flex alignItems="center" mb={4}>
-                        <Icon as={FaChartLine} boxSize={8} mr={2} />
-                        <Text fontWeight="bold" fontSize='xl' color={textColor}>Lease Trends</Text>
-                    </Flex>
-                    <LeaseTrends/>
-                </Box>
-                <Box p={6} width={"33%"}>
-                    <Flex alignItems="center" mb={4}>
                         <Icon as={FaMoneyCheckAlt} boxSize={8} mr={2} />
                         <Text fontWeight="bold" fontSize='xl' color={textColor}>Recent Leases per SqFt</Text>
                     </Flex>
@@ -235,6 +229,13 @@ export function PropertyProfile() {
                         <Text fontWeight="bold" fontSize="xl" color={textColor}>Floor Plan Average Value</Text>
                     </Flex>
                     <FloorPlanAvg floorplans={propertyDataObject.floorplans} />
+                </Box>
+                <Box p={6} width={"100%"}>
+                    <Flex alignItems="center" mb={4}>
+                        <Icon as={FaChartLine} boxSize={8} mr={2} />
+                        <Text fontWeight="bold" fontSize='xl' color={textColor}>Lease Trends</Text>
+                    </Flex>
+                    <LeaseTrendsChart leaseTrendsData={propertyDataObject.leaseTrends}/>
                 </Box>
             </Flex>
         </Box>

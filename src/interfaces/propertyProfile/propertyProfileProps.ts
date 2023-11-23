@@ -9,6 +9,7 @@ export interface PropertyResponseObject {
     lossToLease: LossToLease;
     recentLeases: RecentLeases;
     expiringLeases: ExpiringLeases;
+    leaseTrends: LeaseTrends;
     data: PropertyDataItem[];
 }
 
@@ -61,6 +62,15 @@ export interface ExpiringLeases {
 interface LeaseCountInfo {
     count: number;
     total_rent: number;
+}
+
+export interface LeaseTrends {
+    [month: string]: {
+        [floorPlanName: string]: {
+            NumOfLeases: number;
+            AvgLeasePerSqFt: number;
+        }
+    }
 }
 
 export interface PropertyDataItem {
