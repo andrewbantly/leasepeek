@@ -18,7 +18,7 @@ import { BiBuilding } from 'react-icons/bi';
 import { MdPieChart } from 'react-icons/md';
 import { FaSearchDollar, FaDollarSign, FaMoneyBill, FaMoneyBillWave, FaMoneyBillAlt, FaMoneyCheck, FaMoneyCheckAlt, FaCoins, FaChartLine, FaChartBar, FaChartPie, FaChartArea, FaBalanceScale, FaExchangeAlt } from 'react-icons/fa';
 import { FloorPlanCount } from '../property-data-components/floorPlanCount';
-import { FloorPlanAvg } from '../property-data-components/floorPlanMrkAvg';
+import { RecentOccupancyChart } from '../property-data-components/recentOccupancy';
 import { FloorPlanAvgLease } from '../property-data-components/floorPlanAvgLease';
 import { LossToLease } from '../property-data-components/lossToLease';
 import { RecentSignedLeases } from '../property-data-components/recentSignedLeases';
@@ -201,6 +201,13 @@ export function PropertyProfile() {
                         <Text fontWeight="bold" fontSize='xl' color={textColor}>Recent Leases per SqFt</Text>
                     </Flex>
                     <RecentSignedLeases recentLeases={propertyDataObject.recentLeases} floorplans={propertyDataObject.floorplans} />
+                </Box>
+                <Box p={6} width={"33%"}>
+                    <Flex alignItems="center" mb={4}>
+                        <Icon as={FaChartArea} boxSize={8} mr={2} />
+                        <Text fontWeight="bold" fontSize='xl' color={textColor}>Recent Occupancy Changes</Text>
+                    </Flex>
+                    <RecentOccupancyChart />
                 </Box>
                 <Box p={6} width={"33%"}>
                     <Flex alignItems='center' mb={4}>
