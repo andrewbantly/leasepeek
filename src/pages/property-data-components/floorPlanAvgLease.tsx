@@ -20,7 +20,8 @@ interface FloorPlanDetails {
 export function FloorPlanAvgLease({ floorplans }: FloorPlanAvgProps) {
     const textColor = useColorModeValue("gray.800", 'white');
     const floorPlanNames = Object.keys(floorplans);
-    const avgValues = floorPlanNames.map(name => floorplans[name].avgRent);
+    const avgLease = floorPlanNames.map(name => floorplans[name].avgRent);
+    const avgMarket = floorPlanNames.map(name => floorplans[name].avgMarket)
 
     const options = {
         chart: {
@@ -30,7 +31,10 @@ export function FloorPlanAvgLease({ floorplans }: FloorPlanAvgProps) {
         },
         plotOptions: {
             bar: {
-                horizontal: false
+                horizontal: false,
+                dataLabels: {
+                    position: 'top',
+                }
             }
         },
         xaxis: {
@@ -42,21 +46,29 @@ export function FloorPlanAvgLease({ floorplans }: FloorPlanAvgProps) {
             }
         },
         dataLabels: {
-            enabled: false
+            enabled: false,
+            fontSize: '12px'
         },
         title: {
             text: 'Average Lease of Each Floor Plan',
             align: 'center'
         },
         tooltip: {
-            theme: useColorModeValue('light', 'dark')
+            theme: useColorModeValue('light', 'dark'),
+            shared: true,
+            intersect: false
         }
     } as any;
 
     const series = [
+        {   
+            name: 'Average Lease ($)',
+            data: avgLease
+        },
         {
-            name: 'Average Lease Value ($)',
-            data: avgValues
+            name: 'Average Market ($)',
+            data: avgMarket,
+            color: '#FFA500'
         }
     ];
 

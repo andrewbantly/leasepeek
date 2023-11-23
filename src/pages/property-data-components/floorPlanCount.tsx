@@ -33,11 +33,11 @@ export function FloorPlanCount({ floorplans }: { floorplans: LocalFloorPlans }) 
         },
         yaxis: {
             title: {
-                text: 'Amount of Units'
+                text: 'Units'
             }
         },
         dataLabels: {
-            enabled: false
+            enabled: true
         },
         title: {
             text: 'Quantity of Units of Each Floor Plan',
@@ -50,7 +50,7 @@ export function FloorPlanCount({ floorplans }: { floorplans: LocalFloorPlans }) 
 
     const series = [
         {
-            name: 'Amount of Units',
+            name: 'Occupied Units',
             data: countValue
         }
     ];
