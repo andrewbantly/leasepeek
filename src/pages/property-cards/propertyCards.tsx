@@ -1,8 +1,8 @@
 import { Flex, Button, Box, Text, Badge, useColorModeValue, VStack, Icon } from "@chakra-ui/react";
 import { FaBuilding } from "react-icons/fa";
 import { Vacancy } from "../property-data-components/vacancy";
-import { FloorPlanAvg } from "../property-data-components/floorPlanMrkAvg";
 import { FloorPlanCount } from "../property-data-components/floorPlanCount";
+import { FloorPlanAvgLease } from "../property-data-components/floorPlanAvgLease";
 import { useNavigate } from "react-router-dom";
 import { Property } from '../../interfaces/propertyCards/property'
 
@@ -81,7 +81,7 @@ export function PropertyCards({ property, deleteProperty }: PropertyCardsProps) 
                     <Vacancy vacants={vacancy} />
                 </Box>
                 <Box h="100%" ml={2}>
-                    <FloorPlanAvg floorplans={floorplans} />
+                    <FloorPlanAvgLease floorplans={floorplans}/>
                 </Box>
                 <Box h="100%" ml={2}>
                     <FloorPlanCount floorplans={floorplans} />
