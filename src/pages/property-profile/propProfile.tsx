@@ -209,26 +209,19 @@ export function PropertyProfile() {
                     </Flex>
                     <ExpiringLeaseAnalysis expiringLeases={propertyDataObject.expiringLeases} lossToLease={propertyDataObject.lossToLease} />
                 </Box>
-                <Box p={6} width={"33%"}>
+                <Box p={6} width={"100%"}>
                     <Flex alignItems="center" mb={4}>
                         <Icon as={MdPieChart} boxSize={8} mr={2} />
                         <Text fontWeight="bold" fontSize="xl" color={textColor}>Floor Plan Survey</Text>
                     </Flex>
                     <FloorPlanCount floorplans={propertyDataObject.floorplans} />
                 </Box>
-                <Box p={6} width={"33%"}>
+                <Box p={6} width={"100%"}>
                     <Flex alignItems="center" mb={4}>
                         <Icon as={FaCoins} boxSize={8} mr={2} />
                         <Text fontWeight="bold" fontSize="xl" color={textColor}>Floor Plan Average Lease</Text>
                     </Flex>
                     <FloorPlanAvgLease floorplans={propertyDataObject.floorplans} />
-                </Box>
-                <Box p={6} width={"33%"}>
-                    <Flex alignItems="center" mb={4}>
-                        <Icon as={FaChartBar} boxSize={8} mr={2} />
-                        <Text fontWeight="bold" fontSize="xl" color={textColor}>Floor Plan Average Value</Text>
-                    </Flex>
-                    <FloorPlanAvg floorplans={propertyDataObject.floorplans} />
                 </Box>
                 <Box p={6} width={"100%"}>
                     <Flex alignItems="center" mb={4}>
