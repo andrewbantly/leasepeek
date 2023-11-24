@@ -30,5 +30,10 @@ interface FloorPlanDetails {
     sumMarket: number;
     unitCount: number;
     avgSqft: number;
+    unitStatuses: UnitStatusDetails;
+}
+
+interface UnitStatusDetails {
+    [key: string]: number;
 }
 
