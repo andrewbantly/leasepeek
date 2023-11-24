@@ -1,20 +1,9 @@
 import Chart from 'react-apexcharts';
 import { useColorModeValue } from '@chakra-ui/react';
+import { FloorPlans } from '../../interfaces/propertyProfile/propertyProfileProps';
 
 interface FloorPlanAvgProps {
     floorplans: FloorPlans;
-}
-
-type FloorPlans = Record<FloorPlanName, FloorPlanDetails>;
-type FloorPlanName = string;
-
-interface FloorPlanDetails {
-    avgRent: number;
-    sumRent: number;
-    avgMarket: number;
-    sumMarket: number;
-    unitCount: number;
-    avgSqft: number;
 }
 
 export function FloorPlanAvgLease({ floorplans }: FloorPlanAvgProps) {

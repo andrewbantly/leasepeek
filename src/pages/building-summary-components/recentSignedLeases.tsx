@@ -1,23 +1,12 @@
 import { RecentLeases } from "../../interfaces/propertyProfile/propertyProfileProps";
 import Chart from 'react-apexcharts';
 import { Heading, Text, useColorModeValue } from '@chakra-ui/react';
-
+import { FloorPlans } from '../../interfaces/propertyProfile/propertyProfileProps';
 
 interface RecentLeaseProps {
     recentLeases: RecentLeases;
-    floorplans: LocalFloorPlans;
+    floorplans: FloorPlans;
 }
-
-interface FloorPlanDetails {
-    avgRent: number;
-    sumRent: number;
-    avgMarket: number;
-    sumMarket: number;
-    unitCount: number;
-    avgSqft: number;
-}
-type FloorPlanCategory = string;
-type LocalFloorPlans = Record<FloorPlanCategory, FloorPlanDetails>;
 
 export function RecentSignedLeases({ recentLeases, floorplans }: RecentLeaseProps) {
     const textColor = useColorModeValue("gray.800", 'white');

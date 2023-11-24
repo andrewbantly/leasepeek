@@ -1,20 +1,13 @@
 import Chart from 'react-apexcharts';
 import { useColorModeValue } from '@chakra-ui/react';
+import { FloorPlans } from '../../interfaces/propertyProfile/propertyProfileProps';
 
-interface FloorPlanDetails {
-    avgRent: number;
-    sumRent: number;
-    avgMarket: number;
-    sumMarket: number;
-    unitCount: number;
-    avgSqft: number;
-}
-type FloorPlanCategory = string;
-type LocalFloorPlans = Record<FloorPlanCategory, FloorPlanDetails>;
-
-export function FloorPlanCount({ floorplans }: { floorplans: LocalFloorPlans }) {
+export function FloorPlanCount({ floorplans }: { floorplans: FloorPlans }) {
     const textColor = useColorModeValue("gray.800", 'white');
     const floorPlanNames = Object.keys(floorplans);
+    let statusTypes: string[] = [];
+    let statusCount: number[] = [];
+    console.log(floorplans)
     const countValue = floorPlanNames.map(name => floorplans[name].unitCount)
 
     const options ={
