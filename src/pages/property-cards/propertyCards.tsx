@@ -18,6 +18,8 @@ export function PropertyCards({ property, deleteProperty }: PropertyCardsProps) 
     const hoverColor = useColorModeValue("gray.300", "gray.900");
     const navigate = useNavigate()
 
+    console.log(floorplans)
+
     const formatDate = (isoString: string) => {
         const dateObj = new Date(isoString);
         const options: Intl.DateTimeFormatOptions = {
