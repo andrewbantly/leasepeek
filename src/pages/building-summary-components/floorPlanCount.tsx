@@ -1,31 +1,50 @@
 import Chart from 'react-apexcharts';
 import { useColorModeValue } from '@chakra-ui/react';
+import { FloorPlans } from '../../interfaces/propertyProfile/propertyProfileProps';
 
-interface FloorPlanDetails {
-    avgRent: number;
-    sumRent: number;
-    avgMarket: number;
-    sumMarket: number;
-    unitCount: number;
-    avgSqft: number;
-}
-type FloorPlanCategory = string;
-type LocalFloorPlans = Record<FloorPlanCategory, FloorPlanDetails>;
-
-export function FloorPlanCount({ floorplans }: { floorplans: LocalFloorPlans }) {
+export function FloorPlanCount({ floorplans }: { floorplans: FloorPlans }) {
     const textColor = useColorModeValue("gray.800", 'white');
     const floorPlanNames = Object.keys(floorplans);
-    const countValue = floorPlanNames.map(name => floorplans[name].unitCount)
 
-    const options ={
+    // Aggregate counts for each status type
+    const aggregatedStatusCounts: Record<string, number[]> = {};
+
+    floorPlanNames.forEach(name => {
+        const statuses = floorplans[name].unitStatuses;
+        Object.keys(statuses).forEach(statusType => {
+            if (!aggregatedStatusCounts[statusType]) {
+                aggregatedStatusCounts[statusType] = new Array(floorPlanNames.length).fill(0);
+            }
+            aggregatedStatusCounts[statusType][floorPlanNames.indexOf(name)] = statuses[statusType];
+        });
+    });
+
+    const series = Object.keys(aggregatedStatusCounts).map(statusType => ({
+        name: `${statusType.charAt(0).toUpperCase() + statusType.slice(1)}`,
+        data: aggregatedStatusCounts[statusType]
+    }));
+
+    const options = {
         chart: {
             id: 'floorplan-count-chart',
             type: 'bar',
-            foreColor: textColor
+            foreColor: textColor,
+            stacked: true,
+            toolbar: {
+                show: true,
+              },
         },
         plotOptions: {
             bar: {
-                horizontal: false
+                horizontal: false,
+                dataLabels: {
+                    total: {
+                        enabled: true,
+                        style: {
+                            color: textColor,
+                        }
+                    }
+                }
             }
         },
         xaxis: {
@@ -37,23 +56,18 @@ export function FloorPlanCount({ floorplans }: { floorplans: LocalFloorPlans }) 
             }
         },
         dataLabels: {
-            enabled: true
+            enabled: true,
         },
         title: {
             text: 'Quantity of Units of Each Floor Plan',
             align: 'center'
         },
         tooltip: {
-            theme: useColorModeValue('light', 'dark')
+            theme: useColorModeValue('light', 'dark'),
+            shared: true,
+            intersect: false
         }
     } as any;
-
-    const series = [
-        {
-            name: 'Occupied Units',
-            data: countValue
-        }
-    ];
 
     return <Chart options={options} series={series} type="bar" height="300px"/>
 }

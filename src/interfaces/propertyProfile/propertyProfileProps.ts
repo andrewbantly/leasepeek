@@ -18,7 +18,7 @@ type ISODateString = string;
 interface Vacancy {
     [key: string]: number;
 }
-type FloorPlans = Record<FloorPlanName, FloorPlanDetails>;
+export type FloorPlans = Record<FloorPlanName, FloorPlanDetails>;
 
 type FloorPlanName = string;
 
@@ -29,6 +29,11 @@ interface FloorPlanDetails {
     sumMarket: number;
     unitCount: number;
     avgSqft: number;
+    unitStatuses: UnitStatusDetails;
+}
+
+interface UnitStatusDetails {
+    [key: string]: number;
 }
 
 export interface LossToLease {
