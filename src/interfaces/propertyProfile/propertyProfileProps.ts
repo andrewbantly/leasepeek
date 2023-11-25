@@ -45,6 +45,9 @@ export interface RecentLeases {
     [floorPlanName: string]: {
         recent_two: LeaseInfo;
         recent_leases: {
+            last_180_days: LeaseInfo;
+            last_150_days: LeaseInfo;
+            last_120_days: LeaseInfo;
             last_90_days: LeaseInfo;
             last_60_days: LeaseInfo;
             last_30_days: LeaseInfo;
