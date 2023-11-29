@@ -43,9 +43,9 @@ export function UploadFileButon({ dataRequest }: UploadFileButtonProps) {
             setFileName('No file selected.')
             dataRequest()
         } catch (error) {
-            console.error("Error uploading file", error)
+            console.error("Error upload file", error)
             setFileName('')
-            setErrorMessage('Error uploading file.')
+            setErrorMessage('Error upload file.')
         }
     }
 
