@@ -19,8 +19,9 @@ export function LossToLease({ lossToLease }: IncomePotentialProps) {
     function formatCurrency(amount: number): string {
         return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
     }
-
+    
     const labels: string[] = ['Lease Charges', 'Loss to Lease'];
+    const series = [rentIncome, totalMarketValue - rentIncome];
 
     const options = {
         chart: {
@@ -54,19 +55,17 @@ export function LossToLease({ lossToLease }: IncomePotentialProps) {
         }
     } as any;
 
-    const series = [rentIncome, totalMarketValue - rentIncome];
-
     return (
         <>
             <Chart options={options} series={series} type="donut" height={300} />
             <Flex justifyContent="center" mt={2}>
-                <Text color={labelColor}>
+                <Text color={labelColor} width={'33%'}>
                     Market Value <Text as="span" fontWeight="bold"  color={'#808080'}>{formatCurrency(totalMarketValue)}</Text>
                 </Text>
-                <Text color={labelColor} mr={2}>
+                <Text color={labelColor} width={'33%'}>
                     Lease Charges <Text as="span" color={'#85BB65'} fontWeight="bold">{formatCurrency(rentIncome)}</Text>
                 </Text>
-                <Text color={labelColor}>
+                <Text color={labelColor} width={'33%'}>
                     Loss to Lease <Text as="span" color={'#FF6B6B'} fontWeight="bold">{formatCurrency(totalMarketValue - rentIncome)}</Text>
                 </Text>
             </Flex>
