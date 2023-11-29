@@ -8,7 +8,9 @@ interface Property {
     date: ISODateString;
     asOf: string;
     objectId: string;
+    lossToLease: LossToLease;
     totalUnits: number;
+    totalBalance: number;
     vacancy: Vacancy;
     floorplans: FloorPlans;
 }
@@ -37,3 +39,7 @@ interface UnitStatusDetails {
     [key: string]: number;
 }
 
+interface LossToLease {
+    marketSum: number;
+    rentIncome: number;
+}

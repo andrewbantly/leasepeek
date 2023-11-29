@@ -45,6 +45,7 @@ export function BuildingSummaryComponent(propertyDataObject: PropertyResponseObj
 
     const totalUnits = propertyDataObject.totalUnits
     const totalRent = formatCurrency(propertyDataObject.lossToLease.rentIncome);
+    const totalBalance = formatCurrency(propertyDataObject.totalBalance);
 
     const deleteProperty = async () => {
         try {
@@ -96,16 +97,22 @@ export function BuildingSummaryComponent(propertyDataObject: PropertyResponseObj
                             </Text>
 
                             <Text fontSize="lg" color={textColor}>
-                                Total units:
+                                Units:
                                 <Text display='inline' ml={1} fontSize="lg" color="teal.500" fontWeight='bold'>
                                     {totalUnits}
                                 </Text>
                             </Text>
 
-                            <Text fontSize="lg" color={textColor} mb={2}>
-                                Total Lease Charges:
+                            <Text fontSize="lg" color={textColor}>
+                                Lease Charges:
                                 <Text display='inline' ml={1} fontSize="lg" color="teal.500" fontWeight='bold'>
                                     {totalRent}
+                                </Text>
+                            </Text>
+                            <Text fontSize="lg" color={textColor} mb={2}>
+                                Outstanding Balance:
+                                <Text display='inline' ml={1} fontSize="lg" color="red.500" fontWeight='bold'>
+                                    {totalBalance}
                                 </Text>
                             </Text>
                         </Box>

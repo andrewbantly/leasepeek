@@ -29,6 +29,7 @@ const defaultPropertyData: PropertyResponseObject = {
     vacancy: {},
     floorplans: {},
     totalUnits: 0,
+    totalBalance: 0,
     lossToLease: {
         marketSum: 0,
         rentIncome: 0,

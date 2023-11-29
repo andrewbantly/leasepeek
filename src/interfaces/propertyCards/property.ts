@@ -4,6 +4,8 @@ export interface Property {
     asOf: string;
     objectId: string;
     totalUnits: number;
+    totalBalance: number;
+    lossToLease: LossToLease;
     vacancy: Vacancy;
     floorplans: FloorPlans;
 }
@@ -32,3 +34,7 @@ interface UnitStatusDetails {
     [key: string]: number;
 }
 
+interface LossToLease {
+    marketSum: number;
+    rentIncome: number;
+}
