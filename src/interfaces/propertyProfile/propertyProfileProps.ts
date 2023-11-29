@@ -6,6 +6,7 @@ export interface PropertyResponseObject {
     vacancy: Vacancy;
     floorplans: FloorPlans;
     totalUnits: number;
+    totalBalance: number;
     lossToLease: LossToLease;
     recentLeases: RecentLeases;
     expiringLeases: ExpiringLeases;
