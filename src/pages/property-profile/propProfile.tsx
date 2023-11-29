@@ -19,7 +19,7 @@ import { FaBuilding, FaRegChartBar, FaDatabase } from "react-icons/fa";
 import { PropertyResponseObject } from "../../interfaces/propertyProfile/propertyProfileProps";
 import { BuildingSummaryComponent } from './buildingSummary';
 import { FloorPlanAnalysisComponent } from './floorPlanAnalysis';
-import { RawBuildingDataComponent } from './rawDataChart';
+import { RawBuildingDataComponent } from './rawBuildingData';
 
 const defaultPropertyData: PropertyResponseObject = {
     user_id: 0,
