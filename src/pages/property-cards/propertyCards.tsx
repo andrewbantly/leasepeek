@@ -39,7 +39,7 @@ export function PropertyCards({ property, deleteProperty }: PropertyCardsProps) 
             bg={bgColor}
             boxShadow="xl"
             p={6}
-            m={4}
+            m={3}
             _hover={{ bg: hoverColor }}
             transition="background-color 0.3s ease"
             cursor="pointer"
