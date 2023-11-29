@@ -7,7 +7,15 @@ export function RawBuildingDataComponent(propertyDataObject: PropertyResponseObj
   const [filteredPropertyData, setFilteredPropertyData] = useState(propertyDataObject.data);
   const statusAcronymColor = useColorModeValue("yellow.600", 'yellow.500');
 
-  const statusOptions = ['occupied', 'vacant', 'applicant', 'model', 'down', ''];
+  const statusOptions = [''];
+
+  propertyDataObject.data.map(unit => {
+    if (!statusOptions.includes(unit.status)) {
+      statusOptions.push(unit.status)
+    }
+  })
+
+  console.log('status options', statusOptions)
 
   useEffect(() => {
     const newFilteredData = statusFilter
@@ -32,6 +40,8 @@ export function RawBuildingDataComponent(propertyDataObject: PropertyResponseObj
         return 'Vac';
       case 'applicant':
         return 'App';
+      case 'upcoming':
+        return 'Up';
       case 'model':
         return 'Mod';
       case 'down':
