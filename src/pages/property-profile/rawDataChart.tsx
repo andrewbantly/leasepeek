@@ -15,8 +15,6 @@ export function RawBuildingDataComponent(propertyDataObject: PropertyResponseObj
     }
   })
 
-  console.log('status options', statusOptions)
-
   useEffect(() => {
     const newFilteredData = statusFilter
       ? propertyDataObject.data.filter(unit => unit.status === statusFilter)
