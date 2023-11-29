@@ -114,19 +114,16 @@ export function RecentSignedLeases({ recentLeases, floorplans }: RecentLeaseProp
         },
         xaxis: {
             categories: labels,
-                        max: function (maxValue: number) {
-                return maxValue * 1.01;
-            }
         },
         yaxis: {
             title: {
                 text: 'Avg Lease per SqFt ($)'
             },
             max: function (maxValue: number) {
-                return maxValue * 1.05;
+                return maxValue * 1.1;
             },
             min: function (minValue: number) {
-                return minValue * 0.95;
+                return minValue * 0.9;
             }
         },
         title: {
