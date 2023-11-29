@@ -32,13 +32,35 @@ export function LeaseTrendsChart({ leaseTrendsData }: { leaseTrendsData: LeaseTr
         numOfLeasesSeries.push(leaseCountData);
     });
 
+    const themeColors = [
+        '#3182CE', // Blue
+        '#E53E3E', // Dark Red
+        '#805AD5', // Purple
+        '#F6E05E', // Yellow
+        '#ED64A6', // Pink
+        '#DD6B20', // Orange
+        '#48BB78', // Green
+        '#4299E1', // Bright Blue
+        '#9AE6B4', // Teal
+        '#38B2AC', // Light Green
+        '#6B46C1', // Indigo
+        '#D69E2E', // Goldenrod
+        '#B794F4', // Lavender
+        '#E53E3E', // Crimson
+        '#4C51BF', // Royal Blue
+        '#F687B3', // Coral
+        '#319795', // Turquoise
+        '#D53F8C', // Hot Pink
+    ];
 
-    console.log("Floor plan names")
-    console.log(floorPlanNames)
-    console.log("Avg SqFt")
-    console.log(avgLeasePerSqFtSeries)
-    console.log("Num of leases")
-    console.log(numOfLeasesSeries)
+    function generateColors(numColors: number) {
+        const colors: string[] = [];
+
+        for (let i = 0; i < numColors; i++) {
+            colors.push(themeColors[i % themeColors.length]);
+        }
+        return colors
+    }
 
     const lineChartOptions = {
         series: avgLeasePerSqFtSeries,
@@ -70,7 +92,8 @@ export function LeaseTrendsChart({ leaseTrendsData }: { leaseTrendsData: LeaseTr
         },
         tooltip: {
             theme: useColorModeValue('light', 'dark')
-        }
+        },
+        colors: generateColors(floorPlanNames.size)
     } as any;
 
     const barChartOptions = {
@@ -102,7 +125,8 @@ export function LeaseTrendsChart({ leaseTrendsData }: { leaseTrendsData: LeaseTr
         },
         tooltip: {
             theme: useColorModeValue('light', 'dark')
-        }
+        },
+        colors: generateColors(floorPlanNames.size)
     } as any;
 
 
