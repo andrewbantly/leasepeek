@@ -8,7 +8,8 @@ interface UploadFileButtonProps {
 
 export function UploadFileButon({ dataRequest }: UploadFileButtonProps) {
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const [fileName, setFileName] = useState('');
+    const [fileName, setFileName] = useState('No file selected.');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleUpload = () => {
         if (fileInputRef.current) {
@@ -25,7 +26,7 @@ export function UploadFileButon({ dataRequest }: UploadFileButtonProps) {
 
     const handleSubmitFile = async () => {
         if (!fileInputRef.current?.files?.length) {
-            console.log('No file selected')
+            setFileName('No file selected')
             return;
         }
         const file = fileInputRef.current.files[0]
@@ -38,29 +39,33 @@ export function UploadFileButon({ dataRequest }: UploadFileButtonProps) {
                     'Authorization': `Bearer ${token}`
                 }
             })
+            console.log('Response', response)
+            setFileName('No file selected.')
             dataRequest()
-            setFileName('')
         } catch (error) {
             console.error("Error uploading file", error)
+            setFileName('')
+            setErrorMessage('Error uploading file.')
         }
     }
 
     const handleCancelUpoad = () => {
-        setFileName('')
+        setFileName('No file selected.')
+        setErrorMessage('')
     }
 
     const submitButtons = (
         <Flex align="center" justify="space-between" width="full" gap={4}>
-            <Button 
-                width="48%" 
-                colorScheme={'blue'} 
-                variant={'solid'} 
+            <Button
+                width="48%"
+                colorScheme={'blue'}
+                variant={'solid'}
                 onClick={handleSubmitFile}
             >
                 Submit
             </Button>
-            <Button 
-                width="48%" 
+            <Button
+                width="48%"
                 variant="outline"
                 colorScheme="red"
                 onClick={handleCancelUpoad}
@@ -69,10 +74,24 @@ export function UploadFileButon({ dataRequest }: UploadFileButtonProps) {
             </Button>
         </Flex>
     );
-    
 
-    const uploadButtons = fileName ? submitButtons :
+
+    const uploadButtons = fileName !== 'No file selected.' ? submitButtons :
         <Button onClick={handleUpload} colorScheme={'gray'} variant={'solid'}>Upload Rent Roll</Button>;
+
+    const errorMessageResposne = (
+        <Text mt={2} fontSize="sm" color="red.500">
+            {errorMessage}
+        </Text>
+    )
+
+    const fileMessageResponse = (
+        <Text mt={2} fontSize="sm" color="gray.600">
+            {fileName}
+        </Text>
+    )
+
+    const responseMessage = errorMessage ? errorMessageResposne : fileMessageResponse;
 
     return (
         <>
@@ -80,15 +99,13 @@ export function UploadFileButon({ dataRequest }: UploadFileButtonProps) {
                 <Input
                     type="file"
                     ref={fileInputRef}
-                    accept=".xls,.xlsx"
+                    accept=".xlsx"
                     style={{ display: "none" }}
                     onChange={handleFileChange}
                 />
                 <Flex direction="column" align="start" gap={2}>
                     {uploadButtons}
-                    <Text mt={2} fontSize="sm" color="gray.600">
-                        {fileName || "No file selected."}
-                    </Text>
+                    {responseMessage}
                 </Flex>
 
             </div>
