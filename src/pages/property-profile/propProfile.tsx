@@ -105,7 +105,7 @@ export function PropertyProfile() {
                     <FloorPlanAnalysisComponent />
                 </TabPanel>
                 <TabPanel p={4}>
-                    <RawBuildingDataComponent />
+                    <RawBuildingDataComponent {...propertyDataObject}/>
                 </TabPanel>
             </TabPanels>
         </Tabs>
