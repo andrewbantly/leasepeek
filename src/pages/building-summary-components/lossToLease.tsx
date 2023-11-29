@@ -30,22 +30,6 @@ export function LossToLease({ lossToLease }: IncomePotentialProps) {
             type: 'donut',
         },
         labels: labels,
-        plotOptions: {
-            pie: {
-                donut: {
-                    labels: {
-                        show: true,
-                        total: {
-                            show: true,
-                            label: 'Market Value',
-                            formatter: function (w: any) {
-                                return formatCurrency(totalMarketValue);
-                            }
-                        }
-                    }
-                }
-            }
-        },
         colors: ['#85BB65', '#808080'],
         legend: {
             position: 'bottom'
@@ -60,7 +44,17 @@ export function LossToLease({ lossToLease }: IncomePotentialProps) {
                     position: 'bottom'
                 }
             }
-        }]
+        }],
+        tooltip: {
+            y: {
+                formatter: (value: number) => {
+                    return new Intl.NumberFormat('en-US', {
+                        style: 'currency',
+                        currency: 'USD'
+                    }).format(value);
+                }
+            }
+        }
     } as any;
 
     // Series data for the donut chart
@@ -69,12 +63,15 @@ export function LossToLease({ lossToLease }: IncomePotentialProps) {
     return (
         <>
             <Chart options={options} series={series} type="donut" height={300} />
-            <Flex justifyContent="center">
-                <Text color={labelColor} mr={6}>
-                    Lease Charges: <Text as="span" fontWeight="bold">{formatCurrency(rentIncome)}</Text>
+            <Flex justifyContent="center" mt={2}>
+                <Text color={labelColor}>
+                    Market Value <Text as="span" fontWeight="bold"  color={'#808080'}>{formatCurrency(totalMarketValue)}</Text>
+                </Text>
+                <Text color={labelColor} mr={2}>
+                    Lease Charges <Text as="span" color={'#85BB65'} fontWeight="bold">{formatCurrency(rentIncome)}</Text>
                 </Text>
                 <Text color={labelColor}>
-                    Market Value: <Text as="span" fontWeight="bold">{formatCurrency(totalMarketValue)}</Text>
+                    Loss to Lease <Text as="span" color={'#FF6B6B'} fontWeight="bold">{formatCurrency(totalMarketValue - rentIncome)}</Text>
                 </Text>
             </Flex>
         </>
