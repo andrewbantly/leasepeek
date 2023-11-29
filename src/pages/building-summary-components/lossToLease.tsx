@@ -1,5 +1,5 @@
 import Chart from 'react-apexcharts';
-import { useColorMode, useColorModeValue } from '@chakra-ui/react';
+import { useColorModeValue } from '@chakra-ui/react';
 import { Flex, Text } from '@chakra-ui/react';
 
 interface LossToLease {
@@ -14,15 +14,12 @@ interface IncomePotentialProps {
 export function LossToLease({ lossToLease }: IncomePotentialProps) {
     const totalMarketValue: number = lossToLease.marketSum;
     const rentIncome: number = lossToLease.rentIncome;
-
-    const trackBg = useColorModeValue("#2D3748", "#A0AEC0");
     const labelColor = useColorModeValue("#1A202C", "#A0AEC0");
 
     function formatCurrency(amount: number): string {
         return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
     }
 
-    // Labels for the donut chart
     const labels: string[] = ['Lease Charges', 'Loss to Lease'];
 
     const options = {
@@ -57,7 +54,6 @@ export function LossToLease({ lossToLease }: IncomePotentialProps) {
         }
     } as any;
 
-    // Series data for the donut chart
     const series = [rentIncome, totalMarketValue - rentIncome];
 
     return (
