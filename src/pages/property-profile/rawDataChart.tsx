@@ -1,63 +1,71 @@
 import { PropertyResponseObject } from "../../interfaces/propertyProfile/propertyProfileProps";
-
-import * as React from 'react';
-import { createComponent } from '@lit-labs/react';
-import type { EventName } from '@lit-labs/react';
-import {
-  ApexFilteringEvent,
-  ApexFilteredEvent,
-  ApexGrid,
-  ColumnConfiguration,
-  FilterExpression,
-  SortExpression,
-} from 'apex-grid';
-
-ApexGrid.register();
-
-function createApexGridWrapper<T extends object>() {
-  return createComponent({
-    tagName: 'apex-grid',
-    elementClass: ApexGrid<T>,
-    react: React,
-    events: {
-      onSorting: 'sorting' as EventName<CustomEvent<SortExpression<T>>>,
-      onSorted: 'sorted' as EventName<CustomEvent<SortExpression<T>>>,
-      onFiltering: 'filtering' as EventName<CustomEvent<ApexFilteringEvent<T>>>,
-      onFiltered: 'filtered' as EventName<CustomEvent<ApexFilteredEvent<T>>>,
-    },
-  });
-}
+import { Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer } from "@chakra-ui/react";
+import { useState } from "react";
 
 interface PropertyDataItem {
-    market: number;
-    rent: number;
-    sqft: number;
-    status: string | null;
-    unit: string;
+  unit: string;
+  sqft: number;
+  floorplan: string;
+  status: string | null;
+  rent: number;
+  market: number;
+  leaseStart: string | null;
+  moveIn: string;
+  leaseExpire: string;
+  moveOut: string;
+  balance: number;
+  // charges: Charge[];
+  otherDeposit: number;
+  residentDeposit: number;
+  total: number;
 }
 
 export function RawBuildingDataComponent(propertyDataObject: PropertyResponseObject) {
 
-    const columns: ColumnConfiguration<PropertyDataItem>[] = [
-        { key: 'unit', headerText: "Unit"},
-        { key: 'status', headerText: "Status"},
-        { key: 'sqft', headerText: "SqFt" },
-        { key: 'rent', headerText: "Rent" },
-        { key: 'market', headerText: "Market" },
-    ];
-
-    const data = propertyDataObject.data;
-
-    const PropertyGrid = createApexGridWrapper<PropertyDataItem>();
-
+  const buildingData = propertyDataObject.data.map(unit => {
     return (
-        <>
-            <h2>Raw Building Data</h2>
-            <PropertyGrid 
-                columns={columns} 
-                data={data}
-                className="custom-grid-style"
-            />
-        </>
+      <Tr key={unit.unit}>
+        <Td >{unit.unit}</Td>
+        <Td>{unit.floorplan}</Td>
+        <Td isNumeric>{unit.sqft}</Td>
+        <Td>{unit.status}</Td>
+        <Td isNumeric>${unit.rent}</Td>
+        <Td isNumeric>${unit.total}</Td>
+        <Td isNumeric>${unit.market}</Td>
+        <Td>{unit.moveIn}</Td>
+        <Td>{unit.leaseExpire}</Td>
+        <Td>{unit.moveOut}</Td>
+        <Td isNumeric>${unit.balance}</Td>
+      </Tr>
     )
+  })
+
+
+  return (
+    <>
+      <TableContainer>
+        <Table variant='simple'>
+          <TableCaption>Raw Building Data Table</TableCaption>
+          <Thead>
+            <Tr>
+              <Th>Unit</Th>
+              <Th>Floor plan</Th>
+              <Th isNumeric>SqFt</Th>
+              <Th>Status</Th>
+              <Th isNumeric>Rent</Th>
+              <Th isNumeric>Total Charges</Th>
+              <Th isNumeric>Market</Th>
+              <Th>Move In</Th>
+              <Th>Lease Expire</Th>
+              <Th>Move Out</Th>
+              <Th isNumeric>Balance</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {buildingData}
+          </Tbody>
+        </Table>
+      </TableContainer>
+    </>
+  )
 }
