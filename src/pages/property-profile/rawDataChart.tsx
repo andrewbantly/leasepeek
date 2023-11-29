@@ -66,7 +66,7 @@ export function RawBuildingDataComponent(propertyDataObject: PropertyResponseObj
       <Tr key={`${unit.unit}-${unit.status}`}>
         <Td px={2}>{unit.unit}</Td>
         <Td px={2}>{unit.floorplan}</Td>
-        <Td px={2}>{unit.sqft}</Td>
+        <Td px={2}>{unit.sqft ? unit.sqft : ''}</Td>
         <Td px={2}>{unit.status ? `${unit.status.charAt(0).toUpperCase()}${unit.status.substr(1).toLowerCase()}` : ''}</Td>
         <Td px={2}>{unit.rent ? formatCurrency(unit.rent) : ''}</Td>
         <Td px={2}>{unit.total ? formatCurrency(unit.total) : ''}</Td>
