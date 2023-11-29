@@ -60,7 +60,7 @@ export function LossToLease({ lossToLease }: IncomePotentialProps) {
             <Chart options={options} series={series} type="donut" height={300} />
             <Flex justifyContent="center" mt={2}>
                 <Text color={labelColor} width={'33%'}>
-                    Market Value <Text as="span" fontWeight="bold"  color={'#808080'}>{formatCurrency(totalMarketValue)}</Text>
+                    Market Value <Text as="span" color={'#808080'} fontWeight="bold">{formatCurrency(totalMarketValue)}</Text>
                 </Text>
                 <Text color={labelColor} width={'33%'}>
                     Lease Charges <Text as="span" color={'#85BB65'} fontWeight="bold">{formatCurrency(rentIncome)}</Text>
