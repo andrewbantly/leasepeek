@@ -103,7 +103,7 @@ export function BuildingSummaryComponent(propertyDataObject: PropertyResponseObj
                                 </Text>
                             </Text>
 
-                            <Text fontSize="lg" color={textColor} mb={2}>
+                            <Text fontSize="lg" color={textColor}>
                                 Total Lease Charges:
                                 <Text display='inline' ml={1} fontSize="lg" color="teal.500" fontWeight='bold'>
                                     {totalRent}

@@ -9,6 +9,7 @@ interface Property {
     asOf: string;
     objectId: string;
     totalUnits: number;
+    totalBalance: number;
     vacancy: Vacancy;
     floorplans: FloorPlans;
 }

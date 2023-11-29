@@ -12,7 +12,7 @@ interface PropertyCardsProps {
 }
 
 export function PropertyCards({ property, deleteProperty }: PropertyCardsProps) {
-    const { location, asOf, objectId, totalUnits, vacancy, floorplans, date } = property;
+    const { location, asOf, objectId, totalUnits, vacancy, floorplans, date, totalBalance } = property;
     const bgColor = useColorModeValue("gray.200", "gray.700");
     const textColor = useColorModeValue("gray.800", "gray.200");
     const hoverColor = useColorModeValue("gray.300", "gray.900");
@@ -53,6 +53,9 @@ export function PropertyCards({ property, deleteProperty }: PropertyCardsProps) 
                     </Text>
                     <Text fontSize="lg" color={textColor} maxW="260px">
                         Total units: {totalUnits}
+                    </Text>
+                    <Text fontSize="lg" color={textColor} maxW="260px">
+                        Total balance: {totalBalance}
                     </Text>
                     <Badge borderRadius="full" px="2" colorScheme="teal">
                         data As of: {asOf}
