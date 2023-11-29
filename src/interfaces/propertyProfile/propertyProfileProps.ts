@@ -95,7 +95,7 @@ export interface PropertyDataItem {
     rent: number;
     residentDeposit: number;
     sqft: number;
-    status: string | null;
+    status: string;
     total: number;
     unit: string;
 }
