@@ -2,13 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import {
-    Box,
-    Flex,
-    Text,
-    Badge,
     Icon,
-    Button,
-    useColorModeValue,
     Tabs,
     TabList,
     TabPanels,
@@ -95,8 +89,6 @@ export function PropertyProfile() {
                 <Tab _hover={{ bg: "gray.100", color: 'gray.900' }} _selected={{ color: "white", bg: "green.800", borderBottomColor: "green.800" }}><Icon as={FaRegChartBar} mr={2}/>Floor Plan Analysis</Tab>
                 <Tab _hover={{ bg: "gray.100", color: 'gray.900' }} _selected={{ color: "white", bg: "gray.500", borderBottomColor: "gray.500" }}><Icon as={FaDatabase} mr={2}/>Raw Building Data</Tab>
             </TabList>
-
-
             <TabPanels>
                 <TabPanel p={4}>
                     <BuildingSummaryComponent {...propertyDataObject} />
