@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Box, Button, Flex, Input, Text } from '@chakra-ui/react';
+import { Button, Flex, Input, Text } from '@chakra-ui/react';
 import axios from 'axios'
 
 interface UploadFileButtonProps {
