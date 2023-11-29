@@ -141,19 +141,12 @@ export function BuildingSummaryComponent(propertyDataObject: PropertyResponseObj
                     </Flex>
                     <LossToLease lossToLease={propertyDataObject.lossToLease} />
                 </Box>
-                <Box p={6} width={"33%"}>
+                <Box p={6} width={"66%"}>
                     <Flex alignItems="center" mb={4}>
                         <Icon as={FaMoneyCheckAlt} boxSize={8} mr={2} />
                         <Text fontWeight="bold" fontSize='xl' color={textColor}>Recent Leases per SqFt</Text>
                     </Flex>
                     <RecentSignedLeases recentLeases={propertyDataObject.recentLeases} floorplans={propertyDataObject.floorplans} />
-                </Box>
-                <Box p={6} width={"33%"}>
-                    <Flex alignItems="center" mb={4}>
-                        <Icon as={FaChartArea} boxSize={8} mr={2} />
-                        <Text fontWeight="bold" fontSize='xl' color={textColor}>Recent Occupancy Changes</Text>
-                    </Flex>
-                    <RecentOccupancyChart />
                 </Box>
                 <Box p={6} width={"33%"}>
                     <Flex alignItems='center' mb={4}>
