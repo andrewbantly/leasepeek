@@ -2,13 +2,13 @@ import Chart from 'react-apexcharts';
 import { useColorModeValue } from '@chakra-ui/react';
 import { Flex, Text } from '@chakra-ui/react';
 
-interface LossToLease {
+interface LossToLeaseData {
     marketSum: number;
     rentIncome: number;
 }
 
 interface IncomePotentialProps {
-    lossToLease: LossToLease;
+    lossToLease: LossToLeaseData;
 }
 
 export function LossToLease({ lossToLease }: IncomePotentialProps) {

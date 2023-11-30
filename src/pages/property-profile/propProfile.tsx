@@ -82,6 +82,7 @@ export function PropertyProfile() {
             navigate('/')
         }
     }
+    
     return (
         <Tabs>
             <TabList borderBottomColor="gray.200" borderBottomWidth="2px">

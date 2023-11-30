@@ -1,11 +1,9 @@
-import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import {
     Box,
     Flex,
     Text,
-    Badge,
     Icon,
     Button,
     useColorModeValue
@@ -18,7 +16,6 @@ import { BiBuilding } from 'react-icons/bi';
 import { MdPieChart } from 'react-icons/md';
 import { FaSearchDollar, FaDollarSign, FaMoneyBill, FaMoneyBillWave, FaMoneyBillAlt, FaMoneyCheck, FaMoneyCheckAlt, FaCoins, FaChartLine, FaChartBar, FaChartPie, FaChartArea, FaBalanceScale, FaExchangeAlt } from 'react-icons/fa';
 import { FloorPlanCount } from '../building-summary-components/floorPlanCount';
-import { RecentOccupancyChart } from '../building-summary-components/recentOccupancy';
 import { FloorPlanAvgLease } from '../building-summary-components/floorPlanAvgLease';
 import { LossToLease } from '../building-summary-components/lossToLease';
 import { RecentSignedLeases } from '../building-summary-components/recentSignedLeases';

@@ -9,7 +9,7 @@ export function RawBuildingDataComponent(propertyDataObject: PropertyResponseObj
 
   const statusOptions = [''];
 
-  propertyDataObject.data.map(unit => {
+  propertyDataObject.data.forEach(unit => {
     if (!statusOptions.includes(unit.status)) {
       statusOptions.push(unit.status)
     }

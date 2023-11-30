@@ -1,6 +1,5 @@
 import Chart from 'react-apexcharts';
-import { Box, Heading, useColorMode, Text, useColorModeValue } from '@chakra-ui/react';
-import { stat } from 'fs';
+import { Box, useColorMode, Text, useColorModeValue } from '@chakra-ui/react';
 
 interface VacancyProps {
     vacants: { [key: string]: number; };

@@ -10,7 +10,7 @@ import {
     FormHelperText,
     FormErrorMessage,
 } from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import { DecodedToken } from '../../interfaces/decodedToken'
@@ -33,18 +33,18 @@ export function SignUp({ currentUser, setCurrentUser }: UserProps) {
     const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value);
     
 
-    useEffect(() => {
-        validatePasswords();
-    }, [confirmedPassword]);
-
-    const validatePasswords = () => {
+    const validatePasswords = useCallback(() => {
         if (password !== confirmedPassword) {
             setError('Passwords do not match');
             return false;
         }
         setError('');
         return true;
-    }
+    }, [password, confirmedPassword]);
+    
+    useEffect(() => {
+        validatePasswords();
+    }, [confirmedPassword, validatePasswords]);
 
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

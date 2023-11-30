@@ -1,4 +1,4 @@
-import { Flex, Button, Box, Text, Badge, useColorModeValue, VStack, Icon } from "@chakra-ui/react";
+import { Flex, Button, Box, Text, useColorModeValue, VStack, Icon } from "@chakra-ui/react";
 import { FaBuilding } from "react-icons/fa";
 import { Vacancy } from "../building-summary-components/vacancy";
 import { FloorPlanCount } from "../building-summary-components/floorPlanCount";
