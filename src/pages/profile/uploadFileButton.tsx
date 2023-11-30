@@ -39,11 +39,9 @@ export function UploadFileButon({ dataRequest }: UploadFileButtonProps) {
                     'Authorization': `Bearer ${token}`
                 }
             })
-            console.log('Response', response)
             setFileName('No file selected.')
             dataRequest()
         } catch (error) {
-            console.error("Error upload file", error)
             setFileName('')
             setErrorMessage('Error upload file.')
         }
