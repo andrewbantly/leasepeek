@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, ChangeEvent } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import { PropertyResponseObject } from "../../interfaces/propertyProfile/propertyProfileProps";
+import { Box, Heading, Flex, Icon, VStack, Input, Text, FormControl, FormLabel, RadioGroup, HStack, Radio, FormErrorMessage, IconButton, InputLeftElement, InputGroup, Table, Thead, Tbody, Tr, Th, Td, TableCaption, TableContainer } from '@chakra-ui/react';
+import { FaMapMarkerAlt, FaBuilding } from 'react-icons/fa';
 
 const defaultPropertyData: PropertyResponseObject = {
     user_id: 0,
@@ -79,23 +81,74 @@ export function UploadForm() {
         }
     })
 
-    const floorPlanForm = floorPlanArray.map(plan => {
+    const floorPlanForm = Object.entries(propertyDataObject.floorplans).map(([planCode, planDetails]) => {
         return (
-            <>
-                <li key={plan}>
-                    {plan}
-                </li>
-            </>
+            <Tr key={planCode}>
+                <Td px={2}>{planCode}</Td>
+                <Td>{/* Dropdown for Unit Type */}</Td>
+                <Td>{planDetails.unitCount}</Td>
+                <Td>{planDetails.avgSqft}</Td>
+                <Td>{planDetails.avgMarket}</Td>
+                <Td>{/* Input for Floor Plan Name */}</Td>
+                <Td>{/* Input for # Beds */}</Td>
+                <Td>{/* Input for # Baths */}</Td>
+            </Tr>
         )
-    })
+    });
+    
 
+    const [unitCountError, setInput] = useState('correct')
+    const handleInputChange = (value: string) => {
+        setInput(value);
+    };
+    const hasUnitCountError = unitCountError !== 'correct'
     return (
-        <div>
-            <h5>Upload form</h5>
-            <p>{objectId}</p>
-            <ul>
-                {floorPlanForm}
-            </ul>
-        </div>
+        <Box>
+            <FormControl isInvalid={hasUnitCountError}>
+                <FormLabel>Market</FormLabel>
+                <InputGroup>
+                    <InputLeftElement
+                        pointerEvents="none"
+                        children={<Icon as={FaMapMarkerAlt} color="gray.300" />}
+                    />
+                    <Input placeholder="Add API to search location" />
+                </InputGroup>
+                <FormLabel>Building</FormLabel>
+                <InputGroup>
+                    <InputLeftElement
+                        pointerEvents="none"
+                        children={<Icon as={FaBuilding} color="gray.300" />}
+                    />
+                    <Input value={propertyDataObject.location}></Input>
+                </InputGroup>
+                <FormLabel>Unit Count: {propertyDataObject.totalUnits}</FormLabel>
+                <RadioGroup onChange={handleInputChange}>
+                    <HStack spacing='12px'>
+                        <Radio value='correct'>Correct</Radio>
+                        <Radio value='incorrect'>Incorrect</Radio>
+                    </HStack>
+                    <FormErrorMessage>Please contact customercare@leasepeek.com.</FormErrorMessage>
+                </RadioGroup>
+            </FormControl>
+            <Text>Floor Plan Details</Text>
+            <Table variant='simple'>
+                <TableCaption>Please enter details for all floor plans which have been automatically pulled from the rent roll.</TableCaption>
+                <Thead>
+                    <Tr>
+                        <Th px={2}>Floor Plan Code</Th>
+                        <Th px={2}>Unit Type</Th>
+                        <Th px={2}># Units</Th>
+                        <Th px={2}>SqFt</Th>
+                        <Th px={2}>Market Rent</Th>
+                        <Th px={2}>Floor Plan Name</Th>
+                        <Th px={2}># Beds</Th>
+                        <Th px={2}># Baths</Th>
+                    </Tr>
+                </Thead>
+                <Tbody>
+                    {floorPlanForm}
+                </Tbody>
+            </Table>
+        </Box>
     )
 }
