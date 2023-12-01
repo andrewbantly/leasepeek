@@ -1,5 +1,5 @@
 import { UserProps } from '../../interfaces/currentUser';
-import { UploadFileButon } from './uploadFileButton';
+import { UploadFileButton } from './uploadFileButton';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { PropertyCards } from '../property-cards/propertyCards';
@@ -99,7 +99,7 @@ export function Profile({ currentUser, setCurrentUser }: UserProps) {
                     </VStack>
         
                     <Box mt={4} mr={7}>
-                        <UploadFileButon dataRequest={dataRequest} />
+                        <UploadFileButton dataRequest={dataRequest} />
                     </Box>
                     
                 </Flex>

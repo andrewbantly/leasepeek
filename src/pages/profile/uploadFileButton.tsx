@@ -1,15 +1,17 @@
 import { useRef, useState } from 'react';
 import { Button, Flex, Input, Text } from '@chakra-ui/react';
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
 interface UploadFileButtonProps {
     dataRequest: () => Promise<void>;
 }
 
-export function UploadFileButon({ dataRequest }: UploadFileButtonProps) {
+export function UploadFileButton({ dataRequest }: UploadFileButtonProps) {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [fileName, setFileName] = useState('No file selected.');
     const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate()
 
     const handleUpload = () => {
         if (fileInputRef.current) {
@@ -39,8 +41,10 @@ export function UploadFileButon({ dataRequest }: UploadFileButtonProps) {
                     'Authorization': `Bearer ${token}`
                 }
             })
-            setFileName('No file selected.')
-            dataRequest()
+            const objectId = response.data['objectId']
+            navigate(`/${objectId}/update`)
+            // setFileName('No file selected.')
+            // dataRequest()
         } catch (error) {
             setFileName('')
             setErrorMessage('Error upload file.')
