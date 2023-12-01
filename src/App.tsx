@@ -69,7 +69,7 @@ axios.interceptors.response.use(
             path='/register'
           ></Route>
           <Route
-            element={<UploadForm currentUser={currentUser} setCurrentUser={setCurrentUser}/>}
+            element={<UploadForm />}
             path='/:objectId/update'
           ></Route>
           <Route
