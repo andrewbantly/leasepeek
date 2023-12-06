@@ -34,7 +34,6 @@ const UnitStatusForm: React.FC<UnitStatusFormProps> = ({
         Object.keys(defaultStatus).includes(status) ? defaultStatus[status] : 'Other'
     );
     const [customStatus, setCustomStatus] = useState<string>('');
-    console.log(`status: ${status}, sel status: ${selectedStatus}`);
 
     const textInput = (
         <Input
