@@ -6,7 +6,6 @@ interface RenovationsByFloorPlanProps {
 }
 
 export function RenovationsByFloorPlan({ propertyDataObject }: RenovationsByFloorPlanProps) {
-    const floorPlanTableBgColor = useColorModeValue("white", "gray.700");
 
     function formatCurrency(amount: number): string {
         return new Intl.NumberFormat('en-US', {
@@ -35,8 +34,8 @@ export function RenovationsByFloorPlan({ propertyDataObject }: RenovationsByFloo
     });
 
     return (
-        <Box p={6} borderRadius="lg" borderWidth="1px" boxShadow="xl" bg={floorPlanTableBgColor} display="flex" flexDirection="column" mb={4}>
-            <Text fontSize='sm' >Choose floor plans that indicate a renovated unit.</Text>
+        <>
+            <Text fontSize='sm' >Please choose floor plans that indicate a renovated unit.</Text>
             <Table variant='simple'>
                 <Thead>
                     <Tr>
@@ -51,6 +50,6 @@ export function RenovationsByFloorPlan({ propertyDataObject }: RenovationsByFloo
                     {floorPlanForm}
                 </Tbody>
             </Table>
-        </Box>
+        </>
     )
 }

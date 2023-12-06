@@ -23,31 +23,34 @@ interface RenovationsFormProps {
     propertyDataObject: PropertyResponseObject;
 }
 
-export function RenovationsForm({propertyDataObject}: RenovationsFormProps) {
-    const [showForm, setShowForm] = useState(true);
+export function RenovationsForm({ propertyDataObject }: RenovationsFormProps) {
+    const floorPlanTableBgColor = useColorModeValue("white", "gray.700");
+    
+    const [showForm, setShowForm] = useState(false);
 
     const handleInputChange = (value: string) => {
         setShowForm(value === 'unitNumber')
     }
 
-    const renovatedDisplayType = showForm ? <RenovationsByUnitNumber propertyDataObject={propertyDataObject}/> : <RenovationsByFloorPlan propertyDataObject={propertyDataObject}/>;
+    const renovatedDisplayType = showForm ? <RenovationsByUnitNumber propertyDataObject={propertyDataObject} /> :
+        <RenovationsByFloorPlan propertyDataObject={propertyDataObject} />;
 
     return (
-        <Box>
-            <HStack>
-                <Box>
-                <Text>How would you like to mark renovated units?</Text>
-                <RadioGroup onChange={handleInputChange} defaultValue={'unitNumber'}>
-                    <Stack direction='column'>
-                        <Radio value={'unitNumber'}>By Unit Number</Radio>
-                        <Radio value={'floorPlan'}>By Floor Plan</Radio>
-                    </Stack>
-                </RadioGroup>
+        <Box mt={3}>
+            <Flex alignItems="start" gap={4}>
+                <Box flexShrink={0}>
+                    <Text>How would you like to mark renovated units?</Text>
+                    <RadioGroup onChange={handleInputChange} defaultValue={'floorPlan'}>
+                        <Stack direction='column'>
+                            <Radio value={'floorPlan'}>By Floor Plan</Radio>
+                            <Radio value={'unitNumber'}>By Unit Number</Radio>
+                        </Stack>
+                    </RadioGroup>
                 </Box>
-                <Box>
-                    {renovatedDisplayType}
+                <Box p={6} borderRadius="lg" borderWidth="1px" boxShadow="xl" bg={floorPlanTableBgColor} display="flex" flexDirection="column" mb={4} flexGrow={1}>
+                {renovatedDisplayType}
                 </Box>
-            </HStack>
+            </Flex>
         </Box>
     )
 }
