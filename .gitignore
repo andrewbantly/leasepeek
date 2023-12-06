@@ -3,6 +3,7 @@
 .env
 
 scratch-pad.txt
+plans.txt
 
 # test data
 test_data.ts

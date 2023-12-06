@@ -115,7 +115,12 @@ export function BuildingSummaryComponent(propertyDataObject: PropertyResponseObj
                         </Box>
                     </Box>
 
-                    <Flex>
+                    <Flex flexDirection={'column'} width={'175px'}>
+                        <Button _hover={{ bg: "purple.400", color: 'gray.900' }} size="sm" variant="outline" colorScheme="purple" onClick={(e) => {
+                            navigate(`details`)
+                        }} mb={3}>
+                            Edit Property Details
+                        </Button>
                         <Button _hover={{ bg: "red.400", color: 'gray.900' }} size="sm" variant="outline" colorScheme="red" onClick={(e) => {
                             e.stopPropagation();
                             deleteProperty()

@@ -6,6 +6,7 @@ import NavBar from "./components/partials/navBar"
 import { Login } from "./pages/login/login"
 import { Home } from "./pages/home/home"
 import { SignUp } from "./pages/signup/signup"
+import { PropertyDetails } from './pages/propertyDetails/propertyDetails'
 import { NotFound } from "./pages/notfound/notfound"
 import { useState, useEffect } from 'react'
 import jwt_decode from 'jwt-decode'
@@ -66,6 +67,10 @@ axios.interceptors.response.use(
           <Route
             element={<SignUp currentUser={currentUser} setCurrentUser={setCurrentUser}/>}
             path='/register'
+          ></Route>
+          <Route
+            element={<PropertyDetails />}
+            path='/:objectId/details'
           ></Route>
           <Route
             element={<PropertyProfile/>}
