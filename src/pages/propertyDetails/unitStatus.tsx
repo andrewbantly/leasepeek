@@ -1,16 +1,5 @@
 import React, { useState } from 'react';
-import {
-    Box,
-    Text,
-    Select,
-    Input,
-    useColorModeValue,
-    FormLabel,
-    InputGroup,
-    Grid,
-    Button,
-    propNames,
-} from '@chakra-ui/react';
+import { Box, Text, Select, Input, useColorModeValue, FormLabel, InputGroup, Grid, Button, propNames, } from '@chakra-ui/react';
 import { PropertyResponseObject } from '../../interfaces/propertyProfile/propertyProfileProps';
 
 interface UnitStatusProps {

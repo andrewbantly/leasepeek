@@ -1,14 +1,4 @@
-import {
-    Box,
-    Text,
-    Select,
-    Input,
-    useColorModeValue,
-    FormLabel,
-    InputGroup,
-    Grid,
-    Button,
-} from '@chakra-ui/react';
+import { Text, Select, FormLabel, InputGroup, } from '@chakra-ui/react';
 
 interface ChargeCodesFormProps {
     charge: string;
@@ -30,7 +20,7 @@ export function ChargeCodesForm({ charge, value }: ChargeCodesFormProps) {
     return (
         <InputGroup>
             <FormLabel width={'100px'}>
-                Charge: {charge}
+                {charge}
                 <Text size={'sm'} color={'gray.500'}>
                     {formatCurrency(value)}
                 </Text>

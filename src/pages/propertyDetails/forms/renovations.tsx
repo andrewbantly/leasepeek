@@ -1,19 +1,4 @@
-import {
-    Box,
-    Text,
-    Select,
-    Input,
-    useColorModeValue,
-    FormLabel,
-    InputGroup,
-    Grid,
-    Button,
-    Flex,
-    HStack,
-    RadioGroup,
-    Radio,
-    Stack,
-} from '@chakra-ui/react';
+import { Box, Text, useColorModeValue, Flex, RadioGroup, Radio, Stack, } from '@chakra-ui/react';
 import { useState } from 'react';
 import { RenovationsByFloorPlan } from './renovationsByFloorPlan';
 import { RenovationsByUnitNumber } from './renovationsByUnitNumber';
@@ -25,7 +10,7 @@ interface RenovationsFormProps {
 
 export function RenovationsForm({ propertyDataObject }: RenovationsFormProps) {
     const floorPlanTableBgColor = useColorModeValue("white", "gray.700");
-    
+
     const [showForm, setShowForm] = useState(false);
 
     const handleInputChange = (value: string) => {

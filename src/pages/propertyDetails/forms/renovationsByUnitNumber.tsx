@@ -1,6 +1,5 @@
-import { Box, Input, Text, Select, Table, TableCaption, TableContainer, Badge, Tooltip, Thead, Tbody, Tr, Th, Td, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, useColorModeValue } from '@chakra-ui/react';
+import { Text, Select, Table, TableContainer, Thead, Tbody, Tr, Th, Td, } from '@chakra-ui/react';
 import { PropertyResponseObject } from "../../../interfaces/propertyProfile/propertyProfileProps";
-import { useState, useEffect } from "react";
 
 interface RenovationsByUnitNumberProps {
     propertyDataObject: PropertyResponseObject;

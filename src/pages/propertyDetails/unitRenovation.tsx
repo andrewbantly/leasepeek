@@ -1,17 +1,4 @@
-import {
-    Box,
-    Text,
-    Select,
-    Input,
-    useColorModeValue,
-    FormLabel,
-    InputGroup,
-    Grid,
-    Button,
-    RadioGroup,
-    Radio,
-    Stack,
-} from '@chakra-ui/react';
+import { Box, Text, useColorModeValue, FormLabel, RadioGroup, Radio, Stack, } from '@chakra-ui/react';
 import { PropertyResponseObject } from "../../interfaces/propertyProfile/propertyProfileProps";
 import { RenovationsForm } from './forms/renovations';
 import { useState } from 'react';

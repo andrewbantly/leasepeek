@@ -1,4 +1,4 @@
-import { Box, Input, Text, Select, Table, Thead, Tbody, Tr, Th, Td, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, useColorModeValue } from '@chakra-ui/react';
+import { Input, Text, Select, Table, Thead, Tbody, Tr, Th, Td, } from '@chakra-ui/react';
 import { PropertyResponseObject } from "../../../interfaces/propertyProfile/propertyProfileProps";
 
 interface RenovationsByFloorPlanProps {

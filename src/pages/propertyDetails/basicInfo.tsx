@@ -1,4 +1,4 @@
-import { Box, Heading, Icon, Stack, Input, FormControl, FormLabel, RadioGroup, Radio, FormErrorMessage, InputLeftElement, InputGroup, useColorModeValue } from '@chakra-ui/react';
+import { Box, Icon, Stack, Input, FormControl, FormLabel, RadioGroup, Radio, FormErrorMessage, InputLeftElement, InputGroup, useColorModeValue } from '@chakra-ui/react';
 import { FaMapMarkerAlt, FaBuilding } from 'react-icons/fa';
 import { useState } from 'react';
 import { PropertyResponseObject } from "../../interfaces/propertyProfile/propertyProfileProps";
@@ -19,7 +19,6 @@ export function BasicInfo({ propertyDataObject }: BasicInfoProps) {
 
     return (
         <Box borderRadius="lg" borderWidth="1px" boxShadow="md" bg={floorPlanTableBgColor} p={4} mb={4}>
-            <Heading as={'h2'} mb={4}>Property Details</Heading>
             <FormControl isInvalid={unitCountError}>
                 <FormLabel>Market</FormLabel>
                 <InputGroup mb={3}>
