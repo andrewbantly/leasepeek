@@ -1,6 +1,4 @@
-import { Box, Heading, Flex, Icon, Stack, Input, Text, FormControl, FormLabel, RadioGroup, HStack, Radio, FormErrorMessage, Select, InputLeftElement, InputGroup, Table, Thead, Tbody, Tr, Th, Td, TableCaption, TableContainer, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, useColorModeValue } from '@chakra-ui/react';
-import { FaMapMarkerAlt, FaBuilding } from 'react-icons/fa';
-import { useEffect, useState, ChangeEvent } from 'react';
+import { Box, Input, Text, Select, Table, Thead, Tbody, Tr, Th, Td, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, useColorModeValue } from '@chakra-ui/react';
 import { PropertyResponseObject } from "../../interfaces/propertyProfile/propertyProfileProps";
 
 interface FloorPlanDetailsProps {

@@ -1,8 +1,8 @@
-import { useEffect, useState, ChangeEvent } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import { PropertyResponseObject } from "../../interfaces/propertyProfile/propertyProfileProps";
-import { Box, Heading, Flex, Icon, Stack, Input, Text, FormControl, FormLabel, RadioGroup, HStack, Radio, FormErrorMessage, Select, InputLeftElement, InputGroup, Table, Thead, Tbody, Tr, Th, Td, TableCaption, TableContainer, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, useColorModeValue } from '@chakra-ui/react';
+import { Box, useColorModeValue } from '@chakra-ui/react';
 import { BasicInfo } from './basicInfo';
 import { FloorPlanDetails } from './floorPlanDetails';
 
