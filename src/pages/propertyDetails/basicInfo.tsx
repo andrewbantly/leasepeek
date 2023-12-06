@@ -1,5 +1,5 @@
 import { Box, Icon, Stack, Input, FormControl, FormLabel, RadioGroup, Radio, FormErrorMessage, InputLeftElement, InputGroup, useColorModeValue } from '@chakra-ui/react';
-import { FaMapMarkerAlt, FaBuilding } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaBuilding, FaCalendar } from 'react-icons/fa';
 import { useState } from 'react';
 import { PropertyResponseObject } from "../../interfaces/propertyProfile/propertyProfileProps";
 
@@ -20,6 +20,11 @@ export function BasicInfo({ propertyDataObject }: BasicInfoProps) {
     return (
         <Box borderRadius="lg" borderWidth="1px" boxShadow="md" bg={floorPlanTableBgColor} p={4} mb={4}>
             <FormControl isInvalid={unitCountError}>
+                <FormLabel>Rent Roll Data As Of:</FormLabel>
+                <InputGroup mb={3}>
+                    <InputLeftElement pointerEvents="none" children={<Icon as={FaCalendar} color="gray.300" />} />
+                    <Input value={propertyDataObject.asOf} />
+                </InputGroup>
                 <FormLabel>Market</FormLabel>
                 <InputGroup mb={3}>
                     <InputLeftElement pointerEvents="none" children={<Icon as={FaMapMarkerAlt} color="gray.300" />} />
