@@ -16,7 +16,6 @@ interface ChargeCodesFormProps {
 }
 
 export function ChargeCodesForm({ charge, value }: ChargeCodesFormProps) {
-    console.log(`charge: ${charge} value: ${value}`)
 
     function formatCurrency(amount: number): string {
         return new Intl.NumberFormat('en-US', {
