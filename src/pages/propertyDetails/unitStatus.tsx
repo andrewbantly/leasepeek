@@ -20,7 +20,7 @@ interface UnitStatusProps {
 interface UnitStatusFormProps {
     status: string;
     count: number;
-    defaultStatus: string[];
+    defaultStatus: Record<string, string>;
     setChangesMade: (value: boolean) => void;
 }
 
@@ -31,7 +31,7 @@ const UnitStatusForm: React.FC<UnitStatusFormProps> = ({
     setChangesMade,
 }) => {
     const [selectedStatus, setSelectedStatus] = useState<string>(
-        defaultStatus.includes(status) ? status : 'Other'
+        Object.keys(defaultStatus).includes(status) ? defaultStatus[status] : 'Other'
     );
     const [customStatus, setCustomStatus] = useState<string>('');
     console.log(`status: ${status}, sel status: ${selectedStatus}`);
@@ -52,7 +52,7 @@ const UnitStatusForm: React.FC<UnitStatusFormProps> = ({
             required={selectedStatus === 'Other'}
         />
     );
-    
+
 
     return (
         <InputGroup>
@@ -75,8 +75,7 @@ const UnitStatusForm: React.FC<UnitStatusFormProps> = ({
             >
                 <option value="Occupied">Occupied</option>
                 <option value="Vacant">Vacant</option>
-                <option value="Model">Model</option>
-                <option value="Down">Down</option>
+                <option value="NonRev">Non-Revenue</option>
                 <option value="Applicant">Future Resident</option>
                 <option value="Other">Other</option>
             </Select>
@@ -89,7 +88,7 @@ export function UnitStatus({ propertyDataObject }: UnitStatusProps) {
     const floorPlanTableBgColor = useColorModeValue('white', 'gray.700');
     const [changesMade, setChangesMade] = useState(false)
 
-    const defaultStatus: string[] = ['Occupied', 'Vacant', 'Model', 'Down', 'Applicant'];
+    const defaultStatus = { 'Occupied': 'Occupied', 'Vacant': 'Vacant', 'Model': 'NonRev', 'Down': 'NonRev', 'Applicant': 'Applicant' };
 
     const noChanges = (
         <Button isDisabled alignSelf="flex-end" mr={3}>Save Changes</Button>
