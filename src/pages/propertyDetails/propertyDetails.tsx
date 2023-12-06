@@ -6,6 +6,8 @@ import { Box, useColorModeValue } from '@chakra-ui/react';
 import { BasicInfo } from './basicInfo';
 import { FloorPlanDetails } from './floorPlanDetails';
 import { UnitStatus } from './unitStatus';
+import { ChargeCodes } from './chargeCodes';
+import { UnitRenovations } from './unitRenovation';
 
 const defaultPropertyData: PropertyResponseObject = {
     user_id: 0,
@@ -90,6 +92,8 @@ export function PropertyDetails() {
             <BasicInfo propertyDataObject={propertyDataObject}/>
             <FloorPlanDetails propertyDataObject={propertyDataObject}/>
             <UnitStatus propertyDataObject={propertyDataObject}/>
+            <ChargeCodes propertyDataObject={propertyDataObject}/>
+            <UnitRenovations propertyDataObject={propertyDataObject}/>
         </Box>
     )
 }
