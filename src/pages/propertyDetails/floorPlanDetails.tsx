@@ -45,9 +45,9 @@ export function FloorPlanDetails({ propertyDataObject}:FloorPlanDetailsProps) {
     });
 
     return(
-        <Box p={6} borderRadius="lg" borderWidth="1px" boxShadow="xl" bg={floorPlanTableBgColor} display="flex" flexDirection="column">
+        <Box p={6} borderRadius="lg" borderWidth="1px" boxShadow="xl" bg={floorPlanTableBgColor} display="flex" flexDirection="column" mb={4}>
                     <Text fontSize='xl' fontWeight='bold' mb={2}>Floor Plan Details</Text>
-                    <Text fontSize='sm' mb={4}>Please enter details for all floor plans which have been automatically pulled from the rent roll.</Text>
+                    <Text fontSize='sm' >Please enter details for all floor plans which have been automatically pulled from the rent roll.</Text>
                     <Table variant='simple'>
                         <Thead>
                             <Tr>
