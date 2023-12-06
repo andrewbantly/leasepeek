@@ -5,6 +5,7 @@ import { PropertyResponseObject } from "../../interfaces/propertyProfile/propert
 import { Box, useColorModeValue } from '@chakra-ui/react';
 import { BasicInfo } from './basicInfo';
 import { FloorPlanDetails } from './floorPlanDetails';
+import { UnitStatus } from './unitStatus';
 
 const defaultPropertyData: PropertyResponseObject = {
     user_id: 0,
@@ -86,8 +87,9 @@ export function PropertyDetails() {
 
     return (
         <Box p={6} borderRadius="lg" borderWidth="1px" boxShadow="xl" bg={bgColor} display="flex" flexDirection="column" margin={2}>
-            <BasicInfo propertyDataObject={propertyDataObject} />
-            <FloorPlanDetails propertyDataObject={propertyDataObject} />
+            <BasicInfo propertyDataObject={propertyDataObject}/>
+            <FloorPlanDetails propertyDataObject={propertyDataObject}/>
+            <UnitStatus propertyDataObject={propertyDataObject}/>
         </Box>
     )
 }
