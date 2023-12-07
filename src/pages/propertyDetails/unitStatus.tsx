@@ -9,6 +9,7 @@ interface UnitStatusProps {
 interface UnitStatusFormProps {
     status: string;
     count: number;
+    type: string;
     defaultStatus: Record<string, string>;
     setChangesMade: (value: boolean) => void;
 }
@@ -114,7 +115,8 @@ export function UnitStatus({ propertyDataObject }: UnitStatusProps) {
                     <UnitStatusForm
                         key={status}
                         status={status}
-                        count={count}
+                        count={count.count}
+                        type={count.type}
                         defaultStatus={defaultStatus}
                         setChangesMade={setChangesMade}
                     />

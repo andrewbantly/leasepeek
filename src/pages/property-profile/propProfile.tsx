@@ -17,7 +17,18 @@ import { RawBuildingDataComponent } from './rawBuildingData';
 
 const defaultPropertyData: PropertyResponseObject = {
     user_id: 0,
-    location: "",
+    location: {
+        market: '',
+        building: '',
+        address: {
+            addressLine1: '',
+            addressLine2: '',
+            postalCode: '',
+            city: '',
+            state: '',
+            country: '',
+        }
+    },
     asOf: "",
     date: "",
     vacancy: {},
@@ -38,6 +49,7 @@ const defaultPropertyData: PropertyResponseObject = {
                 {
                     code: '',
                     value: 0,
+                    type: '',
                 }
             ],
             floorplan: '',
@@ -53,6 +65,7 @@ const defaultPropertyData: PropertyResponseObject = {
             status: '',
             total: 0,
             unit: '',
+            renovated: false,
         }]
 };
 
@@ -82,13 +95,13 @@ export function PropertyProfile() {
             navigate('/')
         }
     }
-    
+
     return (
         <Tabs>
             <TabList borderBottomColor="gray.200" borderBottomWidth="2px">
-                <Tab _hover={{ bg: "gray.100", color: 'gray.900' }} _selected={{ color: "white", bg: "blue.700", borderBottomColor: "blue.700" }}><Icon as={FaBuilding} mr={2}/>Building Summary</Tab>
-                <Tab _hover={{ bg: "gray.100", color: 'gray.900' }} _selected={{ color: "white", bg: "green.800", borderBottomColor: "green.800" }}><Icon as={FaRegChartBar} mr={2}/>Floor Plan Analysis</Tab>
-                <Tab _hover={{ bg: "gray.100", color: 'gray.900' }} _selected={{ color: "white", bg: "gray.500", borderBottomColor: "gray.500" }}><Icon as={FaDatabase} mr={2}/>Raw Building Data</Tab>
+                <Tab _hover={{ bg: "gray.100", color: 'gray.900' }} _selected={{ color: "white", bg: "blue.700", borderBottomColor: "blue.700" }}><Icon as={FaBuilding} mr={2} />Building Summary</Tab>
+                <Tab _hover={{ bg: "gray.100", color: 'gray.900' }} _selected={{ color: "white", bg: "green.800", borderBottomColor: "green.800" }}><Icon as={FaRegChartBar} mr={2} />Floor Plan Analysis</Tab>
+                <Tab _hover={{ bg: "gray.100", color: 'gray.900' }} _selected={{ color: "white", bg: "gray.500", borderBottomColor: "gray.500" }}><Icon as={FaDatabase} mr={2} />Raw Building Data</Tab>
             </TabList>
             <TabPanels>
                 <TabPanel p={4}>
@@ -98,7 +111,7 @@ export function PropertyProfile() {
                     <FloorPlanAnalysisComponent />
                 </TabPanel>
                 <TabPanel p={4}>
-                    <RawBuildingDataComponent {...propertyDataObject}/>
+                    <RawBuildingDataComponent {...propertyDataObject} />
                 </TabPanel>
             </TabPanels>
         </Tabs>

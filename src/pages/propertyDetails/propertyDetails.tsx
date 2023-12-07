@@ -11,7 +11,18 @@ import { UnitRenovations } from './unitRenovation';
 
 const defaultPropertyData: PropertyResponseObject = {
     user_id: 0,
-    location: "",
+    location: {
+        market: '',
+        building: '',
+        address: {
+            addressLine1: '',
+            addressLine2: '',
+            postalCode: '',
+            city: '',
+            state: '',
+            country: '',
+        }
+    },
     asOf: "",
     date: "",
     vacancy: {},
@@ -32,6 +43,7 @@ const defaultPropertyData: PropertyResponseObject = {
                 {
                     code: '',
                     value: 0,
+                    type: '',
                 }
             ],
             floorplan: '',
@@ -47,6 +59,7 @@ const defaultPropertyData: PropertyResponseObject = {
             status: '',
             total: 0,
             unit: '',
+            renovated: false,
         }]
 };
 

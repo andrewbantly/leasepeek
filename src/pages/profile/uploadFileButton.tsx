@@ -42,7 +42,7 @@ export function UploadFileButton({ dataRequest }: UploadFileButtonProps) {
                 }
             })
             const objectId = response.data['objectId']
-            navigate(`/${objectId}/update`)
+            navigate(`/${objectId}/details`)
             // setFileName('No file selected.')
             // dataRequest()
         } catch (error) {

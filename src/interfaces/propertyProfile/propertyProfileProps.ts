@@ -1,6 +1,6 @@
 export interface PropertyResponseObject {
     user_id: number;
-    location: string;
+    location: LocationDetails;
     asOf: string;
     date: ISODateString;
     vacancy: Vacancy;
@@ -14,10 +14,28 @@ export interface PropertyResponseObject {
     data: PropertyDataItem[];
 }
 
+interface LocationDetails {
+    market: string;
+    address: AddressDetails;
+    building: string;
+}
+
+interface AddressDetails {
+    addressLine1: string;
+    addressLine2: string;
+    postalCode: string;
+    city: string;
+    state: string;
+    country: string;
+}
+
 type ISODateString = string;
 
 interface Vacancy {
-    [key: string]: number;
+    [key: string]: {
+        count: number;
+        type: string;
+    }
 }
 export type FloorPlans = Record<FloorPlanName, FloorPlanDetails>;
 
@@ -31,6 +49,10 @@ interface FloorPlanDetails {
     unitCount: number;
     avgSqft: number;
     unitStatuses: UnitStatusDetails;
+    planName: string;
+    planType: string;
+    beds: number;
+    baths: number;
 }
 
 interface UnitStatusDetails {
@@ -83,24 +105,27 @@ export interface LeaseTrends {
 }
 
 export interface PropertyDataItem {
-    balance: number;
-    charges: Charge[];
+    unit: string;
     floorplan: string;
-    leaseExpire: string;
-    leaseStart: string | null;
+    sqft: number;
     market: number;
+    rent: number;
+    status: string;
     moveIn: string;
     moveOut: string;
-    otherDeposit: number;
-    rent: number;
+    leaseStart: string | null;
+    leaseExpire: string;
     residentDeposit: number;
-    sqft: number;
-    status: string;
+    otherDeposit: number;
+    balance: number;
     total: number;
-    unit: string;
+    renovated: boolean;
+    charges: Charge[];
+
 }
 
 interface Charge {
     code: string;
     value: number;
+    type: string;
 }
