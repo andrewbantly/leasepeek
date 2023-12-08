@@ -24,10 +24,9 @@ interface LocationDetails {
 interface AddressDetails {
     addressLine1: string;
     addressLine2: string;
-    postalCode: string;
+    zipCode: string;
     city: string;
     state: string;
-    country: string;
 }
 
 type ISODateString = string;

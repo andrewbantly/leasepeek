@@ -23,10 +23,9 @@ const defaultPropertyData: PropertyResponseObject = {
         address: {
             addressLine1: '',
             addressLine2: '',
-            postalCode: '',
+            zipCode: '',
             city: '',
             state: '',
-            country: '',
         }
     },
     asOf: "",
