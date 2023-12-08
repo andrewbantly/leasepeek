@@ -78,7 +78,7 @@ export function BuildingSummaryComponent(propertyDataObject: PropertyResponseObj
                         <Flex alignItems="center" mb={3}>
                             <Icon as={FaBuilding} boxSize={8} color={textColor} />
                             <Text fontWeight="bold" fontSize="xl" color={textColor} ml={4}>
-                                {propertyDataObject ? propertyDataObject.location.building : "Loading..."}
+                                {propertyDataObject ? propertyDataObject.location.buildingName : "Loading..."}
                             </Text>
                         </Flex>
                         <Text fontSize="xs" color={labelColor}>

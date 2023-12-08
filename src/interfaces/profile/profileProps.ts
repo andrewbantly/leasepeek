@@ -18,7 +18,7 @@ interface Property {
 interface LocationDetails {
     market: string;
     address: AddressDetails;
-    building: string;
+    buildingName: string;
 }
 
 interface AddressDetails {

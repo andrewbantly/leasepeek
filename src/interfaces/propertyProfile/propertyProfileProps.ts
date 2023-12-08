@@ -6,6 +6,7 @@ export interface PropertyResponseObject {
     vacancy: Vacancy;
     floorplans: FloorPlans;
     totalUnits: number;
+    unitsConfirmed: boolean;
     totalBalance: number;
     lossToLease: LossToLease;
     recentLeases: RecentLeases;
@@ -17,7 +18,7 @@ export interface PropertyResponseObject {
 interface LocationDetails {
     market: string;
     address: AddressDetails;
-    building: string;
+    buildingName: string;
 }
 
 interface AddressDetails {

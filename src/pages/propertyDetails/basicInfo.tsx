@@ -11,25 +11,25 @@ interface BasicInfoProps {
 export function BasicInfo({ propertyDataObject }: BasicInfoProps) {
     const [asOf, setAsOf] = useState(propertyDataObject.asOf);
     const [market, setMarket] = useState(propertyDataObject.location.market);
-    const [buildingName, setBuildingName] = useState(propertyDataObject.location.building);
+    const [buildingName, setBuildingName] = useState(propertyDataObject.location.buildingName);
     const [addressLine1, setAddressLine1] = useState(propertyDataObject.location.address.addressLine1);
     const [addressLine2, setAddressLine2] = useState(propertyDataObject.location.address.addressLine2);
     const [city, setCity] = useState(propertyDataObject.location.address.city);
     const [state, setState] = useState(propertyDataObject.location.address.state);
     const [zipCode, setZipCode] = useState(propertyDataObject.location.address.zipCode);
-    const [unitsConfirmed, setUnitsConfirmed] = useState(false)
+    const [unitsConfirmed, setUnitsConfirmed] = useState(propertyDataObject.unitsConfirmed)
     const [changesMade, setChangesMade] = useState(false);
     const [unitCountError, setUnitCountError] = useState(false)
 
     useEffect(() => {
         setAsOf(propertyDataObject.asOf);
         setMarket(propertyDataObject.location.market);
-        setBuildingName(propertyDataObject.location.building);
+        setBuildingName(propertyDataObject.location.buildingName);
     }, [propertyDataObject]);
 
     useEffect(() => {
         const isChanged = () => {
-            return asOf !== propertyDataObject.asOf || market !== propertyDataObject.location.market || buildingName !== propertyDataObject.location.building;
+            return asOf !== propertyDataObject.asOf || market !== propertyDataObject.location.market || buildingName !== propertyDataObject.location.buildingName;
         };
         setChangesMade(isChanged());
     }, [asOf, market, buildingName])
@@ -43,6 +43,7 @@ export function BasicInfo({ propertyDataObject }: BasicInfoProps) {
     };
 
     const formData = {
+        'form': 'basic',
         asOf,
         market,
         buildingName,
@@ -136,7 +137,7 @@ export function BasicInfo({ propertyDataObject }: BasicInfoProps) {
                         </FormLabel>
                         <Box borderWidth="1px" borderRadius="md" p={3} width={'fit-content'}>
                             <Text mb={2}>Please confirm the number of units</Text>
-                            <RadioGroup onChange={handleInputChange}>
+                            <RadioGroup onChange={handleInputChange} defaultValue={unitsConfirmed ? 'correct' : ''}>
                                 <HStack spacing={5}>
                                     <Radio value='correct'>Correct</Radio>
                                     <Radio value='incorrect'>Incorrect</Radio>

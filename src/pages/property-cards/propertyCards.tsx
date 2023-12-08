@@ -49,7 +49,7 @@ export function PropertyCards({ property, deleteProperty }: PropertyCardsProps) 
                 <VStack alignItems="start">
                     <Icon as={FaBuilding} boxSize={6} color={textColor} />
                     <Text fontWeight="bold" fontSize="xl" color={textColor} maxW="260px">
-                        {location.building}
+                        {location.buildingName}
                     </Text>
                     <Text fontSize="xs" color={labelColor} maxW="260px">
                         Uploaded: {formatDate(date)}

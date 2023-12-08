@@ -13,7 +13,7 @@ const defaultPropertyData: PropertyResponseObject = {
     user_id: 0,
     location: {
         market: '',
-        building: '',
+        buildingName: '',
         address: {
             addressLine1: '',
             addressLine2: '',
@@ -27,6 +27,7 @@ const defaultPropertyData: PropertyResponseObject = {
     vacancy: {},
     floorplans: {},
     totalUnits: 0,
+    unitsConfirmed: false,
     totalBalance: 0,
     lossToLease: {
         marketSum: 0,
