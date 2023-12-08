@@ -10,6 +10,16 @@ interface BasicInfoProps {
 }
 
 export function BasicInfo({ propertyDataObject }: BasicInfoProps) {
+    const [asOfState, setAsOfState] = useState(propertyDataObject.asOf);
+    const [marketState, setMarketState] = useState(propertyDataObject.location.market);
+    const [buildingNameState, setBuildingNameState] = useState(propertyDataObject.location.buildingName);
+    const [addressLine1State, setAddressLine1State] = useState(propertyDataObject.location.address.addressLine1);
+    const [addressLine2State, setAddressLine2State] = useState(propertyDataObject.location.address.addressLine2);
+    const [cityState, setCityState] = useState(propertyDataObject.location.address.city);
+    const [stateState, setStateState] = useState(propertyDataObject.location.address.state);
+    const [zipCodeState, setZipCodeState] = useState(propertyDataObject.location.address.zipCode);
+
+
     const [asOf, setAsOf] = useState(propertyDataObject.asOf);
     const [market, setMarket] = useState(propertyDataObject.location.market);
     const [buildingName, setBuildingName] = useState(propertyDataObject.location.buildingName);
@@ -37,14 +47,22 @@ export function BasicInfo({ propertyDataObject }: BasicInfoProps) {
         setZipCode(propertyDataObject.location.address.zipCode);
         setUnitsConfirmed(propertyDataObject.unitsConfirmed);
         setRadioValue(propertyDataObject.unitsConfirmed ? 'correct' : '');
+        setAsOfState(propertyDataObject.asOf);
+        setMarketState(propertyDataObject.location.market);
+        setBuildingNameState(propertyDataObject.location.buildingName);
+        setAddressLine1State(propertyDataObject.location.address.addressLine1);
+        setAddressLine2State(propertyDataObject.location.address.addressLine2);
+        setCityState(propertyDataObject.location.address.city);
+        setStateState(propertyDataObject.location.address.state);
+        setZipCodeState(propertyDataObject.location.address.zipCode);
     }, [propertyDataObject]);
 
     useEffect(() => {
         const isChanged = () => {
-            return asOf !== propertyDataObject.asOf || market !== propertyDataObject.location.market || buildingName !== propertyDataObject.location.buildingName;
+            return asOf !== asOfState || market !== marketState || buildingName !== buildingNameState || addressLine1 !== addressLine1State || addressLine2 !== addressLine2State || city !== cityState || state !== stateState || zipCode !== zipCodeState;
         };
         setChangesMade(isChanged());
-    }, [asOf, market, buildingName])
+    }, [asOf, asOfState, market, marketState, buildingName, buildingNameState, addressLine1, addressLine1State, addressLine2, addressLine2State, city, cityState, state, stateState, zipCode, zipCodeState])
 
     const buttonBgColor = useColorModeValue("gray.300", "gray.900");
     const floorPlanTableBgColor = useColorModeValue("white", "gray.700");
@@ -71,7 +89,6 @@ export function BasicInfo({ propertyDataObject }: BasicInfoProps) {
 
     const handleSubmitInformation = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log(formData)
         try {
             const token = localStorage.getItem('jwt');
             const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/data/update`, formData, {
@@ -81,6 +98,14 @@ export function BasicInfo({ propertyDataObject }: BasicInfoProps) {
                 }
             })
             console.log(response)
+            setAsOfState(asOf);
+            setMarketState(market);
+            setBuildingNameState(buildingName);
+            setAddressLine1State(addressLine1);
+            setAddressLine2State(addressLine2);
+            setCityState(city);
+            setStateState(state);
+            setZipCodeState(zipCode);
         } catch (error) {
             console.log(error)
         }
