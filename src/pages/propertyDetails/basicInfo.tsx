@@ -172,23 +172,23 @@ export function BasicInfo({ propertyDataObject }: BasicInfoProps) {
                         <FormLabel>Address</FormLabel>
                         <InputGroup mb={3}>
                             <InputLeftElement pointerEvents="none" children={<Icon as={FaBuilding} color="gray.300" />} />
-                            <Input width={'75%'} placeholder="Address Line 1" value={addressLine1} onChange={(e) => setAddressLine1(e.target.value)} />
+                            <Input placeholder="Address Line 1" value={addressLine1} onChange={(e) => setAddressLine1(e.target.value)} />
                         </InputGroup>
                         <InputGroup mb={3}>
                             <InputLeftElement pointerEvents="none" children={<Icon as={FaBuilding} color="gray.300" />} />
-                            <Input width={'75%'} placeholder="Address Line 2 (Optional)" value={addressLine2} onChange={(e) => setAddressLine2(e.target.value)} />
+                            <Input placeholder="Address Line 2 (Optional)" value={addressLine2} onChange={(e) => setAddressLine2(e.target.value)} />
                         </InputGroup>
                         <InputGroup mb={3}>
                             <InputLeftElement pointerEvents="none" children={<Icon as={FaCity} color="gray.300" />} />
-                            <Input width={'75%'} placeholder="City" value={city} onChange={(e) => setCity(e.target.value)} />
+                            <Input placeholder="City" value={city} onChange={(e) => setCity(e.target.value)} />
                         </InputGroup>
                         <InputGroup mb={3}>
                             <InputLeftElement pointerEvents="none" children={<Icon as={FaFlag} color="gray.300" />} />
-                            <Input width={'75%'} placeholder="State" value={state} onChange={(e) => setState(e.target.value)} />
+                            <Input placeholder="State" value={state} onChange={(e) => setState(e.target.value)} />
                         </InputGroup>
                         <InputGroup mb={3}>
                             <InputLeftElement pointerEvents="none" children={<Icon as={FaMailBulk} color="gray.300" />} />
-                            <Input width={'75%'} placeholder="Zip Code" value={zipCode} onChange={(e) => setZipCode(e.target.value)} />
+                            <Input placeholder="Zip Code" value={zipCode} onChange={(e) => setZipCode(e.target.value)} />
                         </InputGroup>
                     </Box>
                 </Box>
@@ -207,8 +207,8 @@ export function BasicInfo({ propertyDataObject }: BasicInfoProps) {
                             </RadioGroup>
                         </Box>
                     </Box>
-                    <Box width="50%" display={'flex'}>
-                        <Box width="75%" display={'flex'} flexDirection={'row-reverse'}>
+                    <Box width="50%">
+                        <Box display={'flex'} flexDirection={'row-reverse'}>
                             {submit}
                         </Box>
                     </Box>
