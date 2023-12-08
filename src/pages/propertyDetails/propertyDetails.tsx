@@ -4,7 +4,7 @@ import axios from 'axios'
 import { PropertyResponseObject } from "../../interfaces/propertyProfile/propertyProfileProps";
 import { Heading, Box, useColorModeValue } from '@chakra-ui/react';
 import { BasicInfo } from './basicInfo';
-import { FloorPlanDetails } from './floorPlanDetails';
+import { FloorPlanDetailsComponent } from './floorPlanDetails';
 import { UnitStatus } from './unitStatus';
 import { ChargeCodes } from './chargeCodes';
 import { UnitRenovations } from './unitRenovation';
@@ -104,7 +104,7 @@ export function PropertyDetails() {
         <Box p={6} borderRadius="lg" borderWidth="1px" boxShadow="xl" bg={bgColor} display="flex" flexDirection="column" margin={2}>
             <Heading as={'h2'} mb={4}>Property Details</Heading>
             <BasicInfo propertyDataObject={propertyDataObject} />
-            <FloorPlanDetails propertyDataObject={propertyDataObject} />
+            <FloorPlanDetailsComponent propertyDataObject={propertyDataObject} />
             <UnitStatus propertyDataObject={propertyDataObject} />
             <ChargeCodes propertyDataObject={propertyDataObject} />
             <UnitRenovations propertyDataObject={propertyDataObject} />

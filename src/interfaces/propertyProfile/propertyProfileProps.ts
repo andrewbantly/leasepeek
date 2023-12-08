@@ -41,7 +41,7 @@ export type FloorPlans = Record<FloorPlanName, FloorPlanDetails>;
 
 type FloorPlanName = string;
 
-interface FloorPlanDetails {
+export interface FloorPlanDetails {
     avgRent: number;
     sumRent: number;
     avgMarket: number;
