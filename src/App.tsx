@@ -27,7 +27,6 @@ export const App = () => {
         username: decoded.username
     })
     } else {
-      console.log('token not found')
       setCurrentUser(null)
     }
   }, [])
