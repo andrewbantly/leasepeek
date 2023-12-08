@@ -18,15 +18,25 @@ export function BasicInfo({ propertyDataObject }: BasicInfoProps) {
     const [city, setCity] = useState(propertyDataObject.location.address.city);
     const [state, setState] = useState(propertyDataObject.location.address.state);
     const [zipCode, setZipCode] = useState(propertyDataObject.location.address.zipCode);
-    const [unitsConfirmed, setUnitsConfirmed] = useState(propertyDataObject.unitsConfirmed)
+    const [unitsConfirmed, setUnitsConfirmed] = useState(propertyDataObject.unitsConfirmed);
+
+    const [radioValue, setRadioValue] = useState('');
+
     const [changesMade, setChangesMade] = useState(false);
     const [unitCountError, setUnitCountError] = useState(false)
-    const { objectId } = useParams();  
+    const { objectId } = useParams();
 
     useEffect(() => {
         setAsOf(propertyDataObject.asOf);
         setMarket(propertyDataObject.location.market);
         setBuildingName(propertyDataObject.location.buildingName);
+        setAddressLine1(propertyDataObject.location.address.addressLine1);
+        setAddressLine2(propertyDataObject.location.address.addressLine2);
+        setCity(propertyDataObject.location.address.city);
+        setState(propertyDataObject.location.address.state);
+        setZipCode(propertyDataObject.location.address.zipCode);
+        setUnitsConfirmed(propertyDataObject.unitsConfirmed);
+        setRadioValue(propertyDataObject.unitsConfirmed ? 'correct' : '');
     }, [propertyDataObject]);
 
     useEffect(() => {
@@ -42,6 +52,7 @@ export function BasicInfo({ propertyDataObject }: BasicInfoProps) {
     const handleInputChange = (value: string) => {
         setUnitCountError(value === 'incorrect');
         setUnitsConfirmed(value === 'correct');
+        setRadioValue(value);
     };
 
     const formData = {
@@ -60,11 +71,13 @@ export function BasicInfo({ propertyDataObject }: BasicInfoProps) {
 
     const handleSubmitInformation = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        console.log(formData)
         try {
             const token = localStorage.getItem('jwt');
             const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/data/update`, formData, {
                 headers: {
-                    'Authorization': `Bearer ${token}`
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 }
             })
             console.log(response)
@@ -124,7 +137,7 @@ export function BasicInfo({ propertyDataObject }: BasicInfoProps) {
                         <Input placeholder="City" value={city} onChange={(e) => setCity(e.target.value)} />
                     </InputGroup>
                     <InputGroup mb={3}>
-                        <InputLeftElement pointerEvents="none" children={<Icon as={FaCity} color="gray.300" />} />
+                        <InputLeftElement pointerEvents="none" children={<Icon as={FaFlag} color="gray.300" />} />
                         <Input placeholder="State" value={state} onChange={(e) => setState(e.target.value)} />
                     </InputGroup>
                     <InputGroup mb={3}>
@@ -140,7 +153,7 @@ export function BasicInfo({ propertyDataObject }: BasicInfoProps) {
                         </FormLabel>
                         <Box borderWidth="1px" borderRadius="md" p={3} width={'fit-content'}>
                             <Text mb={2}>Please confirm the number of units</Text>
-                            <RadioGroup onChange={handleInputChange} defaultValue={unitsConfirmed ? 'correct' : ''}>
+                            <RadioGroup onChange={handleInputChange} value={radioValue}>
                                 <HStack spacing={5}>
                                     <Radio value='correct'>Correct</Radio>
                                     <Radio value='incorrect'>Incorrect</Radio>
