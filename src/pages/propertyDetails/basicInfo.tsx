@@ -1,8 +1,9 @@
-import { Box, Icon, Stack, Input, FormControl, FormLabel, RadioGroup, Radio, FormErrorMessage, InputLeftElement, InputGroup, useColorModeValue, Button, HStack, Text } from '@chakra-ui/react';
+import { Box, Icon, Input, FormControl, FormLabel, RadioGroup, Radio, FormErrorMessage, InputLeftElement, InputGroup, useColorModeValue, Button, HStack, Text } from '@chakra-ui/react';
 import { FaMapMarkerAlt, FaBuilding, FaRegBuilding, FaCalendarAlt, FaCity, FaFlag, FaMailBulk } from 'react-icons/fa';
 import { useState, FormEvent, useEffect } from 'react';
 import { PropertyResponseObject } from "../../interfaces/propertyProfile/propertyProfileProps";
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 interface BasicInfoProps {
     propertyDataObject: PropertyResponseObject;
@@ -20,6 +21,7 @@ export function BasicInfo({ propertyDataObject }: BasicInfoProps) {
     const [unitsConfirmed, setUnitsConfirmed] = useState(propertyDataObject.unitsConfirmed)
     const [changesMade, setChangesMade] = useState(false);
     const [unitCountError, setUnitCountError] = useState(false)
+    const { objectId } = useParams();  
 
     useEffect(() => {
         setAsOf(propertyDataObject.asOf);
@@ -44,6 +46,7 @@ export function BasicInfo({ propertyDataObject }: BasicInfoProps) {
 
     const formData = {
         'form': 'basic',
+        objectId,
         asOf,
         market,
         buildingName,
