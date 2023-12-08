@@ -98,7 +98,7 @@ export function BasicInfo({ propertyDataObject }: BasicInfoProps) {
         event.preventDefault();
         try {
             const token = localStorage.getItem('jwt');
-            const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/data/update`, formData, {
+            await axios.put(`${process.env.REACT_APP_SERVER_URL}/data/update`, formData, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
