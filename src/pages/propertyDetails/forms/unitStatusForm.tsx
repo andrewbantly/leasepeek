@@ -10,8 +10,6 @@ interface UnitStatusFormProps {
 
 export function UnitStatusForm({ status, type, count, handleInputChange }: UnitStatusFormProps) {
 
-    console.log('status prop', status)
-    
     const defaultStatus = ['occupied', 'vacant', 'nonRevenue', 'futureResident'];
     
     const [selectedStatus, setSelectedStatus] = useState<string>(
@@ -21,7 +19,6 @@ export function UnitStatusForm({ status, type, count, handleInputChange }: UnitS
     const [customStatus, setCustomStatus] = useState<string>('');
 
     useEffect(() => {
-        console.log("selected status", selectedStatus)
         if (customStatus) {
             handleInputChange(status, customStatus);
         } else {

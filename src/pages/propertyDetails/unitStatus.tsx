@@ -22,14 +22,11 @@ export function UnitStatus({ propertyDataObject }: UnitStatusProps) {
 
     const [changesMade, setChangesMade] = useState(false);
     useEffect(() => {
-        console.log('unitStatuses: ', unitStatuses);
-        console.log('unitStatusesState: ', unitStatusesState);
         const isChanged = () => {
             return JSON.stringify(unitStatuses) !== JSON.stringify(unitStatusesState);
         };
         setChangesMade(isChanged());
     }, [unitStatuses, unitStatusesState]);
-    console.log(`changes made? ${changesMade}`)
 
     const handleInputChange = (status: string, value: string) => {
         const updatedUnitStatuses = { ...unitStatuses };
@@ -47,13 +44,12 @@ export function UnitStatus({ propertyDataObject }: UnitStatusProps) {
         event.preventDefault();
         try {
             const token = localStorage.getItem('jwt');
-            const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/data/update`, formData, {
+            await axios.put(`${process.env.REACT_APP_SERVER_URL}/data/update`, formData, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
                 }
             })
-            console.log("### Response", response)
             setUnitStatusesState(unitStatuses);
         } catch (error) {
             console.log(error)
