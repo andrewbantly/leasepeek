@@ -56,7 +56,6 @@ export function UnitStatus({ propertyDataObject }: UnitStatusProps) {
         }
     }
 
-
     const floorPlanTableBgColor = useColorModeValue('white', 'gray.700');
     const buttonBgColor = useColorModeValue("gray.300", "gray.900");
 
