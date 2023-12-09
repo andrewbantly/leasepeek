@@ -25,30 +25,15 @@ export function ChargeCodes({ propertyDataObject }: ChargeCodesProps) {
     const [changesMade, setChangesMade] = useState(false);
 
     useEffect(() => {
-        const newCharges: ChargeCodes = {};
-
-        propertyDataObject.data.forEach(unit => {
-            unit.charges.forEach(charge => {
-                if (newCharges[charge.code]) {
-                    newCharges[charge.code].value += charge.value;
-                } else {
-                    newCharges[charge.code] = { value: charge.value, type: charge.type };
-                }
-            });
-        });
-
-        setCharges(newCharges);
-        setChargesState(newCharges);
-    }, [propertyDataObject.data]);
+        setCharges(propertyDataObject.charges);
+        setChargesState(propertyDataObject.charges);
+    }, [propertyDataObject]);
 
     useEffect(() => {
         const isChanged = () => {
             return JSON.stringify(charges) !== JSON.stringify(chargeCodesState);
         }
         setChangesMade(isChanged());
-        console.log("charges", charges)
-        console.log("charge state", chargeCodesState)
-        console.log("changes made?", changesMade);
     }, [charges, chargeCodesState, changesMade])
 
     const handleInputChange = (charge: string, chargeType: string) => {
