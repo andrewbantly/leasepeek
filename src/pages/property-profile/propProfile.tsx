@@ -39,6 +39,7 @@ const defaultPropertyData: PropertyResponseObject = {
         marketSum: 0,
         rentIncome: 0,
     },
+    charges: {},
     recentLeases: {},
     expiringLeases: {},
     leaseTrends: {},

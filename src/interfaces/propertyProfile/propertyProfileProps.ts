@@ -9,6 +9,7 @@ export interface PropertyResponseObject {
     unitsConfirmed: boolean;
     totalBalance: number;
     lossToLease: LossToLease;
+    charges: Charges;
     recentLeases: RecentLeases;
     expiringLeases: ExpiringLeases;
     leaseTrends: LeaseTrends;
@@ -62,6 +63,13 @@ interface UnitStatusDetails {
 export interface LossToLease {
     marketSum: number;
     rentIncome: number;
+}
+
+interface Charges {
+    [chargeType:string]: {
+        value: number;
+        type: string;
+    }
 }
 
 export interface RecentLeases {
