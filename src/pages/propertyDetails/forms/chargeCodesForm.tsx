@@ -31,12 +31,12 @@ export function ChargeCodesForm({ charge, value }: ChargeCodesFormProps) {
                 defaultValue={''}
             >
                 <option value="" disabled hidden>Select an option</option>
-                <option>Contractual Rent</option>
-                <option>Supplemental Rent</option>
-                <option>Recurring Concessions</option>
-                <option>Upfront Concessions</option>
-                <option>Empl./Other discount</option>
-                <option>Other Income</option>
+                <option value="contractualRent">Contractual Rent</option>
+                <option value="supplementalRent">Supplemental Rent</option>
+                <option value="recurringConcessions">Recurring Concessions</option>
+                <option value="upfrontConcessions">Upfront Concessions</option>
+                <option value="discount">Empl./Other discount</option>
+                <option value="otherIncome">Other Income</option>
             </Select>
         </InputGroup>
     )
