@@ -2,10 +2,12 @@ import { Text, Select, FormLabel, InputGroup, } from '@chakra-ui/react';
 
 interface ChargeCodesFormProps {
     charge: string;
-    value: number;
+    chargeValue: number;
+    chargeType: string;
+    handleInputChange: (charge: string, chargeType: string) => void;
 }
 
-export function ChargeCodesForm({ charge, value }: ChargeCodesFormProps) {
+export function ChargeCodesForm({ charge, chargeValue, chargeType, handleInputChange }: ChargeCodesFormProps) {
 
     function formatCurrency(amount: number): string {
         return new Intl.NumberFormat('en-US', {
@@ -22,13 +24,14 @@ export function ChargeCodesForm({ charge, value }: ChargeCodesFormProps) {
             <FormLabel width={'100px'}>
                 {charge}
                 <Text size={'sm'} color={'gray.500'}>
-                    {formatCurrency(value)}
+                    {formatCurrency(chargeValue)}
                 </Text>
             </FormLabel>
             <Select
                 size="sm"
                 width="200px"
-                defaultValue={''}
+                value={chargeType}
+                onChange={(e) => handleInputChange(charge, e.target.value)}
             >
                 <option value="" disabled hidden>Select an option</option>
                 <option value="contractualRent">Contractual Rent</option>
