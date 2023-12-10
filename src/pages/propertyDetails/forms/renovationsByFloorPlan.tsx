@@ -1,4 +1,4 @@
-import { Input, Text, Select, Table, Thead, Tbody, Tr, Th, Td, useColorModeValue} from '@chakra-ui/react';
+import { Input, Text, Select, Table, Thead, Tbody, Tr, Th, Td, useColorModeValue } from '@chakra-ui/react';
 import { FloorPlans } from "../../../interfaces/propertyProfile/propertyProfileProps";
 
 interface RenovationsByFloorPlanProps {
@@ -7,8 +7,6 @@ interface RenovationsByFloorPlanProps {
 }
 
 export function RenovationsByFloorPlan({ propertyFloorplanData, handleFloorplanRenovationChange }: RenovationsByFloorPlanProps) {
-
-    console.log(propertyFloorplanData)
 
     function formatCurrency(amount: number): string {
         return new Intl.NumberFormat('en-US', {
@@ -24,15 +22,20 @@ export function RenovationsByFloorPlan({ propertyFloorplanData, handleFloorplanR
             <Tr key={planCode}>
                 <Td px={2}>{planCode}</Td>
                 <Td px={2}>{planDetails.unitCount}</Td>
+                <Td px={2}>{planDetails.avgSqft}</Td>
                 <Td px={2}>{formatCurrency(planDetails.avgMarket)}</Td>
                 <Td px={2}>
-                    <Input variant='filled' placeholder={planCode} borderWidth={'1px'}></Input>
-                </Td>
-                <Td px={2}>
-                    <Select bg={buttonBgColor} variant='filled' value={String(planDetails.renovated)} onChange={(e) => handleFloorplanRenovationChange(planCode, e.target.value)}>
-                        <option value="false">Unrenovated</option>
-                        <option value="true">Renovated</option>
-                    </Select>
+                    {planDetails.renovated ? (
+                        <Select bg={buttonBgColor} variant='filled' value={String(planDetails.renovated)} onChange={(e) => handleFloorplanRenovationChange(planCode, e.target.value)}>
+                            <option value="false">Unrenovated</option>
+                            <option value="true">Renovated</option>
+                        </Select>
+                    ) : (
+                        <Select variant='filled' value={String(planDetails.renovated)} onChange={(e) => handleFloorplanRenovationChange(planCode, e.target.value)}>
+                            <option value="false">Unrenovated</option>
+                            <option value="true">Renovated</option>
+                        </Select>
+                    )}
                 </Td>
             </Tr>
         )
@@ -46,8 +49,8 @@ export function RenovationsByFloorPlan({ propertyFloorplanData, handleFloorplanR
                     <Tr>
                         <Th px={2}>Floor Plan Code</Th>
                         <Th px={2}>Units</Th>
+                        <Th px={2}>SqFt</Th>
                         <Th px={2}>Avg Market</Th>
-                        <Th px={2}>Floor Plan Name</Th>
                         <Th px={2}>Renovation Description</Th>
                     </Tr>
                 </Thead>

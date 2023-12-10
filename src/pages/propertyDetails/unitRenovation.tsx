@@ -13,19 +13,21 @@ interface UnitRenovationsProps {
 export function UnitRenovations({ propertyDataObject }: UnitRenovationsProps) {
 
     const { objectId } = useParams();
-     
+
     const [showForm, setShowForm] = useState(false);
     const [switchFormType, setSwitchForm] = useState(false);
     const [changesMade, setChangesMade] = useState(false);
     const [propertyUnitData, setPropertyUnitData] = useState<PropertyDataItem[]>(propertyDataObject.data);
     const [propertyFloorplanData, setpropertyFloorplanData] = useState(propertyDataObject.floorplans);
-    const [initialRenovatedUnits, setInitialRenovatedUnits] = useState("false")
+    const [initialRenovatedUnits, setInitialRenovatedUnits] = useState("false");
     const [renovatedUnits, setRenovatedUnits] = useState<string[]>([]);
     const [renovatedUnitsState, setRenovatedUnitsState] = useState<string[]>([]);
     const [payloadFormType, setpayloadFormType] = useState("floorPlan");
+    const [disableFormSwitch, setDisableFormSwitch] = useState(false)
 
     useEffect(() => {
-        setPropertyUnitData(propertyDataObject.data)
+        setPropertyUnitData(propertyDataObject.data);
+        setpropertyFloorplanData(propertyDataObject.floorplans);
 
         const renoUnits: string[] = [];
         propertyDataObject.data.map(unit => {
@@ -51,26 +53,27 @@ export function UnitRenovations({ propertyDataObject }: UnitRenovationsProps) {
     }, [renovatedUnits, renovatedUnitsState, propertyUnitData])
 
     const handleShowFormChange = (value: string) => {
+        setRenovatedUnits(renovatedUnitsState);
+
+        setPropertyUnitData(propertyDataObject.data);
+        setpropertyFloorplanData(propertyDataObject.floorplans);
+
         setpayloadFormType(value);
         setSwitchForm(value === 'unitNumber');
     }
 
     const handleFloorplanRenovationChange = (floorplan: string, isRenovated: string) => {
-        // const updatedRenovatedUnits = propertyUnitData.map(unit => {
-        //     if (unit.unit === unitNumber) {
-        //         if (isRenovated === "true") {
-        //             const updatedRenoUnits = [...renovatedUnits, unitNumber]
-        //             setRenovatedUnits(updatedRenoUnits)
-        //         }
-        //         else {
-        //             const updatedRenoUnits = renovatedUnits.filter(unit => unit !== unitNumber);
-        //             setRenovatedUnits(updatedRenoUnits);
-        //         }
-        //         return { ...unit, renovated: isRenovated === "true" };
-        //     }
-        //     return unit
-        // });
-        // setPropertyUnitData(updatedRenovatedUnits)
+        console.log(floorplan, isRenovated)
+        if (isRenovated === "true") {
+            const updatedRenovatedUnits = [...renovatedUnits, floorplan]
+            setRenovatedUnits(updatedRenovatedUnits)
+        } else {
+            const updatedRenovatedUnits = renovatedUnits.filter(plan => plan !== floorplan)
+            setRenovatedUnits(updatedRenovatedUnits)
+        }
+        const updatedFloorPlanData = { ...propertyFloorplanData };
+        updatedFloorPlanData[floorplan] = { ...propertyFloorplanData[floorplan], renovated: (isRenovated === "true") };
+        setpropertyFloorplanData(updatedFloorPlanData);
     }
 
     const handleUnitRenovationChange = (unitNumber: string, isRenovated: string) => {
@@ -92,12 +95,12 @@ export function UnitRenovations({ propertyDataObject }: UnitRenovationsProps) {
     }
 
     const renovatedDisplayType = switchFormType ? <RenovationsByUnitNumber propertyUnitData={propertyUnitData} handleUnitRenovationChange={handleUnitRenovationChange} /> :
-        <RenovationsByFloorPlan propertyFloorplanData={propertyFloorplanData} handleFloorplanRenovationChange={handleFloorplanRenovationChange}/>;
+        <RenovationsByFloorPlan propertyFloorplanData={propertyFloorplanData} handleFloorplanRenovationChange={handleFloorplanRenovationChange} />;
 
     const showRenovationsForm = (
         <Box>
             <Text>How would you like to mark renovated units?</Text>
-            <RadioGroup onChange={handleShowFormChange} defaultValue={'floorPlan'}>
+            <RadioGroup onChange={handleShowFormChange} defaultValue={'floorPlan'} isDisabled={disableFormSwitch}>
                 <Stack direction='column'>
                     <Radio value={'floorPlan'}>By Floor Plan</Radio>
                     <Radio value={'unitNumber'}>By Unit Number</Radio>
@@ -110,6 +113,8 @@ export function UnitRenovations({ propertyDataObject }: UnitRenovationsProps) {
         if (value === 'false') {
             setRenovatedUnits([]);
             setRenovatedUnitsState([]);
+            setPropertyUnitData(propertyDataObject.data);
+            setpropertyFloorplanData(propertyDataObject.floorplans);
         }
         setShowForm(value === 'true')
     }
@@ -134,11 +139,11 @@ export function UnitRenovations({ propertyDataObject }: UnitRenovationsProps) {
                 }
             })
             setRenovatedUnitsState(renovatedUnits);
+            setDisableFormSwitch(true);
         } catch (error) {
             console.log(error)
         }
     }
-
 
     const floorPlanTableBgColor = useColorModeValue("white", "gray.700");
     const buttonBgColor = useColorModeValue("gray.300", "gray.900");
@@ -149,28 +154,28 @@ export function UnitRenovations({ propertyDataObject }: UnitRenovationsProps) {
     return (
         <Box p={6} borderRadius="lg" borderWidth="1px" boxShadow="xl" bg={floorPlanTableBgColor} display="flex" flexDirection="column" mb={4}>
             <form onSubmit={handleSubmitInformation}>
-            <Flex justifyContent="space-between" alignItems="center" mb={2}>
-                <Text fontSize='xl' fontWeight='bold'>Renovations</Text>
-                {submit}
-            </Flex>
-            <Flex direction={{ base: 'column', md: 'row' }} gap={6}>
+                <Flex justifyContent="space-between" alignItems="center" mb={2}>
+                    <Text fontSize='xl' fontWeight='bold'>Renovations</Text>
+                    {submit}
+                </Flex>
+                <Flex direction={{ base: 'column', md: 'row' }} gap={6}>
 
-                <Box flex="0.4">
-                    <FormLabel>Does this property have renovated units?</FormLabel>
-                    <RadioGroup mb={3} onChange={handleInputChange} defaultValue={initialRenovatedUnits}>
-                        <Stack direction='row'>
-                            <Radio value={'true'}>Yes</Radio>
-                            <Radio value={'false'}>No</Radio>
-                        </Stack>
-                    </RadioGroup>
+                    <Box flex="0.4">
+                        <FormLabel>Does this property have renovated units?</FormLabel>
+                        <RadioGroup mb={3} onChange={handleInputChange} defaultValue={initialRenovatedUnits}  isDisabled={disableFormSwitch}>
+                            <Stack direction='row'>
+                                <Radio value={'true'}>Yes</Radio>
+                                <Radio value={'false'}>No</Radio>
+                            </Stack>
+                        </RadioGroup>
 
-                    {showForm ? showRenovationsForm : ""}
-                </Box>
+                        {showForm ? showRenovationsForm : ""}
+                    </Box>
 
-                <Box flex="1">
-                    {showForm ? renovatedDisplayType : ''}
-                </Box>
-            </Flex>
+                    <Box flex="1">
+                        {showForm ? renovatedDisplayType : ''}
+                    </Box>
+                </Flex>
             </form>
         </Box>
     );
