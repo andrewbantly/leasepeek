@@ -49,6 +49,7 @@ interface FloorPlanDetails {
     planType: string;
     beds: number;
     baths: number;
+    renovated: boolean;
 }
 
 interface UnitStatusDetails {
