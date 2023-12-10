@@ -8,7 +8,7 @@ interface FormCompletionProp {
 
 export function FormCompletion({ unSavedChanges }: FormCompletionProp) {
     const buttonHoverBg = useColorModeValue("gray.800", "blue.400");
-    const buttonHoverColor = useColorModeValue("#00BFFF", "gray.900");
+    const buttonHoverColor = useColorModeValue("#90CDF4", "gray.900");
 
     const buttonColorUnSaved = useColorModeValue("#000000", "white");
     const bgColorUnSaved = useColorModeValue("red", "red.500");

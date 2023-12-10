@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import { PropertyResponseObject } from "../../interfaces/propertyProfile/propertyProfileProps";
-import { Heading, Box, useColorModeValue, } from '@chakra-ui/react';
+import { Heading, Box, useColorModeValue, Flex, Text } from '@chakra-ui/react';
 import { BasicInfo } from './basicInfo';
 import { FloorPlanDetailsComponent } from './floorPlanDetails';
 import { UnitStatus } from './unitStatus';
@@ -83,7 +83,7 @@ export function PropertyDetails() {
     }, [])
 
     useEffect(() => {
-        if (basicUnSavedChanges || floorplanUnSavedChanges || unitStatusUnSavedChanges || chargeCodesUnSavedChanges || renovationsUnSavedChanges || unSavedChanges) {
+        if (basicUnSavedChanges || floorplanUnSavedChanges || unitStatusUnSavedChanges || chargeCodesUnSavedChanges || renovationsUnSavedChanges ) {
             setUnSavedChanges(true);
         }
         else {
@@ -121,13 +121,17 @@ export function PropertyDetails() {
 
     return (
         <Box p={6} borderRadius="lg" borderWidth="1px" boxShadow="xl" bg={bgColor} display="flex" flexDirection="column" margin={2}>
-            <Heading as={'h2'} mb={5}>Property Details</Heading>
+            <Flex  justifyContent="space-between" alignItems="center"  mb={0}>
+                <Heading as={'h2'}>Property Details</Heading>
+                <FormCompletion unSavedChanges={unSavedChanges} />
+            </Flex>
+            <Text fontSize='lg' mb={4}>Please add additional rent roll information.</Text>
             <BasicInfo propertyDataObject={propertyDataObject} setBasicUnSavedChanges={setBasicUnSavedChanges} />
             <FloorPlanDetailsComponent propertyDataObject={propertyDataObject} setFloorplanUnSavedChanges={setFloorplanUnSavedChanges} />
             <UnitStatus propertyDataObject={propertyDataObject} setUnitStatusUnSavedChanges={setUnitStatusUnSavedChanges} />
             <ChargeCodes propertyDataObject={propertyDataObject} setChargeCodesUnSavedChanges={setChargeCodesUnSavedChanges} />
             <UnitRenovations propertyDataObject={propertyDataObject} setRenovationsUnSavedChanges={setRenovationsUnSavedChanges} />
-            <FormCompletion unSavedChanges={unSavedChanges}/>
+            <FormCompletion unSavedChanges={unSavedChanges} />
         </Box>
     )
 }
