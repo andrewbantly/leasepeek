@@ -67,7 +67,12 @@ const defaultPropertyData: PropertyResponseObject = {
 export function PropertyDetails() {
     const { objectId } = useParams();
     const navigate = useNavigate();
-    const [propertyDataObject, setPropertyDataObject] = useState<PropertyResponseObject>(defaultPropertyData)
+    const [propertyDataObject, setPropertyDataObject] = useState<PropertyResponseObject>(defaultPropertyData);
+    const [basicUnSavedChanges, setBasicUnSavedChanges] = useState(false);
+    const [floorplanUnSavedChanges, setFloorplanUnSavedChanges] = useState(false);
+    const [unitStatusUnSavedChanges, setUnitStatusUnSavedChanges] = useState(false);
+    const [chargeCodesUnSavedChanges, setChargeCodesUnSavedChanges] = useState(false);
+    const [renovationsUnSavedChanges, setRenovationsUnSavedChanges] = useState(false);
 
     const bgColor = useColorModeValue("gray.300", "gray.900");
 
@@ -103,12 +108,13 @@ export function PropertyDetails() {
 
     return (
         <Box p={6} borderRadius="lg" borderWidth="1px" boxShadow="xl" bg={bgColor} display="flex" flexDirection="column" margin={2}>
-            <Heading as={'h2'} mb={4}>Property Details</Heading>
-            <BasicInfo propertyDataObject={propertyDataObject} />
-            <FloorPlanDetailsComponent propertyDataObject={propertyDataObject} />
-            <UnitStatus propertyDataObject={propertyDataObject} />
-            <ChargeCodes propertyDataObject={propertyDataObject} />
-            <UnitRenovations propertyDataObject={propertyDataObject} />
+            <Heading as={'h2'} mb={5}>Property Details</Heading>
+            <BasicInfo propertyDataObject={propertyDataObject} setBasicUnSavedChanges={setBasicUnSavedChanges}/>
+            <FloorPlanDetailsComponent propertyDataObject={propertyDataObject} setFloorplanUnSavedChanges={setFloorplanUnSavedChanges} />
+            <UnitStatus propertyDataObject={propertyDataObject} setUnitStatusUnSavedChanges={setUnitStatusUnSavedChanges} />
+            <ChargeCodes propertyDataObject={propertyDataObject} setChargeCodesUnSavedChanges={setChargeCodesUnSavedChanges}/>
+            <UnitRenovations propertyDataObject={propertyDataObject} setRenovationsUnSavedChanges={setRenovationsUnSavedChanges}/>
+
         </Box>
     )
 }

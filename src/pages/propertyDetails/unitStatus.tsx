@@ -7,9 +7,10 @@ import { UnitStatusForm } from './forms/unitStatusForm';
 
 interface UnitStatusProps {
     propertyDataObject: PropertyResponseObject;
+    setUnitStatusUnSavedChanges: (value: boolean) => void;
 }
 
-export function UnitStatus({ propertyDataObject }: UnitStatusProps) {
+export function UnitStatus({ propertyDataObject, setUnitStatusUnSavedChanges }: UnitStatusProps) {
     const { objectId } = useParams();
 
     const [unitStatuses, setUnitStatuses] = useState(propertyDataObject.vacancy);
@@ -25,7 +26,9 @@ export function UnitStatus({ propertyDataObject }: UnitStatusProps) {
         const isChanged = () => {
             return JSON.stringify(unitStatuses) !== JSON.stringify(unitStatusesState);
         };
-        setChangesMade(isChanged());
+        const bool = isChanged();
+        setChangesMade(bool);
+        setUnitStatusUnSavedChanges(bool)
     }, [unitStatuses, unitStatusesState]);
 
     const handleInputChange = (status: string, value: string) => {

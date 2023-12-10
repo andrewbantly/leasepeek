@@ -6,13 +6,14 @@ import axios from 'axios';
 
 interface FloorPlanDetailsProps {
     propertyDataObject: PropertyResponseObject;
+    setFloorplanUnSavedChanges: (value: boolean) => void;
 }
 
 interface FloorPlanState extends FloorPlanDetails {
     planCode: string;
 }
 
-export function FloorPlanDetailsComponent({ propertyDataObject }: FloorPlanDetailsProps) {
+export function FloorPlanDetailsComponent({ propertyDataObject, setFloorplanUnSavedChanges }: FloorPlanDetailsProps) {
     const [floorPlans, setFloorPlans] = useState<FloorPlanState[]>([]);
     const [floorPlansState, setFloorPlansState] = useState<FloorPlanState[]>([]);
     const { objectId } = useParams();
@@ -38,7 +39,9 @@ export function FloorPlanDetailsComponent({ propertyDataObject }: FloorPlanDetai
         const isChanged = () => {
             return JSON.stringify(floorPlans) !== JSON.stringify(floorPlansState);
         };
-        setChangesMade(isChanged());
+        const bool = isChanged()
+        setChangesMade(bool);
+        setFloorplanUnSavedChanges(bool);
     }, [floorPlans, floorPlansState])
 
 

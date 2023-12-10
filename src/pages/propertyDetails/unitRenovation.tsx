@@ -8,9 +8,10 @@ import axios from 'axios';
 
 interface UnitRenovationsProps {
     propertyDataObject: PropertyResponseObject;
+    setRenovationsUnSavedChanges: (value: boolean) => void;
 }
 
-export function UnitRenovations({ propertyDataObject }: UnitRenovationsProps) {
+export function UnitRenovations({ propertyDataObject, setRenovationsUnSavedChanges }: UnitRenovationsProps) {
 
     const { objectId } = useParams();
 
@@ -49,7 +50,9 @@ export function UnitRenovations({ propertyDataObject }: UnitRenovationsProps) {
         const isChanged = () => {
             return JSON.stringify(renovatedUnits) !== JSON.stringify(renovatedUnitsState);
         };
-        setChangesMade(isChanged());
+        const bool = isChanged();
+        setChangesMade(bool);
+        setRenovationsUnSavedChanges(bool);
     }, [renovatedUnits, renovatedUnitsState, propertyUnitData])
 
     const handleShowFormChange = (value: string) => {
@@ -155,14 +158,14 @@ export function UnitRenovations({ propertyDataObject }: UnitRenovationsProps) {
         <Box p={6} borderRadius="lg" borderWidth="1px" boxShadow="xl" bg={floorPlanTableBgColor} display="flex" flexDirection="column" mb={4}>
             <form onSubmit={handleSubmitInformation}>
                 <Flex justifyContent="space-between" alignItems="center">
-                    <Text fontSize='xl' fontWeight='bold'>Renovations</Text>
+                    <Text fontSize='xl' fontWeight='bold'  mb={2}>Renovations</Text>
                     {submit}
                 </Flex>
                 <Flex direction={{ base: 'column', md: 'row' }} gap={6}>
 
                     <Box flex="0.4">
                         <FormLabel>Does this property have renovated units?</FormLabel>
-                        <RadioGroup mb={3} onChange={handleInputChange} defaultValue={initialRenovatedUnits}  isDisabled={disableFormSwitch}>
+                        <RadioGroup mb={3} onChange={handleInputChange} defaultValue={initialRenovatedUnits} isDisabled={disableFormSwitch}>
                             <Stack direction='row'>
                                 <Radio value={'true'}>Yes</Radio>
                                 <Radio value={'false'}>No</Radio>

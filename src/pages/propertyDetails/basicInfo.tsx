@@ -7,9 +7,10 @@ import { useParams } from 'react-router-dom';
 
 interface BasicInfoProps {
     propertyDataObject: PropertyResponseObject;
+    setBasicUnSavedChanges: (value: boolean) => void;
 }
 
-export function BasicInfo({ propertyDataObject }: BasicInfoProps) {
+export function BasicInfo({ propertyDataObject, setBasicUnSavedChanges }: BasicInfoProps) {
     // ObjectId of rent roll
     const { objectId } = useParams();
 
@@ -65,7 +66,9 @@ export function BasicInfo({ propertyDataObject }: BasicInfoProps) {
         const isChanged = () => {
             return asOf !== asOfState || market !== marketState || buildingName !== buildingNameState || addressLine1 !== addressLine1State || addressLine2 !== addressLine2State || city !== cityState || state !== stateState || zipCode !== zipCodeState;
         };
-        setChangesMade(isChanged());
+        const bool = isChanged();
+        setChangesMade(bool);
+        setBasicUnSavedChanges(bool);
     }, [asOf, asOfState, market, marketState, buildingName, buildingNameState, addressLine1, addressLine1State, addressLine2, addressLine2State, city, cityState, state, stateState, zipCode, zipCodeState])
 
     // Unit count error state that triggers an error message for the user.
@@ -151,7 +154,7 @@ export function BasicInfo({ propertyDataObject }: BasicInfoProps) {
             mb={4}>
             <form onSubmit={handleSubmitInformation}>
                 <Flex justifyContent="space-between" alignItems="center">
-                    <Text fontSize='xl' fontWeight='bold'>Background</Text>
+                    <Text fontSize='xl' fontWeight='bold' mb={2}>Background</Text>
                     {submit}
                 </Flex>
                 <Box display="flex" mb={3}>

@@ -1,12 +1,13 @@
 import { useState, useEffect, FormEvent } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Text, useColorModeValue, Grid, Button, Flex} from '@chakra-ui/react';
+import { Box, Text, useColorModeValue, Grid, Button, Flex } from '@chakra-ui/react';
 import { PropertyResponseObject } from "../../interfaces/propertyProfile/propertyProfileProps";
 import { ChargeCodesForm } from './forms/chargeCodesForm';
 import axios from 'axios';
 
 interface ChargeCodesProps {
     propertyDataObject: PropertyResponseObject;
+    setChargeCodesUnSavedChanges: (value: boolean) => void;
 }
 
 type ChargeCodes = { [key: string]: ChargeCodeDetail };
@@ -16,7 +17,7 @@ type ChargeCodeDetail = {
     type: string;
 };
 
-export function ChargeCodes({ propertyDataObject }: ChargeCodesProps) {
+export function ChargeCodes({ propertyDataObject, setChargeCodesUnSavedChanges }: ChargeCodesProps) {
 
     const { objectId } = useParams();
 
@@ -33,7 +34,9 @@ export function ChargeCodes({ propertyDataObject }: ChargeCodesProps) {
         const isChanged = () => {
             return JSON.stringify(charges) !== JSON.stringify(chargeCodesState);
         }
-        setChangesMade(isChanged());
+        const bool = isChanged();
+        setChangesMade(bool);
+        setChargeCodesUnSavedChanges(bool);
     }, [charges, chargeCodesState, changesMade])
 
     const handleInputChange = (charge: string, chargeType: string) => {
@@ -73,8 +76,8 @@ export function ChargeCodes({ propertyDataObject }: ChargeCodesProps) {
     return (
         <Box p={6} borderRadius="lg" borderWidth="1px" boxShadow="xl" bg={floorPlanTableBgColor} display="flex" flexDirection="column" mb={4}>
             <form onSubmit={handleSubmitInformation}>
-            <Flex justifyContent="space-between" alignItems="center">
-                <Text fontSize='xl' fontWeight='bold' mb={2}>Additional Charge Codes</Text>
+                <Flex justifyContent="space-between" alignItems="center">
+                    <Text fontSize='xl' fontWeight='bold' mb={2}>Additional Charges</Text>
                     {submit}
                 </Flex>
                 <Grid
