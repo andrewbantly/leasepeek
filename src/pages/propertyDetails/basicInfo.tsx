@@ -1,4 +1,4 @@
-import { Box, Icon, Input, FormControl, FormLabel, RadioGroup, Radio, FormErrorMessage, InputLeftElement, InputGroup, useColorModeValue, Button, HStack, Text } from '@chakra-ui/react';
+import { Box, Icon, Input, FormControl, FormLabel, RadioGroup, Radio, FormErrorMessage, InputLeftElement, InputGroup, useColorModeValue, Button, HStack, Text, Flex } from '@chakra-ui/react';
 import { FaMapMarkerAlt, FaBuilding, FaRegBuilding, FaCalendarAlt, FaCity, FaFlag, FaMailBulk } from 'react-icons/fa';
 import { useState, FormEvent, useEffect } from 'react';
 import { PropertyResponseObject } from "../../interfaces/propertyProfile/propertyProfileProps";
@@ -150,6 +150,10 @@ export function BasicInfo({ propertyDataObject }: BasicInfoProps) {
             flexDirection="column"
             mb={4}>
             <form onSubmit={handleSubmitInformation}>
+                <Flex justifyContent="space-between" alignItems="center">
+                    <Text fontSize='xl' fontWeight='bold'>Background</Text>
+                    {submit}
+                </Flex>
                 <Box display="flex" mb={3}>
                     <Box width="50%" pr={2} height={'fit-content'}>
                         <FormLabel>Rent Roll Data As Of</FormLabel>
@@ -205,11 +209,6 @@ export function BasicInfo({ propertyDataObject }: BasicInfoProps) {
                                     <Radio value='incorrect'>Incorrect</Radio>
                                 </HStack>
                             </RadioGroup>
-                        </Box>
-                    </Box>
-                    <Box width="50%">
-                        <Box display={'flex'} flexDirection={'row-reverse'}>
-                            {submit}
                         </Box>
                     </Box>
 

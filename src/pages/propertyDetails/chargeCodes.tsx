@@ -1,6 +1,6 @@
 import { useState, useEffect, FormEvent } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Text, useColorModeValue, Grid, Button} from '@chakra-ui/react';
+import { Box, Text, useColorModeValue, Grid, Button, Flex} from '@chakra-ui/react';
 import { PropertyResponseObject } from "../../interfaces/propertyProfile/propertyProfileProps";
 import { ChargeCodesForm } from './forms/chargeCodesForm';
 import axios from 'axios';
@@ -73,8 +73,10 @@ export function ChargeCodes({ propertyDataObject }: ChargeCodesProps) {
     return (
         <Box p={6} borderRadius="lg" borderWidth="1px" boxShadow="xl" bg={floorPlanTableBgColor} display="flex" flexDirection="column" mb={4}>
             <form onSubmit={handleSubmitInformation}>
-                <Text fontSize='xl' fontWeight='bold' mb={2}>Additional Charge Codes
-                </Text>
+            <Flex justifyContent="space-between" alignItems="center">
+                <Text fontSize='xl' fontWeight='bold' mb={2}>Additional Charge Codes</Text>
+                    {submit}
+                </Flex>
                 <Grid
                     templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
                     gap={4}
@@ -89,9 +91,6 @@ export function ChargeCodes({ propertyDataObject }: ChargeCodesProps) {
                         />
                     ))}
                 </Grid>
-                <Box display={'flex'} flexDirection={'row-reverse'} mt={2}>
-                    {submit}
-                </Box>
             </form>
         </Box>
     )

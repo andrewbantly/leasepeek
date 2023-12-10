@@ -1,4 +1,4 @@
-import { Box, Input, Text, Select, Table, Thead, Tbody, Tr, Th, Td, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, useColorModeValue, Button } from '@chakra-ui/react';
+import { Box, Input, Text, Select, Table, Thead, Tbody, Tr, Th, Td, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, useColorModeValue, Button, Flex } from '@chakra-ui/react';
 import { PropertyResponseObject, FloorPlanDetails } from "../../interfaces/propertyProfile/propertyProfileProps";
 import { useState, FormEvent, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
@@ -42,29 +42,29 @@ export function FloorPlanDetailsComponent({ propertyDataObject }: FloorPlanDetai
     }, [floorPlans, floorPlansState])
 
 
-        // form data payload that is sent to server when user saves changes
-        const formData = {
-            'form': 'floorPlanDetails',
-            objectId,
-            floorPlans
+    // form data payload that is sent to server when user saves changes
+    const formData = {
+        'form': 'floorPlanDetails',
+        objectId,
+        floorPlans
+    }
+
+    // PUT request to server when user submits data changes
+    const handleSubmitInformation = async (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        try {
+            const token = localStorage.getItem('jwt');
+            await axios.put(`${process.env.REACT_APP_SERVER_URL}/data/update`, formData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                }
+            })
+            setFloorPlansState(floorPlans);
+        } catch (error) {
+            console.log(error)
         }
-    
-        // PUT request to server when user submits data changes
-        const handleSubmitInformation = async (event: FormEvent<HTMLFormElement>) => {
-            event.preventDefault();
-            try {
-                const token = localStorage.getItem('jwt');
-                await axios.put(`${process.env.REACT_APP_SERVER_URL}/data/update`, formData, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`,
-                    }
-                })
-                setFloorPlansState(floorPlans);
-            } catch (error) {
-                console.log(error)
-            }
-        }
+    }
 
     function formatCurrency(amount: number): string {
         return new Intl.NumberFormat('en-US', {
@@ -121,7 +121,10 @@ export function FloorPlanDetailsComponent({ propertyDataObject }: FloorPlanDetai
     return (
         <Box p={6} borderRadius="lg" borderWidth="1px" boxShadow="xl" bg={floorPlanTableBgColor} display="flex" flexDirection="column" mb={4}>
             <form onSubmit={handleSubmitInformation}>
-                <Text fontSize='xl' fontWeight='bold' mb={2}>Floor Plan Details</Text>
+                <Flex justifyContent="space-between" alignItems="center">
+                    <Text fontSize='xl' fontWeight='bold' mb={2}>Floor Plan Details</Text>
+                    {submit}
+                </Flex>
                 <Text fontSize='sm' >Please enter details for all floor plans which have been automatically pulled from the rent roll.</Text>
                 <Table variant='simple'>
                     <Thead>
@@ -140,9 +143,6 @@ export function FloorPlanDetailsComponent({ propertyDataObject }: FloorPlanDetai
                         {floorPlanForm}
                     </Tbody>
                 </Table>
-                <Box display={'flex'} flexDirection={'row-reverse'} mt={2}>
-                    {submit}
-                </Box>
             </form>
         </Box>
     )

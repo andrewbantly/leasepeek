@@ -1,5 +1,5 @@
 import { useState, useEffect, FormEvent } from 'react';
-import { Box, Text, useColorModeValue, Grid, Button, } from '@chakra-ui/react';
+import { Box, Text, useColorModeValue, Grid, Button, Flex } from '@chakra-ui/react';
 import { PropertyResponseObject } from '../../interfaces/propertyProfile/propertyProfileProps';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -75,10 +75,10 @@ export function UnitStatus({ propertyDataObject }: UnitStatusProps) {
             mb={4}
         >
             <form onSubmit={handleSubmitInformation}>
-
-                <Text fontSize="xl" fontWeight="bold" mb={2}>
-                    Unit Status Types
-                </Text>
+                <Flex justifyContent="space-between" alignItems="center">
+                    <Text fontSize="xl" fontWeight="bold" mb={2}>Unit Status Types</Text>
+                        {submit}
+                </Flex>
                 <Text fontSize="sm" mb={3}>
                     Please enter updated unit status types, which have been automatically
                     pulled from the rent roll.
@@ -97,10 +97,7 @@ export function UnitStatus({ propertyDataObject }: UnitStatusProps) {
                         />
                     ))}
                 </Grid>
-                <Box display={'flex'} flexDirection={'row-reverse'} mt={2}>
-                    {submit}
-                </Box>
             </form>
-        </Box>
+        </Box >
     );
 }

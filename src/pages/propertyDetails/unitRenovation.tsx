@@ -154,7 +154,7 @@ export function UnitRenovations({ propertyDataObject }: UnitRenovationsProps) {
     return (
         <Box p={6} borderRadius="lg" borderWidth="1px" boxShadow="xl" bg={floorPlanTableBgColor} display="flex" flexDirection="column" mb={4}>
             <form onSubmit={handleSubmitInformation}>
-                <Flex justifyContent="space-between" alignItems="center" mb={2}>
+                <Flex justifyContent="space-between" alignItems="center">
                     <Text fontSize='xl' fontWeight='bold'>Renovations</Text>
                     {submit}
                 </Flex>
