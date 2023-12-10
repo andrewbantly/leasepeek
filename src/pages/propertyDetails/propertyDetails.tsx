@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import { PropertyResponseObject } from "../../interfaces/propertyProfile/propertyProfileProps";
-import { Heading, Box, useColorModeValue } from '@chakra-ui/react';
+import { Heading, Box, useColorModeValue, } from '@chakra-ui/react';
 import { BasicInfo } from './basicInfo';
 import { FloorPlanDetailsComponent } from './floorPlanDetails';
 import { UnitStatus } from './unitStatus';
 import { ChargeCodes } from './chargeCodes';
 import { UnitRenovations } from './unitRenovation';
+import { FormCompletion } from './formCompletion';
 
 const defaultPropertyData: PropertyResponseObject = {
     user_id: 0,
@@ -73,12 +74,22 @@ export function PropertyDetails() {
     const [unitStatusUnSavedChanges, setUnitStatusUnSavedChanges] = useState(false);
     const [chargeCodesUnSavedChanges, setChargeCodesUnSavedChanges] = useState(false);
     const [renovationsUnSavedChanges, setRenovationsUnSavedChanges] = useState(false);
+    const [unSavedChanges, setUnSavedChanges] = useState(false);
 
     const bgColor = useColorModeValue("gray.300", "gray.900");
 
     useEffect(() => {
         propertyDataRequest()
     }, [])
+
+    useEffect(() => {
+        if (basicUnSavedChanges || floorplanUnSavedChanges || unitStatusUnSavedChanges || chargeCodesUnSavedChanges || renovationsUnSavedChanges || unSavedChanges) {
+            setUnSavedChanges(true);
+        }
+        else {
+            setUnSavedChanges(false);
+        }
+    }, [basicUnSavedChanges, floorplanUnSavedChanges, unitStatusUnSavedChanges, chargeCodesUnSavedChanges, renovationsUnSavedChanges, unSavedChanges])
 
     const propertyDataRequest = async () => {
         try {
@@ -106,15 +117,17 @@ export function PropertyDetails() {
         }
     })
 
+    const floorPlanTableBgColor = useColorModeValue("white", "gray.700");
+
     return (
         <Box p={6} borderRadius="lg" borderWidth="1px" boxShadow="xl" bg={bgColor} display="flex" flexDirection="column" margin={2}>
             <Heading as={'h2'} mb={5}>Property Details</Heading>
-            <BasicInfo propertyDataObject={propertyDataObject} setBasicUnSavedChanges={setBasicUnSavedChanges}/>
+            <BasicInfo propertyDataObject={propertyDataObject} setBasicUnSavedChanges={setBasicUnSavedChanges} />
             <FloorPlanDetailsComponent propertyDataObject={propertyDataObject} setFloorplanUnSavedChanges={setFloorplanUnSavedChanges} />
             <UnitStatus propertyDataObject={propertyDataObject} setUnitStatusUnSavedChanges={setUnitStatusUnSavedChanges} />
-            <ChargeCodes propertyDataObject={propertyDataObject} setChargeCodesUnSavedChanges={setChargeCodesUnSavedChanges}/>
-            <UnitRenovations propertyDataObject={propertyDataObject} setRenovationsUnSavedChanges={setRenovationsUnSavedChanges}/>
-
+            <ChargeCodes propertyDataObject={propertyDataObject} setChargeCodesUnSavedChanges={setChargeCodesUnSavedChanges} />
+            <UnitRenovations propertyDataObject={propertyDataObject} setRenovationsUnSavedChanges={setRenovationsUnSavedChanges} />
+            <FormCompletion unSavedChanges={unSavedChanges}/>
         </Box>
     )
 }

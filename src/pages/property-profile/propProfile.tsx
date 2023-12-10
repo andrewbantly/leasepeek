@@ -76,7 +76,8 @@ export function PropertyProfile() {
     const [propertyDataObject, setPropertyDataObject] = useState<PropertyResponseObject>(defaultPropertyData)
 
     useEffect(() => {
-        propertyDataRequest()
+        propertyDataRequest();
+        window.scrollTo(0, 0);
     }, [])
 
     const propertyDataRequest = async () => {
