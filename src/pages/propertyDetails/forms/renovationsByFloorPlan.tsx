@@ -1,11 +1,14 @@
-import { Input, Text, Select, Table, Thead, Tbody, Tr, Th, Td, } from '@chakra-ui/react';
-import { PropertyResponseObject } from "../../../interfaces/propertyProfile/propertyProfileProps";
+import { Input, Text, Select, Table, Thead, Tbody, Tr, Th, Td, useColorModeValue} from '@chakra-ui/react';
+import { FloorPlans } from "../../../interfaces/propertyProfile/propertyProfileProps";
 
 interface RenovationsByFloorPlanProps {
-    propertyDataObject: PropertyResponseObject;
+    propertyFloorplanData: FloorPlans;
+    handleFloorplanRenovationChange: (status: string, value: string) => void;
 }
 
-export function RenovationsByFloorPlan({ propertyDataObject }: RenovationsByFloorPlanProps) {
+export function RenovationsByFloorPlan({ propertyFloorplanData, handleFloorplanRenovationChange }: RenovationsByFloorPlanProps) {
+
+    console.log(propertyFloorplanData)
 
     function formatCurrency(amount: number): string {
         return new Intl.NumberFormat('en-US', {
@@ -14,7 +17,9 @@ export function RenovationsByFloorPlan({ propertyDataObject }: RenovationsByFloo
         }).format(amount);
     };
 
-    const floorPlanForm = Object.entries(propertyDataObject.floorplans).map(([planCode, planDetails]) => {
+    const buttonBgColor = useColorModeValue("gray.300", "gray.900");
+
+    const floorPlanForm = Object.entries(propertyFloorplanData).map(([planCode, planDetails]) => {
         return (
             <Tr key={planCode}>
                 <Td px={2}>{planCode}</Td>
@@ -24,9 +29,9 @@ export function RenovationsByFloorPlan({ propertyDataObject }: RenovationsByFloo
                     <Input variant='filled' placeholder={planCode} borderWidth={'1px'}></Input>
                 </Td>
                 <Td px={2}>
-                    <Select variant='filled' defaultValue='Unrenovated'>
-                        <option>Unrenovated</option>
-                        <option>Renovated</option>
+                    <Select bg={buttonBgColor} variant='filled' value={String(planDetails.renovated)} onChange={(e) => handleFloorplanRenovationChange(planCode, e.target.value)}>
+                        <option value="false">Unrenovated</option>
+                        <option value="true">Renovated</option>
                     </Select>
                 </Td>
             </Tr>
@@ -35,7 +40,7 @@ export function RenovationsByFloorPlan({ propertyDataObject }: RenovationsByFloo
 
     return (
         <>
-            <Text fontSize='sm' >Please choose floor plans that indicate a renovated unit.</Text>
+            <Text fontSize='sm' ml={2} >Please choose floor plans that indicate a renovated unit.</Text>
             <Table variant='simple'>
                 <Thead>
                     <Tr>
