@@ -32,8 +32,8 @@ export function RenovationsByFloorPlan({ propertyFloorplanData, handleFloorplanR
                         </Select>
                     ) : (
                         <Select variant='filled' value={String(planDetails.renovated)} onChange={(e) => handleFloorplanRenovationChange(planCode, e.target.value)}>
-                            <option value="false">Unrenovated</option>
                             <option value="true">Renovated</option>
+                            <option value="false">Unrenovated</option>
                         </Select>
                     )}
                 </Td>

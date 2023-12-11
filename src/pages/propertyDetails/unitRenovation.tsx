@@ -23,6 +23,8 @@ export function UnitRenovations({ propertyDataObject, setRenovationsUnSavedChang
     const [initialRenovatedUnits, setInitialRenovatedUnits] = useState("false");
     const [renovatedUnits, setRenovatedUnits] = useState<string[]>([]);
     const [renovatedUnitsState, setRenovatedUnitsState] = useState<string[]>([]);
+    const [renovatedFloorPlans, setRenovatedFloorPlans] = useState<string[]>([]);
+    const [renovatedFloorPlansState, setRenovatedFloorPlansState] = useState<string[]>([]);
     const [payloadFormType, setpayloadFormType] = useState("floorPlan");
     const [disableFormSwitch, setDisableFormSwitch] = useState(false)
 
@@ -31,33 +33,63 @@ export function UnitRenovations({ propertyDataObject, setRenovationsUnSavedChang
         setpropertyFloorplanData(propertyDataObject.floorplans);
 
         const renoUnits: string[] = [];
+        const renoFloorPlans: string[] = [];
+
         propertyDataObject.data.map(unit => {
             if (unit.renovated) {
                 renoUnits.push(unit.unit)
             }
         })
-
         if (renoUnits.length > 0) {
-            setInitialRenovatedUnits("true")
+            setInitialRenovatedUnits("true");
+            setpayloadFormType('unitNumber');
+        }
+
+        Object.values(propertyDataObject.floorplans).map(plan => {
+            if (plan['renovated']) {
+                renoFloorPlans.push(plan.planName)
+            }
+        })
+
+        if (renoFloorPlans.length > 0) {
+            setpayloadFormType('floorPlan');
+            setInitialRenovatedUnits("true");
         }
 
         setRenovatedUnits(renoUnits);
         setRenovatedUnitsState(renoUnits);
+        setRenovatedFloorPlans(renoFloorPlans);
+        setRenovatedFloorPlansState(renoFloorPlans);
+    }, [propertyDataObject])
 
-    }, propertyDataObject.data)
+
+    useEffect(() => {
+        setShowForm(initialRenovatedUnits === 'true');
+        setDisableFormSwitch(initialRenovatedUnits === 'true');
+    }, [initialRenovatedUnits])
 
     useEffect(() => {
         const isChanged = () => {
-            return JSON.stringify(renovatedUnits) !== JSON.stringify(renovatedUnitsState);
-        };
+            if (payloadFormType === 'unitNumber') {
+                console.log('surveying unit changes')
+                return JSON.stringify(renovatedUnits) !== JSON.stringify(renovatedUnitsState);
+            } else {
+                console.log('surveying floor plan changes')
+                console.log('renovated floor plans', JSON.stringify(renovatedFloorPlans))
+                console.log('floor plan state', JSON.stringify(renovatedFloorPlansState))
+                return JSON.stringify(renovatedFloorPlans) !== JSON.stringify(renovatedFloorPlansState);
+            }
+        }
         const bool = isChanged();
+        console.log('changes made?', bool)
         setChangesMade(bool);
         setRenovationsUnSavedChanges(bool);
-    }, [renovatedUnits, renovatedUnitsState, propertyUnitData])
+    }, [renovatedUnits, renovatedUnitsState, renovatedFloorPlans, renovatedFloorPlansState, propertyUnitData])
 
     const handleShowFormChange = (value: string) => {
         setRenovatedUnits(renovatedUnitsState);
 
+        // Reset changes made to default property data object so mixed renovation types aren't sent to backend
         setPropertyUnitData(propertyDataObject.data);
         setpropertyFloorplanData(propertyDataObject.floorplans);
 
@@ -66,13 +98,13 @@ export function UnitRenovations({ propertyDataObject, setRenovationsUnSavedChang
     }
 
     const handleFloorplanRenovationChange = (floorplan: string, isRenovated: string) => {
-        console.log(floorplan, isRenovated)
+        console.log('handle floor plan change:', floorplan, isRenovated)
         if (isRenovated === "true") {
-            const updatedRenovatedUnits = [...renovatedUnits, floorplan]
-            setRenovatedUnits(updatedRenovatedUnits)
+            const updatedRenovatedFloorPlans = [...renovatedFloorPlans, floorplan]
+            setRenovatedFloorPlans(updatedRenovatedFloorPlans)
         } else {
-            const updatedRenovatedUnits = renovatedUnits.filter(plan => plan !== floorplan)
-            setRenovatedUnits(updatedRenovatedUnits)
+            const updatedRenovatedFloorPlans = renovatedFloorPlans.filter(plan => plan !== floorplan);
+            setRenovatedFloorPlans(updatedRenovatedFloorPlans)
         }
         const updatedFloorPlanData = { ...propertyFloorplanData };
         updatedFloorPlanData[floorplan] = { ...propertyFloorplanData[floorplan], renovated: (isRenovated === "true") };
@@ -126,7 +158,8 @@ export function UnitRenovations({ propertyDataObject, setRenovationsUnSavedChang
         'form': 'renovations',
         'type': payloadFormType,
         objectId,
-        renovatedUnits
+        renovatedUnits,
+        renovatedFloorPlans
     }
 
     // PUT request to server when user submits data changes
@@ -141,7 +174,11 @@ export function UnitRenovations({ propertyDataObject, setRenovationsUnSavedChang
                     'Authorization': `Bearer ${token}`,
                 }
             })
-            setRenovatedUnitsState(renovatedUnits);
+            if (payloadFormType === 'floorPlan') {
+                setRenovatedFloorPlansState(renovatedFloorPlans);
+            } else {
+                setRenovatedUnitsState(renovatedUnits);
+            }
             setDisableFormSwitch(true);
         } catch (error) {
             console.log(error)
@@ -158,14 +195,14 @@ export function UnitRenovations({ propertyDataObject, setRenovationsUnSavedChang
         <Box p={6} borderRadius="lg" borderWidth="1px" boxShadow="xl" bg={floorPlanTableBgColor} display="flex" flexDirection="column" mb={4}>
             <form onSubmit={handleSubmitInformation}>
                 <Flex justifyContent="space-between" alignItems="center">
-                    <Text fontSize='xl' fontWeight='bold'  mb={2}>Renovations</Text>
+                    <Text fontSize='xl' fontWeight='bold' mb={2}>Renovations</Text>
                     {submit}
                 </Flex>
                 <Flex direction={{ base: 'column', md: 'row' }} gap={6}>
 
                     <Box flex="0.4">
                         <FormLabel>Does this property have renovated units?</FormLabel>
-                        <RadioGroup mb={3} onChange={handleInputChange} defaultValue={initialRenovatedUnits} isDisabled={disableFormSwitch}>
+                        <RadioGroup mb={3} onChange={handleInputChange} value={initialRenovatedUnits} isDisabled={disableFormSwitch}>
                             <Stack direction='row'>
                                 <Radio value={'true'}>Yes</Radio>
                                 <Radio value={'false'}>No</Radio>

@@ -30,13 +30,13 @@ export function RenovationsByUnitNumber({ propertyUnitData, handleUnitRenovation
                 <Td px={2} >
                     {unit.renovated ? (
                         <Select bg={buttonBgColor} variant='filled' value={String(unit.renovated)} onChange={(e) => handleUnitRenovationChange(unit.unit, e.target.value)}>
-                            <option value={"false"}>Unrenovated</option>
                             <option value={"true"}>Renovated</option>
+                            <option value={"false"}>Unrenovated</option>
                         </Select>
                     ) : (
                         <Select variant='filled' value={String(unit.renovated)} onChange={(e) => handleUnitRenovationChange(unit.unit, e.target.value)}>
-                            <option value={"false"}>Unrenovated</option>
                             <option value={"true"}>Renovated</option>
+                            <option value={"false"}>Unrenovated</option>
                         </Select>
                     )}
                 </Td>
