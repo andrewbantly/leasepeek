@@ -12,7 +12,6 @@ interface UnitRenovationsProps {
 }
 
 export function UnitRenovations({ propertyDataObject, setRenovationsUnSavedChanges }: UnitRenovationsProps) {
-
     const { objectId } = useParams();
 
     const [showForm, setShowForm] = useState(false);
@@ -27,6 +26,7 @@ export function UnitRenovations({ propertyDataObject, setRenovationsUnSavedChang
     const [renovatedFloorPlansState, setRenovatedFloorPlansState] = useState<string[]>([]);
     const [payloadFormType, setpayloadFormType] = useState("floorPlan");
     const [disableFormSwitch, setDisableFormSwitch] = useState(false)
+    const [disableYesNoSwitch, setDisableYesNoSwitch] = useState(false)
 
     useEffect(() => {
         setPropertyUnitData(propertyDataObject.data);
@@ -42,7 +42,6 @@ export function UnitRenovations({ propertyDataObject, setRenovationsUnSavedChang
         })
         if (renoUnits.length > 0) {
             setInitialRenovatedUnits("true");
-            setpayloadFormType('unitNumber');
         }
 
         Object.values(propertyDataObject.floorplans).map(plan => {
@@ -52,7 +51,6 @@ export function UnitRenovations({ propertyDataObject, setRenovationsUnSavedChang
         })
 
         if (renoFloorPlans.length > 0) {
-            setpayloadFormType('floorPlan');
             setInitialRenovatedUnits("true");
         }
 
@@ -65,23 +63,18 @@ export function UnitRenovations({ propertyDataObject, setRenovationsUnSavedChang
 
     useEffect(() => {
         setShowForm(initialRenovatedUnits === 'true');
-        setDisableFormSwitch(initialRenovatedUnits === 'true');
+        setDisableYesNoSwitch(initialRenovatedUnits === 'true');
     }, [initialRenovatedUnits])
 
     useEffect(() => {
         const isChanged = () => {
             if (payloadFormType === 'unitNumber') {
-                console.log('surveying unit changes')
                 return JSON.stringify(renovatedUnits) !== JSON.stringify(renovatedUnitsState);
             } else {
-                console.log('surveying floor plan changes')
-                console.log('renovated floor plans', JSON.stringify(renovatedFloorPlans))
-                console.log('floor plan state', JSON.stringify(renovatedFloorPlansState))
                 return JSON.stringify(renovatedFloorPlans) !== JSON.stringify(renovatedFloorPlansState);
             }
         }
         const bool = isChanged();
-        console.log('changes made?', bool)
         setChangesMade(bool);
         setRenovationsUnSavedChanges(bool);
     }, [renovatedUnits, renovatedUnitsState, renovatedFloorPlans, renovatedFloorPlansState, propertyUnitData])
@@ -98,7 +91,6 @@ export function UnitRenovations({ propertyDataObject, setRenovationsUnSavedChang
     }
 
     const handleFloorplanRenovationChange = (floorplan: string, isRenovated: string) => {
-        console.log('handle floor plan change:', floorplan, isRenovated)
         if (isRenovated === "true") {
             const updatedRenovatedFloorPlans = [...renovatedFloorPlans, floorplan]
             setRenovatedFloorPlans(updatedRenovatedFloorPlans)
@@ -151,7 +143,7 @@ export function UnitRenovations({ propertyDataObject, setRenovationsUnSavedChang
             setPropertyUnitData(propertyDataObject.data);
             setpropertyFloorplanData(propertyDataObject.floorplans);
         }
-        setShowForm(value === 'true')
+        setShowForm(value === 'true');
     }
 
     const formData = {
@@ -165,7 +157,6 @@ export function UnitRenovations({ propertyDataObject, setRenovationsUnSavedChang
     // PUT request to server when user submits data changes
     const handleSubmitInformation = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log(formData)
         try {
             const token = localStorage.getItem('jwt');
             await axios.put(`${process.env.REACT_APP_SERVER_URL}/data/update`, formData, {
@@ -176,10 +167,23 @@ export function UnitRenovations({ propertyDataObject, setRenovationsUnSavedChang
             })
             if (payloadFormType === 'floorPlan') {
                 setRenovatedFloorPlansState(renovatedFloorPlans);
+                if (renovatedFloorPlans.length === 0) {
+                    setShowForm(false);
+                    setDisableYesNoSwitch(false);
+                } else {
+                    setDisableYesNoSwitch(true);
+                    setDisableFormSwitch(true);
+                }
             } else {
                 setRenovatedUnitsState(renovatedUnits);
+                if (renovatedUnits.length === 0) {
+                    setShowForm(false);
+                    setDisableYesNoSwitch(false);
+                } else {
+                    setDisableYesNoSwitch(true);
+                    setDisableFormSwitch(true);
+                }
             }
-            setDisableFormSwitch(true);
         } catch (error) {
             console.log(error)
         }
@@ -202,7 +206,7 @@ export function UnitRenovations({ propertyDataObject, setRenovationsUnSavedChang
 
                     <Box flex="0.4">
                         <FormLabel>Does this property have renovated units?</FormLabel>
-                        <RadioGroup mb={3} onChange={handleInputChange} value={initialRenovatedUnits} isDisabled={disableFormSwitch}>
+                        <RadioGroup mb={3} onChange={handleInputChange} value={String(showForm)} isDisabled={disableYesNoSwitch}>
                             <Stack direction='row'>
                                 <Radio value={'true'}>Yes</Radio>
                                 <Radio value={'false'}>No</Radio>
