@@ -30,15 +30,12 @@ export function Login({ currentUser, setCurrentUser }: UserProps) {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        console.log("request sent")
         try {
             const request = {
                 email,
                 password
             };
             const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/user/login`, request);
-            console.log("### Response")
-            console.log(response)
             const { access } = response.data;
             localStorage.setItem('jwt', access);
             const decoded = jwt_decode(access) as DecodedToken;

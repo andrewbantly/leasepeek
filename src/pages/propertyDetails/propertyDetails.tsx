@@ -2,26 +2,39 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import { PropertyResponseObject } from "../../interfaces/propertyProfile/propertyProfileProps";
-import { Heading, Box, useColorModeValue } from '@chakra-ui/react';
+import { Heading, Box, useColorModeValue, Flex, Text } from '@chakra-ui/react';
 import { BasicInfo } from './basicInfo';
-import { FloorPlanDetails } from './floorPlanDetails';
+import { FloorPlanDetailsComponent } from './floorPlanDetails';
 import { UnitStatus } from './unitStatus';
 import { ChargeCodes } from './chargeCodes';
 import { UnitRenovations } from './unitRenovation';
+import { FormCompletion } from './formCompletion';
 
 const defaultPropertyData: PropertyResponseObject = {
     user_id: 0,
-    location: "",
+    location: {
+        market: '',
+        buildingName: '',
+        address: {
+            addressLine1: '',
+            addressLine2: '',
+            zipCode: '',
+            city: '',
+            state: '',
+        }
+    },
     asOf: "",
     date: "",
     vacancy: {},
     floorplans: {},
     totalUnits: 0,
+    unitsConfirmed: false,
     totalBalance: 0,
     lossToLease: {
         marketSum: 0,
         rentIncome: 0,
     },
+    charges: {},
     recentLeases: {},
     expiringLeases: {},
     leaseTrends: {},
@@ -32,6 +45,7 @@ const defaultPropertyData: PropertyResponseObject = {
                 {
                     code: '',
                     value: 0,
+                    type: '',
                 }
             ],
             floorplan: '',
@@ -47,19 +61,35 @@ const defaultPropertyData: PropertyResponseObject = {
             status: '',
             total: 0,
             unit: '',
+            renovated: false,
         }]
 };
 
 export function PropertyDetails() {
     const { objectId } = useParams();
     const navigate = useNavigate();
-    const [propertyDataObject, setPropertyDataObject] = useState<PropertyResponseObject>(defaultPropertyData)
+    const [propertyDataObject, setPropertyDataObject] = useState<PropertyResponseObject>(defaultPropertyData);
+    const [basicUnSavedChanges, setBasicUnSavedChanges] = useState(false);
+    const [floorplanUnSavedChanges, setFloorplanUnSavedChanges] = useState(false);
+    const [unitStatusUnSavedChanges, setUnitStatusUnSavedChanges] = useState(false);
+    const [chargeCodesUnSavedChanges, setChargeCodesUnSavedChanges] = useState(false);
+    const [renovationsUnSavedChanges, setRenovationsUnSavedChanges] = useState(false);
+    const [unSavedChanges, setUnSavedChanges] = useState(false);
 
     const bgColor = useColorModeValue("gray.300", "gray.900");
 
     useEffect(() => {
         propertyDataRequest()
     }, [])
+
+    useEffect(() => {
+        if (basicUnSavedChanges || floorplanUnSavedChanges || unitStatusUnSavedChanges || chargeCodesUnSavedChanges || renovationsUnSavedChanges ) {
+            setUnSavedChanges(true);
+        }
+        else {
+            setUnSavedChanges(false);
+        }
+    }, [basicUnSavedChanges, floorplanUnSavedChanges, unitStatusUnSavedChanges, chargeCodesUnSavedChanges, renovationsUnSavedChanges, unSavedChanges])
 
     const propertyDataRequest = async () => {
         try {
@@ -87,14 +117,21 @@ export function PropertyDetails() {
         }
     })
 
+    const floorPlanTableBgColor = useColorModeValue("white", "gray.700");
+
     return (
         <Box p={6} borderRadius="lg" borderWidth="1px" boxShadow="xl" bg={bgColor} display="flex" flexDirection="column" margin={2}>
-            <Heading as={'h2'} mb={4}>Property Details</Heading>
-            <BasicInfo propertyDataObject={propertyDataObject} />
-            <FloorPlanDetails propertyDataObject={propertyDataObject} />
-            <UnitStatus propertyDataObject={propertyDataObject} />
-            <ChargeCodes propertyDataObject={propertyDataObject} />
-            <UnitRenovations propertyDataObject={propertyDataObject} />
+            <Flex  justifyContent="space-between" alignItems="center"  mb={0}>
+                <Heading as={'h2'}>Property Details</Heading>
+                <FormCompletion unSavedChanges={unSavedChanges} />
+            </Flex>
+            <Text fontSize='lg' mb={4}>Please add additional rent roll information.</Text>
+            <BasicInfo propertyDataObject={propertyDataObject} setBasicUnSavedChanges={setBasicUnSavedChanges} />
+            <FloorPlanDetailsComponent propertyDataObject={propertyDataObject} setFloorplanUnSavedChanges={setFloorplanUnSavedChanges} />
+            <UnitStatus propertyDataObject={propertyDataObject} setUnitStatusUnSavedChanges={setUnitStatusUnSavedChanges} />
+            <ChargeCodes propertyDataObject={propertyDataObject} setChargeCodesUnSavedChanges={setChargeCodesUnSavedChanges} />
+            <UnitRenovations propertyDataObject={propertyDataObject} setRenovationsUnSavedChanges={setRenovationsUnSavedChanges} />
+            <FormCompletion unSavedChanges={unSavedChanges} />
         </Box>
     )
 }

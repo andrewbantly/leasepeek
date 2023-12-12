@@ -1,29 +1,48 @@
 export interface PropertyResponseObject {
     user_id: number;
-    location: string;
+    location: LocationDetails;
     asOf: string;
     date: ISODateString;
     vacancy: Vacancy;
     floorplans: FloorPlans;
     totalUnits: number;
+    unitsConfirmed: boolean;
     totalBalance: number;
     lossToLease: LossToLease;
+    charges: Charges;
     recentLeases: RecentLeases;
     expiringLeases: ExpiringLeases;
     leaseTrends: LeaseTrends;
     data: PropertyDataItem[];
 }
 
+interface LocationDetails {
+    market: string;
+    address: AddressDetails;
+    buildingName: string;
+}
+
+interface AddressDetails {
+    addressLine1: string;
+    addressLine2: string;
+    zipCode: string;
+    city: string;
+    state: string;
+}
+
 type ISODateString = string;
 
 interface Vacancy {
-    [key: string]: number;
+    [key: string]: {
+        count: number;
+        type: string;
+    }
 }
 export type FloorPlans = Record<FloorPlanName, FloorPlanDetails>;
 
 type FloorPlanName = string;
 
-interface FloorPlanDetails {
+export interface FloorPlanDetails {
     avgRent: number;
     sumRent: number;
     avgMarket: number;
@@ -31,6 +50,11 @@ interface FloorPlanDetails {
     unitCount: number;
     avgSqft: number;
     unitStatuses: UnitStatusDetails;
+    planName: string;
+    planType: string;
+    beds: number;
+    baths: number;
+    renovated: boolean;
 }
 
 interface UnitStatusDetails {
@@ -40,6 +64,13 @@ interface UnitStatusDetails {
 export interface LossToLease {
     marketSum: number;
     rentIncome: number;
+}
+
+interface Charges {
+    [chargeType:string]: {
+        value: number;
+        type: string;
+    }
 }
 
 export interface RecentLeases {
@@ -83,24 +114,27 @@ export interface LeaseTrends {
 }
 
 export interface PropertyDataItem {
-    balance: number;
-    charges: Charge[];
+    unit: string;
     floorplan: string;
-    leaseExpire: string;
-    leaseStart: string | null;
+    sqft: number;
     market: number;
+    rent: number;
+    status: string;
     moveIn: string;
     moveOut: string;
-    otherDeposit: number;
-    rent: number;
+    leaseStart: string | null;
+    leaseExpire: string;
     residentDeposit: number;
-    sqft: number;
-    status: string;
+    otherDeposit: number;
+    balance: number;
     total: number;
-    unit: string;
+    renovated: boolean;
+    charges: Charge[];
+
 }
 
 interface Charge {
     code: string;
     value: number;
+    type: string;
 }

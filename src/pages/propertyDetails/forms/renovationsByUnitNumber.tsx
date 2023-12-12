@@ -1,10 +1,11 @@
-import { Text, Select, Table, TableContainer, Thead, Tbody, Tr, Th, Td, } from '@chakra-ui/react';
-import { PropertyResponseObject } from "../../../interfaces/propertyProfile/propertyProfileProps";
+import { useColorModeValue, Text, Select, Table, TableContainer, Thead, Tbody, Tr, Th, Td, } from '@chakra-ui/react';
+import { PropertyDataItem } from "../../../interfaces/propertyProfile/propertyProfileProps";
 
 interface RenovationsByUnitNumberProps {
-    propertyDataObject: PropertyResponseObject;
+    propertyUnitData: PropertyDataItem[];
+    handleUnitRenovationChange: (status: string, value: string) => void;
 }
-export function RenovationsByUnitNumber({ propertyDataObject }: RenovationsByUnitNumberProps) {
+export function RenovationsByUnitNumber({ propertyUnitData, handleUnitRenovationChange }: RenovationsByUnitNumberProps) {
 
     function formatCurrency(amount: number): string {
         return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
@@ -15,7 +16,9 @@ export function RenovationsByUnitNumber({ propertyDataObject }: RenovationsByUni
         return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
     }
 
-    const buildingData = propertyDataObject.data.map(unit => {
+    const buttonBgColor = useColorModeValue("gray.300", "gray.900");
+
+    const buildingData = propertyUnitData.map(unit => {
 
         return (
             <Tr key={`${unit.unit}-${unit.status}`}>
@@ -24,11 +27,18 @@ export function RenovationsByUnitNumber({ propertyDataObject }: RenovationsByUni
                 <Td px={2}>{unit.sqft ? unit.sqft : ''}</Td>
                 <Td px={2}>{unit.status ? `${unit.status.charAt(0).toUpperCase()}${unit.status.substr(1).toLowerCase()}` : ''}</Td>
                 <Td px={2}>{unit.market ? formatCurrency(unit.market) : ''}</Td>
-                <Td px={2}>
-                    <Select variant='filled' defaultValue='Unrenovated'>
-                        <option>Unrenovated</option>
-                        <option>Renovated</option>
-                    </Select>
+                <Td px={2} >
+                    {unit.renovated ? (
+                        <Select bg={buttonBgColor} variant='filled' value={String(unit.renovated)} onChange={(e) => handleUnitRenovationChange(unit.unit, e.target.value)}>
+                            <option value={"true"}>Renovated</option>
+                            <option value={"false"}>Unrenovated</option>
+                        </Select>
+                    ) : (
+                        <Select variant='filled' value={String(unit.renovated)} onChange={(e) => handleUnitRenovationChange(unit.unit, e.target.value)}>
+                            <option value={"true"}>Renovated</option>
+                            <option value={"false"}>Unrenovated</option>
+                        </Select>
+                    )}
                 </Td>
             </Tr>
         )
@@ -36,7 +46,7 @@ export function RenovationsByUnitNumber({ propertyDataObject }: RenovationsByUni
 
     return (
         <>
-            <Text fontSize='sm' >Please indicate renovated units.</Text>
+            <Text fontSize='sm' ml={2}>Please indicate renovated units.</Text>
             <TableContainer>
                 <Table variant='simple'>
                     <Thead>

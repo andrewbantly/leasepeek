@@ -41,7 +41,7 @@ export function Profile({ currentUser, setCurrentUser }: UserProps) {
     let propertiesToRender = responseObject.data || [];
     if (searchTerm) {
         propertiesToRender = propertiesToRender.filter(property =>
-            property.location.toLowerCase().includes(searchTerm.toLowerCase())
+            property.location.buildingName.toLowerCase().includes(searchTerm.toLowerCase())
         );
     } else {
         propertiesToRender.sort((a, b) => {
